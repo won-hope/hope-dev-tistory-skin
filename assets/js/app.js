@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initCodeCopy();
   initLightbox();
   initBackToTop();
+
+  // V2 Additions
+  initLoader();
+  renderDashboard();
+  renderPopularCategories();
+  renderEngineeringCircle();
+  renderSidebarCategoryCounts();
 });
 
 /**
@@ -398,5 +405,214 @@ function initBackToTop() {
       top: 0,
       behavior: reduceMotion ? 'auto' : 'smooth'
     });
+  });
+}
+
+/* ----------------------------------------------------
+   V2 Features Implementation
+   ---------------------------------------------------- */
+
+const blogDashboardConfig = {
+  totalVisitors: 15420,
+  totalPosts: 42,
+  blogStartDate: "2023-01-15",
+  engineeringCircleCount: 4
+};
+
+const categoryStats = [
+  { name: "AI Agent", description: "Agentic workflow와 AI 활용 기록", count: 12, href: "article.html?category=ai-agent", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>` },
+  { name: "System Design", description: "고가용성, 장애 허용 시스템 아키텍처", count: 8, href: "article.html?category=system-design", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>` },
+  { name: "Backend & API", description: "견고한 API 설계 표준, 보안 프로토콜", count: 15, href: "article.html?category=backend-api", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>` },
+  { name: "Data & Performance", description: "DB 튜닝, 캐싱 전략, 병목 분석", count: 5, href: "article.html?category=data-performance", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>` },
+  { name: "Troubleshooting", description: "프로덕션 환경 장애 원인 진단 및 회고", count: 0, href: "article.html?category=troubleshooting", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>` },
+  { name: "Engineering Notes", description: "실용적 설계 방법론 및 기술 아티클 리뷰", count: 2, href: "article.html?category=engineering-notes", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>` },
+  { name: "Project Log", description: "개인 프로젝트 설계 이력 아카이빙", count: 1, href: "article.html?category=project-log", icon: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>` }
+];
+
+const engineeringCircle = [
+  { name: "Wondervision", description: "Frontend · UX Design", url: "https://example.com", initials: "WV" },
+  { name: "Tech Blog A", description: "Backend · System Design", url: "#", initials: "TB" },
+  { name: "Agentic Dev", description: "AI · ML · Automation", url: "#", initials: "AD" },
+  { name: "Data Logs", description: "Data Engineering", url: "https://example.org", initials: "DL" }
+];
+
+function initLoader() {
+  const overlay = document.getElementById('loaderOverlay');
+  if (!overlay) return;
+
+  const hasSeen = sessionStorage.getItem('hopedev_loader_seen');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const removeLoader = () => {
+    overlay.classList.add('hide');
+    setTimeout(() => overlay.remove(), 400);
+    sessionStorage.setItem('hopedev_loader_seen', 'true');
+  };
+
+  if (hasSeen || prefersReduced) {
+    overlay.remove();
+    return;
+  }
+
+  // Force close after 1.2s
+  const timer = setTimeout(removeLoader, 1200);
+
+  // Allow skip
+  const skipBtn = document.getElementById('loaderSkip');
+  if (skipBtn) {
+    skipBtn.addEventListener('click', () => {
+      clearTimeout(timer);
+      removeLoader();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.getElementById('loaderOverlay')) {
+      clearTimeout(timer);
+      removeLoader();
+    }
+  });
+}
+
+function countUp(el, target) {
+  if (target === 0) {
+    el.textContent = "0";
+    return;
+  }
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    el.textContent = target.toLocaleString();
+    return;
+  }
+
+  const duration = 1500;
+  const start = performance.now();
+  const animate = (time) => {
+    const elapsed = time - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(easeOut * target);
+    el.textContent = current.toLocaleString();
+    
+    if (progress < 1) {
+      requestAnimationFrame(animate);
+    } else {
+      el.textContent = target.toLocaleString();
+    }
+  };
+  requestAnimationFrame(animate);
+}
+
+function calculateDaysSince(dateString) {
+  if (!dateString) return null;
+  const start = new Date(dateString);
+  const now = new Date();
+  const diffTime = Math.abs(now - start);
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+}
+
+function renderDashboard() {
+  const statsContainer = document.getElementById('dashboardStats');
+  if (!statsContainer) return;
+
+  const daysSince = calculateDaysSince(blogDashboardConfig.blogStartDate);
+  const buildingLabel = daysSince ? `D+<span class="count-target" data-value="${daysSince}">0</span>` : "Building";
+
+  statsContainer.innerHTML = \`
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="stat-val count-target" data-value="\${blogDashboardConfig.totalVisitors}">0</div>
+      <div class="stat-desc">Total Visitors</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <div class="stat-val count-target" data-value="\${blogDashboardConfig.totalPosts}">0</div>
+      <div class="stat-desc">Total Posts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="stat-val">\${buildingLabel}</div>
+      <div class="stat-desc">Building Since</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+      <div class="stat-val count-target" data-value="\${blogDashboardConfig.engineeringCircleCount}">0</div>
+      <div class="stat-desc">Engineering Circle</div>
+    </div>
+  \`;
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counters = entry.target.querySelectorAll('.count-target');
+        counters.forEach(el => {
+          const val = parseInt(el.getAttribute('data-value'), 10);
+          countUp(el, val);
+        });
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  observer.observe(statsContainer);
+}
+
+function renderPopularCategories() {
+  const container = document.getElementById('popularCategoriesGrid');
+  if (!container) return;
+
+  const maxCount = Math.max(...categoryStats.map(c => c.count), 1);
+
+  container.innerHTML = categoryStats.map(cat => {
+    const percentage = Math.max((cat.count / maxCount) * 100, cat.count > 0 ? 5 : 0);
+    return \`
+      <a href="\${cat.href}" class="category-list-card">
+        <div class="cat-card-header">
+          <div class="cat-icon">\${cat.icon}</div>
+          <h3 class="cat-name">\${cat.name}</h3>
+          <span class="cat-count">\${cat.count}</span>
+        </div>
+        <p class="cat-desc">\${cat.description}</p>
+        <div class="cat-progress-bg">
+          <div class="cat-progress-fill" style="width: \${percentage}%"></div>
+        </div>
+      </a>
+    \`;
+  }).join('');
+}
+
+function renderEngineeringCircle() {
+  const container = document.getElementById('engineeringCircleGrid');
+  if (!container) return;
+
+  container.innerHTML = engineeringCircle.map(circle => {
+    const isLinkDisabled = circle.url === '#';
+    const tag = isLinkDisabled ? 'div' : 'a';
+    const hrefAttr = isLinkDisabled ? '' : \`href="\${circle.url}" target="_blank" rel="noopener noreferrer"\`;
+    const disabledClass = isLinkDisabled ? 'disabled-link' : '';
+
+    return \`
+      <\${tag} \${hrefAttr} class="circle-card \${disabledClass}">
+        <div class="circle-avatar">\${circle.initials}</div>
+        <div class="circle-info">
+          <h4 class="circle-name">\${circle.name}</h4>
+          <p class="circle-desc">\${circle.description}</p>
+        </div>
+        \${!isLinkDisabled ? \`<svg class="circle-outlink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>\` : ''}
+      </\${tag}>
+    \`;
+  }).join('');
+}
+
+function renderSidebarCategoryCounts() {
+  const countSpans = document.querySelectorAll('.category-count');
+  countSpans.forEach(span => {
+    const catName = span.getAttribute('data-cat');
+    const stat = categoryStats.find(c => c.name === catName);
+    if (stat && stat.count > 0) {
+      span.textContent = stat.count;
+      span.classList.add('has-count');
+    }
   });
 }

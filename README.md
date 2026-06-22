@@ -1,6 +1,14 @@
-# HOPEDEV Technical Blog Theme V1 Static Prototype
+# HOPEDEV Technical Blog Theme V1 & V2 Static Prototype
 
 This repository contains the static prototype of the **HOPEDEV** blog theme, optimized for deep software engineering posts, clear categorization, and dark/light modes.
+
+## V2 Features Added
+- **Dachshund Loading Animation**: SVG animation loader displayed once per session.
+- **Blog Snapshot Dashboard**: Visualizes statistics (Total Visitors, Total Posts, Building Since, Engineering Circle) with number count-up animation.
+- **Popular Categories**: Replaces explore topics with a dense information layout, including counts and progress bars.
+- **Engineering Circle**: Section for recommended reading/blogs.
+- **Enhanced Sidebar**: Dynamic category post count badges.
+- **V2 Documentation**: See `V2_NOTES.md` for integration guidelines.
 
 ## Folder Structure
 

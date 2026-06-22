@@ -10,6 +10,39 @@
 </head>
 <body>
 
+  <!-- Dachshund Loader Overlay -->
+  <div class="loader-overlay" id="loaderOverlay" role="status" aria-live="polite" aria-label="Loading page">
+    <div class="loader-content">
+      <div class="dachshund-animation" aria-hidden="true">
+        <svg viewBox="0 0 100 50" class="dachshund-svg">
+          <g class="dog-body">
+            <rect x="20" y="20" width="50" height="15" rx="7.5" fill="var(--accent)" />
+          </g>
+          <g class="dog-head">
+            <circle cx="75" cy="22" r="10" fill="var(--accent)" />
+            <path d="M70,20 Q65,30 65,35 Q75,35 75,25" fill="var(--text)" class="dog-ear" />
+            <circle cx="82" cy="19" r="1.5" fill="var(--bg)" />
+            <circle cx="85" cy="22" r="2" fill="var(--text)" />
+          </g>
+          <g class="dog-tail">
+            <path d="M22,25 Q15,15 10,20" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" fill="none" class="tail-wag" />
+          </g>
+          <g class="dog-legs">
+            <rect x="25" y="32" width="4" height="10" rx="2" fill="var(--accent)" class="leg-back-1" />
+            <rect x="32" y="32" width="4" height="10" rx="2" fill="var(--accent-soft)" class="leg-back-2" />
+            <rect x="60" y="32" width="4" height="10" rx="2" fill="var(--accent)" class="leg-front-1" />
+            <rect x="67" y="32" width="4" height="10" rx="2" fill="var(--accent-soft)" class="leg-front-2" />
+          </g>
+        </svg>
+      </div>
+      <p class="loader-text">Preparing engineering notes...</p>
+      <div class="loader-progress">
+        <div class="loader-progress-bar"></div>
+      </div>
+      <button class="loader-skip" id="loaderSkip" aria-label="Skip loading animation">Skip</button>
+    </div>
+  </div>
+
   <!-- Skip to Content Link for Accessibility -->
   <a href="#main-content" class="skip-link">본문 바로가기</a>
 
@@ -94,13 +127,13 @@
               <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
             </button>
             <ul class="category-list category-content expanded" id="categoryList">
-              <li class="menu-item"><a href="article.html?category=ai-agent">AI Agent</a></li>
-              <li class="menu-item"><a href="article.html?category=system-design">System Design</a></li>
-              <li class="menu-item"><a href="article.html?category=backend-api">Backend & API</a></li>
-              <li class="menu-item"><a href="article.html?category=data-performance">Data & Performance</a></li>
-              <li class="menu-item"><a href="article.html?category=troubleshooting">Troubleshooting</a></li>
-              <li class="menu-item"><a href="article.html?category=engineering-notes">Engineering Notes</a></li>
-              <li class="menu-item"><a href="article.html?category=project-log">Project Log</a></li>
+              <li class="menu-item"><a href="article.html?category=ai-agent">AI Agent<span class="category-count" data-cat="AI Agent"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=system-design">System Design<span class="category-count" data-cat="System Design"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=backend-api">Backend & API<span class="category-count" data-cat="Backend & API"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=data-performance">Data & Performance<span class="category-count" data-cat="Data & Performance"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=troubleshooting">Troubleshooting<span class="category-count" data-cat="Troubleshooting"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=engineering-notes">Engineering Notes<span class="category-count" data-cat="Engineering Notes"></span></a></li>
+              <li class="menu-item"><a href="article.html?category=project-log">Project Log<span class="category-count" data-cat="Project Log"></span></a></li>
             </ul>
           </div>
         </div>
@@ -165,6 +198,13 @@
           </div>
         </section>
 
+        <!-- Blog Snapshot Dashboard -->
+        <section class="dashboard-snapshot" aria-label="Blog Statistics">
+          <div class="stat-grid" id="dashboardStats">
+            <!-- Rendered by JS -->
+          </div>
+        </section>
+
         <!-- Featured Insight Section -->
         <section class="home-section" aria-labelledby="featured-heading">
           <div class="section-header">
@@ -186,76 +226,13 @@
           </article>
         </section>
 
-        <!-- Explore Topics Section -->
-        <section class="home-section" id="explore-topics" aria-labelledby="topics-heading">
+        <!-- Popular Categories Section -->
+        <section class="home-section" id="popular-categories" aria-labelledby="categories-heading">
           <div class="section-header">
-            <h2 class="section-title" id="topics-heading">Explore Topics</h2>
+            <h2 class="section-title" id="categories-heading">Popular Categories</h2>
           </div>
-          <div class="topics-grid">
-            
-            <!-- Category 1 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l-7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.73z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
-              </div>
-              <h3 class="topic-title">AI Agent</h3>
-              <p class="topic-desc">자율 에이전트, LLM 오케스트레이션, RAG 파이프라인 개발 및 최적화 노하우.</p>
-            </div>
-
-            <!-- Category 2 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-              </div>
-              <h3 class="topic-title">System Design</h3>
-              <p class="topic-desc">고가용성, 장애 허용 시스템 아키텍처 및 마이크로서비스 설계 분석.</p>
-            </div>
-
-            <!-- Category 3 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-              </div>
-              <h3 class="topic-title">Backend & API</h3>
-              <p class="topic-desc">견고한 API 설계 표준, 보안 프로토콜 및 비즈니스 로직 패턴 기술.</p>
-            </div>
-
-            <!-- Category 4 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-              </div>
-              <h3 class="topic-title">Data & Performance</h3>
-              <p class="topic-desc">DB 튜닝, 캐싱 전략, 비동기 큐 관리 및 시스템 리소스 병목 분석.</p>
-            </div>
-
-            <!-- Category 5 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-              </div>
-              <h3 class="topic-title">Troubleshooting</h3>
-              <p class="topic-desc">프로덕션 환경의 복잡한 장애 원인을 진단하고 수정해낸 기술적 회고.</p>
-            </div>
-
-            <!-- Category 6 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-              </div>
-              <h3 class="topic-title">Engineering Notes</h3>
-              <p class="topic-desc">더 나은 코드 작성을 위한 실용적 설계 방법론 및 기술 아티클 리뷰.</p>
-            </div>
-
-            <!-- Category 7 -->
-            <div class="topic-card">
-              <div class="topic-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-              </div>
-              <h3 class="topic-title">Project Log</h3>
-              <p class="topic-desc">개인 프로젝트 및 장기 연구 과제의 설계 이력과 주 단위 아카이빙.</p>
-            </div>
-
+          <div class="category-list-grid" id="popularCategoriesGrid">
+            <!-- Rendered by JS -->
           </div>
         </section>
 
@@ -384,6 +361,17 @@
               <h3>HOPEDEV (Software Engineer)</h3>
               <p>복잡한 백엔드 아키텍처 설계와 대규모 데이터 병목 해결 과정에 흥미가 많습니다. 단순히 코드를 짜는 것에서 나아가, 문제의 원인을 정량적으로 검증하고 그 해결 여정을 엔지니어링 아카이브 형태로 꼼꼼히 기록하고 있습니다.</p>
             </div>
+          </div>
+        </section>
+
+        <!-- Engineering Circle Section -->
+        <section class="home-section" id="engineering-circle" aria-labelledby="circle-heading">
+          <div class="section-header">
+            <h2 class="section-title" id="circle-heading">Engineering Circle</h2>
+          </div>
+          <p class="section-desc" style="margin-top:-1.5rem;margin-bottom:2rem;color:var(--text-muted);font-size:0.9375rem;">함께 읽는 개발 블로그</p>
+          <div class="circle-grid" id="engineeringCircleGrid">
+            <!-- Rendered by JS -->
           </div>
         </section>
 
