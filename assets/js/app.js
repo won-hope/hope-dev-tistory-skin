@@ -79,7 +79,7 @@ function initMobileDrawer() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('drawerOverlay');
   const navToggle = document.getElementById('mobileNavToggle');
-  
+
   if (!sidebar || !overlay || !navToggle) return;
 
   const openDrawer = () => {
@@ -165,7 +165,7 @@ function initScrollProgressAndHeaderTitle() {
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    
+
     // 4.1 Scroll Progress Bar update
     if (scrollHeight > 0) {
       const percentage = (scrollTop / scrollHeight) * 100;
@@ -200,7 +200,7 @@ function initScrollProgressAndHeaderTitle() {
 function initTableOfContents() {
   const articleBody = document.querySelector('.article-body');
   const tocList = document.getElementById('tocList');
-  
+
   if (!articleBody || !tocList) return;
 
   const headings = articleBody.querySelectorAll('h2, h3');
@@ -248,11 +248,11 @@ function initTableOfContents() {
     // 5.2 Create TOC element
     const li = document.createElement('li');
     li.className = `toc-item level-${heading.tagName.toLowerCase()}`;
-    
+
     const a = document.createElement('a');
     a.href = `#${heading.id}`;
     a.textContent = heading.textContent;
-    
+
     // Smooth scrolling respects motion constraints
     a.addEventListener('click', (e) => {
       e.preventDefault();
@@ -263,7 +263,7 @@ function initTableOfContents() {
           top: targetElement.getBoundingClientRect().top + window.scrollY - 70, // offset for header
           behavior: reduceMotion ? 'auto' : 'smooth'
         });
-        
+
         // Push state manually
         history.pushState(null, null, `#${heading.id}`);
       }
@@ -296,11 +296,11 @@ function initCodeCopy() {
 
       try {
         await navigator.clipboard.writeText(codeText);
-        
+
         // Feedback State
         btn.textContent = 'Copied!';
         btn.classList.add('copied');
-        
+
         setTimeout(() => {
           btn.textContent = 'Copy';
           btn.classList.remove('copied');
@@ -384,7 +384,7 @@ function initBackToTop() {
   // Track scroll position to convert button style
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    
+
     // If scrolled past 300px, float it in mobile-drawer views
     if (scrollTop > 300) {
       backToTopBtn.classList.add('floating', 'show');
@@ -438,39 +438,34 @@ const engineeringCircle = [
 
 function initLoader() {
   const overlay = document.getElementById('loaderOverlay');
-  if (!overlay) return;
-
-  const hasSeen = sessionStorage.getItem('hopedev_loader_seen');
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const removeLoader = () => {
-    overlay.classList.add('hide');
-    setTimeout(() => overlay.remove(), 400);
-    sessionStorage.setItem('hopedev_loader_seen', 'true');
-  };
-
-  if (hasSeen || prefersReduced) {
-    overlay.remove();
+  if (!overlay) {
+    document.documentElement.classList.remove('is-loading');
+    document.body.classList.remove('is-loading');
     return;
   }
 
-  // Force close after 1.2s
-  const timer = setTimeout(removeLoader, 1200);
+  let fallbackTimer;
 
-  // Allow skip
-  const skipBtn = document.getElementById('loaderSkip');
-  if (skipBtn) {
-    skipBtn.addEventListener('click', () => {
-      clearTimeout(timer);
-      removeLoader();
+  const hideLoader = () => {
+    if (fallbackTimer) clearTimeout(fallbackTimer);
+    document.documentElement.classList.remove('is-loading');
+    document.body.classList.remove('is-loading');
+    overlay.classList.add('hidden');
+
+    // Safety remove or hide completely after CSS transition
+    setTimeout(() => {
+      overlay.style.display = 'none';
+    }, 250);
+  };
+
+  // Safe fallback timer max 800ms
+  fallbackTimer = setTimeout(hideLoader, 800);
+
+  // Wait 2 requestAnimationFrames after DOMContentLoaded
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      hideLoader();
     });
-  }
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && document.getElementById('loaderOverlay')) {
-      clearTimeout(timer);
-      removeLoader();
-    }
   });
 }
 
@@ -494,7 +489,7 @@ function countUp(el, target) {
     const easeOut = 1 - Math.pow(1 - progress, 3);
     const current = Math.floor(easeOut * target);
     el.textContent = current.toLocaleString();
-    
+
     if (progress < 1) {
       requestAnimationFrame(animate);
     } else {
@@ -519,28 +514,28 @@ function renderDashboard() {
   const daysSince = calculateDaysSince(blogDashboardConfig.blogStartDate);
   const buildingLabel = daysSince ? `D+<span class="count-target" data-value="${daysSince}">0</span>` : "Building";
 
-  statsContainer.innerHTML = \`
+  statsContainer.innerHTML = `
     <div class="stat-card">
       <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div class="stat-val count-target" data-value="\${blogDashboardConfig.totalVisitors}">0</div>
+      <div class="stat-val count-target" data-value="${blogDashboardConfig.totalVisitors}">0</div>
       <div class="stat-desc">Total Visitors</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-      <div class="stat-val count-target" data-value="\${blogDashboardConfig.totalPosts}">0</div>
+      <div class="stat-val count-target" data-value="${blogDashboardConfig.totalPosts}">0</div>
       <div class="stat-desc">Total Posts</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-      <div class="stat-val">\${buildingLabel}</div>
+      <div class="stat-val">${buildingLabel}</div>
       <div class="stat-desc">Building Since</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-      <div class="stat-val count-target" data-value="\${blogDashboardConfig.engineeringCircleCount}">0</div>
+      <div class="stat-val count-target" data-value="${blogDashboardConfig.engineeringCircleCount}">0</div>
       <div class="stat-desc">Engineering Circle</div>
     </div>
-  \`;
+  `;
 
   const observer = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
@@ -566,19 +561,19 @@ function renderPopularCategories() {
 
   container.innerHTML = categoryStats.map(cat => {
     const percentage = Math.max((cat.count / maxCount) * 100, cat.count > 0 ? 5 : 0);
-    return \`
-      <a href="\${cat.href}" class="category-list-card">
+    return `
+      <a href="${cat.href}" class="category-list-card">
         <div class="cat-card-header">
-          <div class="cat-icon">\${cat.icon}</div>
-          <h3 class="cat-name">\${cat.name}</h3>
-          <span class="cat-count">\${cat.count}</span>
+          <div class="cat-icon">${cat.icon}</div>
+          <h3 class="cat-name">${cat.name}</h3>
+          <span class="cat-count">${cat.count}</span>
         </div>
-        <p class="cat-desc">\${cat.description}</p>
+        <p class="cat-desc">${cat.description}</p>
         <div class="cat-progress-bg">
-          <div class="cat-progress-fill" style="width: \${percentage}%"></div>
+          <div class="cat-progress-fill" style="width: ${percentage}%"></div>
         </div>
       </a>
-    \`;
+    `;
   }).join('');
 }
 
@@ -589,19 +584,19 @@ function renderEngineeringCircle() {
   container.innerHTML = engineeringCircle.map(circle => {
     const isLinkDisabled = circle.url === '#';
     const tag = isLinkDisabled ? 'div' : 'a';
-    const hrefAttr = isLinkDisabled ? '' : \`href="\${circle.url}" target="_blank" rel="noopener noreferrer"\`;
+    const hrefAttr = isLinkDisabled ? '' : `href="${circle.url}" target="_blank" rel="noopener noreferrer"`;
     const disabledClass = isLinkDisabled ? 'disabled-link' : '';
 
-    return \`
-      <\${tag} \${hrefAttr} class="circle-card \${disabledClass}">
-        <div class="circle-avatar">\${circle.initials}</div>
+    return `
+      <${tag} ${hrefAttr} class="circle-card ${disabledClass}">
+        <div class="circle-avatar">${circle.initials}</div>
         <div class="circle-info">
-          <h4 class="circle-name">\${circle.name}</h4>
-          <p class="circle-desc">\${circle.description}</p>
+          <h4 class="circle-name">${circle.name}</h4>
+          <p class="circle-desc">${circle.description}</p>
         </div>
-        \${!isLinkDisabled ? \`<svg class="circle-outlink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>\` : ''}
-      </\${tag}>
-    \`;
+        ${!isLinkDisabled ? `<svg class="circle-outlink" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>` : ''}
+      </${tag}>
+    `;
   }).join('');
 }
 

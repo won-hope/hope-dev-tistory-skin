@@ -10,36 +10,12 @@
 </head>
 <body>
 
-  <!-- Dachshund Loader Overlay -->
+  <!-- Dachshund Loader Overlay V2.1 -->
+  <script>document.documentElement.classList.add('is-loading');</script>
   <div class="loader-overlay" id="loaderOverlay" role="status" aria-live="polite" aria-label="Loading page">
     <div class="loader-content">
-      <div class="dachshund-animation" aria-hidden="true">
-        <svg viewBox="0 0 100 50" class="dachshund-svg">
-          <g class="dog-body">
-            <rect x="20" y="20" width="50" height="15" rx="7.5" fill="var(--accent)" />
-          </g>
-          <g class="dog-head">
-            <circle cx="75" cy="22" r="10" fill="var(--accent)" />
-            <path d="M70,20 Q65,30 65,35 Q75,35 75,25" fill="var(--text)" class="dog-ear" />
-            <circle cx="82" cy="19" r="1.5" fill="var(--bg)" />
-            <circle cx="85" cy="22" r="2" fill="var(--text)" />
-          </g>
-          <g class="dog-tail">
-            <path d="M22,25 Q15,15 10,20" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" fill="none" class="tail-wag" />
-          </g>
-          <g class="dog-legs">
-            <rect x="25" y="32" width="4" height="10" rx="2" fill="var(--accent)" class="leg-back-1" />
-            <rect x="32" y="32" width="4" height="10" rx="2" fill="var(--accent-soft)" class="leg-back-2" />
-            <rect x="60" y="32" width="4" height="10" rx="2" fill="var(--accent)" class="leg-front-1" />
-            <rect x="67" y="32" width="4" height="10" rx="2" fill="var(--accent-soft)" class="leg-front-2" />
-          </g>
-        </svg>
-      </div>
+      <img src="../assets/images/dachshund-loader.png" alt="" class="dachshund-img" aria-hidden="true" onerror="this.style.display='none'">
       <p class="loader-text">Preparing engineering notes...</p>
-      <div class="loader-progress">
-        <div class="loader-progress-bar"></div>
-      </div>
-      <button class="loader-skip" id="loaderSkip" aria-label="Skip loading animation">Skip</button>
     </div>
   </div>
 
