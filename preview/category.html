@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HOPEDEV | Systems, Agents, and Engineering Notes</title>
+  <title>Category | HOPEDEV</title>
   <meta name="description" content="AI Agent, 시스템 디자인, 백엔드 및 성능 개선 등 복잡한 소프트웨어 공학적 문제를 구조적으로 해결하고 기록하는 개발 블로그입니다.">
   <link rel="stylesheet" href="../assets/css/style.css">
   <script src="../assets/js/app.js" defer></script>
@@ -59,8 +59,8 @@
         <div>
           <h2 class="nav-section-title">Navigation</h2>
           <ul class="menu-list">
-            <li class="menu-item active"><a href="index.html">Home</a></li>
-            <li class="menu-item"><a href="category.html">All Articles</a></li>
+            <li class="menu-item"><a href="index.html">Home</a></li>
+            <li class="menu-item active"><a href="category.html">All Articles</a></li>
             <li class="menu-item"><a href="tags.html">Tags</a></li>
             <li class="menu-item"><a href="guestbook.html">Guestbook</a></li>
             <li class="menu-item"><a href="#about-section">About</a></li>
@@ -247,213 +247,64 @@
         </div>
       </div>
 
-      <!-- Page Content -->
       <main class="content-wrapper" id="main-content">
+        <!-- Category Archive Section (V3) -->
+        <section class="archive-section" aria-labelledby="archive-heading">
+          <div class="archive-header">
+            <h1 class="archive-title" id="archive-heading">All Articles</h1>
+            <p class="archive-desc">HOPEDEV의 모든 기술 기록을 주제별로 확인하세요.</p>
+          </div>
+          
+          <div class="archive-filters">
+            <button class="archive-chip active" data-filter="all">All (7)</button>
+            <button class="archive-chip" data-filter="System Design">System Design (2)</button>
+            <button class="archive-chip" data-filter="AI Agent">AI Agent (1)</button>
+            <button class="archive-chip" data-filter="Backend & API">Backend & API (1)</button>
+            <button class="archive-chip" data-filter="Data & Performance">Data & Performance (1)</button>
+            <button class="archive-chip" data-filter="Troubleshooting">Troubleshooting (1)</button>
+            <button class="archive-chip" data-filter="Project Log">Project Log (1)</button>
+          </div>
 
-        <!-- Hero Section -->
-        <section class="hero" aria-labelledby="hero-heading">
-          <span class="hero-label">HOPEDEV / SYSTEMS & AGENTS</span>
-          <h1 class="hero-title" id="hero-heading">설계하고, 검증하고, 기록합니다.</h1>
-          <p class="hero-desc">AI Agent와 시스템 디자인, 운영 이슈 해결 과정에서 얻은 기술 인사이트를 구조적으로 정리합니다.</p>
-          <div class="hero-btns">
-            <a href="#latest-notes" class="btn btn-primary">최신 글 보기</a>
-            <a href="https://github.com" target="_blank" class="btn btn-secondary" rel="noopener noreferrer">
-              GitHub
+          <div class="archive-list">
+            <!-- Item 1 -->
+            <a href="article.html" class="archive-item" data-cat="AI Agent">
+              <div class="archive-item-meta">
+                <span class="archive-item-cat">AI Agent</span>
+                <time>2026.06.20</time>
+              </div>
+              <h2 class="archive-item-title">ReAct 패턴을 활용한 AI Agent 도구 사용 최적화</h2>
+              <p class="archive-item-summary">LLM이 다수의 API 도구 중 최적의 도구를 선택하고 잘못된 피드백을 통해 자가수정하는 과정에서의 프롬프트 및 컨텍스트 제어 기술.</p>
             </a>
-          </div>
-        </section>
-
-        <!-- Blog Snapshot Dashboard -->
-        <section class="dashboard-snapshot" aria-label="Blog Statistics">
-          <div class="stat-grid" id="dashboardStats">
-            <!-- Rendered by JS -->
-          </div>
-        </section>
-
-        <!-- Featured Insight Section -->
-        <section class="home-section" aria-labelledby="featured-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="featured-heading">Featured Insight</h2>
-          </div>
-          <article class="featured-card">
-            <div>
-              <span class="card-category">System Design</span>
-              <h3 class="featured-title">
-                <a href="article.html">트래픽 증가를 고려한 인증 시스템 설계</a>
-              </h3>
-              <p class="featured-summary">대용량 유저 유입에 대응하고 고가용성을 유지하기 위해 비대칭키 JWT 검증 방식과 Redis 캐싱을 결합한 하이브리드 세션 아키텍처의 설계
-                및 벤치마킹 분석을 기록합니다.</p>
-            </div>
-            <div class="card-meta">
-              <time datetime="2026-06-22">2026.06.22</time>
-              <div class="dot-separator"></div>
-              <span>12 min read</span>
-            </div>
-          </article>
-        </section>
-
-        <!-- Popular Categories Section -->
-        <section class="home-section" id="popular-categories" aria-labelledby="categories-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="categories-heading">Popular Categories</h2>
-          </div>
-          <div class="category-list-grid" id="popularCategoriesGrid">
-            <!-- Rendered by JS -->
-          </div>
-        </section>
-
-        <!-- Latest Notes Section -->
-        <section class="home-section" id="latest-notes" aria-labelledby="latest-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="latest-heading">Latest Notes</h2>
-          </div>
-          <div class="notes-grid">
-
-            <!-- Post 1 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">AI Agent</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=1">ReAct 패턴을 활용한 AI Agent 도구 사용 최적화</a>
-                </h3>
-                <p class="note-summary">LLM이 다수의 API 도구 중 최적의 도구를 선택하고 잘못된 피드백을 통해 자가수정하는 과정에서의 프롬프트 및 컨텍스트 제어 기술.</p>
+            
+            <!-- Item 2 -->
+            <a href="article.html" class="archive-item" data-cat="System Design">
+              <div class="archive-item-meta">
+                <span class="archive-item-cat">System Design</span>
+                <time>2026.06.22</time>
               </div>
-              <div class="card-meta">
-                <time datetime="2026-06-18">2026.06.18</time>
-                <div class="dot-separator"></div>
-                <span>9 min read</span>
-              </div>
-            </article>
+              <h2 class="archive-item-title">트래픽 증가를 고려한 인증 시스템 설계</h2>
+              <p class="archive-item-summary">대용량 유저 유입에 대응하고 고가용성을 유지하기 위해 비대칭키 JWT 검증 방식과 Redis 캐싱을 결합한 하이브리드 세션 아키텍처.</p>
+            </a>
 
-            <!-- Post 2 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">Backend & API</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=2">Idempotency-Key 헤더를 통한 결제 API 멱등성 보장</a>
-                </h3>
-                <p class="note-summary">네트워크 단절로 인한 중복 결제 시도를 API 게이트웨이 레벨에서 처리하고, 분산 락을 활용해 멱등 처리를 보장하는 가이드.</p>
+            <!-- Item 3 -->
+            <a href="article.html" class="archive-item" data-cat="Backend & API">
+              <div class="archive-item-meta">
+                <span class="archive-item-cat">Backend & API</span>
+                <time>2026.06.18</time>
               </div>
-              <div class="card-meta">
-                <time datetime="2026-06-10">2026.06.10</time>
-                <div class="dot-separator"></div>
-                <span>7 min read</span>
-              </div>
-            </article>
+              <h2 class="archive-item-title">Idempotency-Key 헤더를 통한 결제 API 멱등성 보장</h2>
+              <p class="archive-item-summary">네트워크 단절로 인한 중복 결제 시도를 API 게이트웨이 레벨에서 처리하고, 분산 락을 활용해 멱등 처리를 보장하는 가이드.</p>
+            </a>
 
-            <!-- Post 3 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">Data & Performance</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=3">PostgreSQL 인덱스 스캔 성능 최적화 및 모니터링</a>
-                </h3>
-                <p class="note-summary">테이블 풀스캔이 일어나는 쿼리를 EXPLAIN ANALYZE로 분석하고, 적합한 부분 인덱스(Partial Index)와 커버링 인덱스를 적용한
-                  튜닝 기록.</p>
+            <!-- Item 4 -->
+            <a href="article.html" class="archive-item" data-cat="Data & Performance">
+              <div class="archive-item-meta">
+                <span class="archive-item-cat">Data & Performance</span>
+                <time>2026.06.15</time>
               </div>
-              <div class="card-meta">
-                <time datetime="2026-06-05">2026.06.05</time>
-                <div class="dot-separator"></div>
-                <span>10 min read</span>
-              </div>
-            </article>
-
-            <!-- Post 4 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">Troubleshooting</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=4">Production 환경 JVM 메모리 누수 원인 파악 및 해결</a>
-                </h3>
-                <p class="note-summary">특정 스케줄러 내의 로컬 캐시 객체가 가비지 컬렉션(GC)되지 않아 발생했던 힙 메모리 고갈 원인을 메모리 덤프 분석을 통해 짚어봅니다.</p>
-              </div>
-              <div class="card-meta">
-                <time datetime="2026-05-28">2026.05.28</time>
-                <div class="dot-separator"></div>
-                <span>8 min read</span>
-              </div>
-            </article>
-
-            <!-- Post 5 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">Project Log</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=5">Tistory 오픈소스 스킨 테마 보일러플레이트 기획</a>
-                </h3>
-                <p class="note-summary">정적 테마 프로토타입에서 실제 티스토리 스킨 엔진(skin.html) 구조로 자동 이관하기 위한 빌더와 컴포넌트 이식 계획 수립.</p>
-              </div>
-              <div class="card-meta">
-                <time datetime="2026-05-20">2026.05.20</time>
-                <div class="dot-separator"></div>
-                <span>6 min read</span>
-              </div>
-            </article>
-
-            <!-- Post 6 -->
-            <article class="note-card">
-              <div class="note-info">
-                <span class="card-category">System Design</span>
-                <h3 class="note-title">
-                  <a href="article.html?post=6">이벤트 기반 아키텍처를 도입하기 전 고려할 세 가지</a>
-                </h3>
-                <p class="note-summary">비동기 메시지 큐 도입에 앞서 발생할 수 있는 Outbox 패턴의 당위성, 메시지 순서 보장 방안, 그리고 Dead Letter Queue
-                  처리에 관하여.</p>
-              </div>
-              <div class="card-meta">
-                <time datetime="2026-05-15">2026.05.15</time>
-                <div class="dot-separator"></div>
-                <span>11 min read</span>
-              </div>
-            </article>
-
-          </div>
-        </section>
-
-        <!-- About HOPEDEV Section -->
-        <section class="home-section" id="about-section" aria-labelledby="about-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="about-heading">About HOPEDEV</h2>
-          </div>
-          <div class="about-box">
-            <div class="about-avatar">
-              <!-- Inline Avatar SVG copy -->
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="48" fill="url(#avatarGrad)" />
-                <circle cx="50" cy="50" r="38" fill="#312e81" stroke="#ffffff" stroke-width="1.5"
-                  stroke-opacity="0.15" />
-                <circle cx="50" cy="50" r="16" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-dasharray="4 2" />
-                <circle cx="50" cy="50" r="6" fill="#ffffff" />
-              </svg>
-            </div>
-            <div class="about-details">
-              <h3>HOPEDEV (Software Engineer)</h3>
-              <p>복잡한 백엔드 아키텍처 설계와 대규모 데이터 병목 해결 과정에 흥미가 많습니다. 단순히 코드를 짜는 것에서 나아가, 문제의 원인을 정량적으로 검증하고 그 해결 여정을 엔지니어링 아카이브
-                형태로 꼼꼼히 기록하고 있습니다.</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Engineering Circle Section -->
-        <section class="home-section" id="engineering-circle" aria-labelledby="circle-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="circle-heading">Engineering Circle</h2>
-          </div>
-          <p class="section-desc"
-            style="margin-top:-1.5rem;margin-bottom:2rem;color:var(--text-muted);font-size:0.9375rem;">함께 읽는 개발 블로그</p>
-          <div class="circle-grid" id="engineeringCircleGrid">
-            <!-- Rendered by JS -->
-          </div>
-        </section>
-
-        <!-- Guestbook / Contact Placeholder (for UI accessibility and completion) -->
-        <section class="home-section" id="guestbook" aria-labelledby="guestbook-heading">
-          <div class="section-header">
-            <h2 class="section-title" id="guestbook-heading">Guestbook</h2>
-          </div>
-          <div class="comments-placeholder">
-            <h3 class="comments-title">방명록이 머무를 공간입니다.</h3>
-            <p class="comments-desc">프로토타입 검증 후 티스토리 댓글 엔진 또는 외부 스크립트로 교체 가능한 영역입니다.</p>
+              <h2 class="archive-item-title">PostgreSQL 인덱스 스캔 성능 최적화 및 모니터링</h2>
+              <p class="archive-item-summary">테이블 풀스캔이 일어나는 쿼리를 EXPLAIN ANALYZE로 분석하고, 적합한 부분 인덱스(Partial Index)와 커버링 인덱스를 적용한 튜닝 기록.</p>
+            </a>
           </div>
         </section>
 

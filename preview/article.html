@@ -54,52 +54,52 @@
         <div>
           <h2 class="nav-section-title">Navigation</h2>
           <ul class="menu-list">
-            <li class="menu-item">
-              <a href="index.html">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                Home
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="index.html#about-section">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                About
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/></svg>
-                GitHub
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="index.html#explore-topics">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-                Tags
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="#guestbook">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                Guestbook
-              </a>
-            </li>
+            <li class="menu-item"><a href="index.html">Home</a></li>
+            <li class="menu-item"><a href="category.html">All Articles</a></li>
+            <li class="menu-item"><a href="tags.html">Tags</a></li>
+            <li class="menu-item"><a href="guestbook.html">Guestbook</a></li>
+            <li class="menu-item"><a href="index.html#about-section">About</a></li>
+            <li class="menu-item mobile-nav-link" aria-controls="megaMenu" aria-expanded="false"><a href="#">Explore Menu</a></li>
           </ul>
+        </div>
+
+        <div>
+          <h2 class="nav-section-title">Stats</h2>
+          <div style="display:flex; gap:0.75rem; font-size:0.8125rem; color:var(--text-muted); padding:0.5rem 0.75rem; background:var(--surface-muted); border-radius:var(--radius-sm)">
+            <div>Visits <strong style="color:var(--text)">15k</strong></div>
+            <div>Today <strong style="color:var(--text)">120</strong></div>
+          </div>
         </div>
 
         <div>
           <h2 class="nav-section-title">Categories</h2>
           <div class="category-group">
-            <button class="category-trigger expanded" aria-expanded="true" aria-controls="categoryList" id="categoryTrigger">
-              <span>Engineering Notes</span>
-              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <button class="category-trigger expanded" aria-expanded="true" aria-controls="categoryListDev" id="categoryTriggerDev" onclick="this.classList.toggle('expanded'); document.getElementById('categoryListDev').classList.toggle('expanded')">
+              <span>Develop</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" /></svg>
             </button>
-            <ul class="category-list category-content expanded" id="categoryList">
+            <ul class="category-list category-content expanded" id="categoryListDev">
               <li class="menu-item"><a href="article.html?category=ai-agent">AI Agent<span class="category-count" data-cat="AI Agent"></span></a></li>
               <li class="menu-item active"><a href="article.html?category=system-design">System Design<span class="category-count" data-cat="System Design"></span></a></li>
               <li class="menu-item"><a href="article.html?category=backend-api">Backend & API<span class="category-count" data-cat="Backend & API"></span></a></li>
+            </ul>
+          </div>
+          <div class="category-group" style="margin-top:0.5rem">
+            <button class="category-trigger" aria-expanded="false" aria-controls="categoryListOps" id="categoryTriggerOps" onclick="this.classList.toggle('expanded'); document.getElementById('categoryListOps').classList.toggle('expanded')">
+              <span>DevOps</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+            <ul class="category-list category-content" id="categoryListOps">
               <li class="menu-item"><a href="article.html?category=data-performance">Data & Performance<span class="category-count" data-cat="Data & Performance"></span></a></li>
               <li class="menu-item"><a href="article.html?category=troubleshooting">Troubleshooting<span class="category-count" data-cat="Troubleshooting"></span></a></li>
+            </ul>
+          </div>
+          <div class="category-group" style="margin-top:0.5rem">
+            <button class="category-trigger" aria-expanded="false" aria-controls="categoryListKit" id="categoryTriggerKit" onclick="this.classList.toggle('expanded'); document.getElementById('categoryListKit').classList.toggle('expanded')">
+              <span>DevKit</span>
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6" /></svg>
+            </button>
+            <ul class="category-list category-content" id="categoryListKit">
               <li class="menu-item"><a href="article.html?category=engineering-notes">Engineering Notes<span class="category-count" data-cat="Engineering Notes"></span></a></li>
               <li class="menu-item"><a href="article.html?category=project-log">Project Log<span class="category-count" data-cat="Project Log"></span></a></li>
             </ul>
@@ -139,12 +139,64 @@
           <span class="header-article-title" id="headerArticleTitle">트래픽 증가를 고려한 인증 시스템 설계</span>
         </div>
         <div class="top-bar-right">
+          <!-- Desktop Nav Menu (V3) -->
+          <nav class="nav-menu">
+            <button class="nav-link" aria-expanded="false" aria-controls="megaMenu">
+              Explore
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <button class="nav-link search-trigger" aria-label="Search (Ctrl+K)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Search
+            </button>
+            <a href="tags.html" class="nav-link">Tags</a>
+            <a href="guestbook.html" class="nav-link">Guestbook</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="nav-link">GitHub</a>
+          </nav>
+
           <button class="mobile-theme-toggle" id="mobileThemeToggle" aria-label="다크 모드 토글">
             <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             <svg class="moon-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
         </div>
       </header>
+
+      <!-- Mega Menu Overlay (V3) -->
+      <div class="mega-overlay" id="megaMenu" aria-hidden="true" role="menu">
+        <div class="mega-container">
+          <div class="mega-group">
+            <h3>Develop</h3>
+            <ul>
+              <li><a href="article.html?category=ai-agent">AI Agent</a></li>
+              <li><a href="article.html?category=system-design">System Design</a></li>
+              <li><a href="article.html?category=backend-api">Backend & API</a></li>
+            </ul>
+          </div>
+          <div class="mega-group">
+            <h3>DevOps</h3>
+            <ul>
+              <li><a href="article.html?category=data-performance">Data & Performance</a></li>
+              <li><a href="article.html?category=troubleshooting">Troubleshooting</a></li>
+            </ul>
+          </div>
+          <div class="mega-group">
+            <h3>DevKit</h3>
+            <ul>
+              <li><a href="article.html?category=engineering-notes">Engineering Notes</a></li>
+              <li><a href="article.html?category=project-log">Project Log</a></li>
+            </ul>
+          </div>
+          <div class="mega-group">
+            <h3>Pages</h3>
+            <ul>
+              <li><a href="category.html">All Articles</a></li>
+              <li><a href="tags.html">Tags</a></li>
+              <li><a href="guestbook.html">Guestbook</a></li>
+              <li><a href="#about-section">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <!-- 3-Column Layout: Left Sidebar + Main Content + Right TOC -->
       <div class="has-toc-layout">
@@ -361,6 +413,14 @@ def is_token_blacklisted(jti: str) -> bool:
             <p class="comments-desc">티스토리 스킨으로 변환 시 [##_comment_group_##] 치환자 태그로 자동 치환되는 마크업 영역입니다.</p>
           </section>
 
+          <!-- Subscribe Area (V3) -->
+          <section class="subscribe-card" aria-label="Subscribe to HOPEDEV">
+            <img src="../assets/images/dachshund-loader.png" alt="" class="subscribe-icon" onerror="this.style.display='none'">
+            <h2 class="subscribe-title">HOPEDEV를 구독하세요</h2>
+            <p class="subscribe-desc">새로운 기술 기록과 문제 해결 인사이트를 받아보세요.</p>
+            <button class="subscribe-btn toast-trigger" data-toast-msg="실제 티스토리 적용 시 네이티브 구독 버튼으로 교체됩니다.">티스토리에서 구독하기</button>
+          </section>
+
           <!-- Footer inside main space -->
           <footer class="footer">
             <div>
@@ -387,6 +447,28 @@ def is_token_blacklisted(jti: str) -> bool:
 
     </div>
 
+  </div>
+
+  <!-- Search Overlay (V3) -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <button class="search-close" id="searchClose" aria-label="Close search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search notes, tags, categories..." autocomplete="off">
+      </div>
+      <div class="search-tags">
+        <span style="align-self: center; font-size: 0.8125rem; color: var(--text-muted); margin-right: 0.5rem;">Popular Tags:</span>
+        <a href="tags.html" class="tag">AI Agent</a>
+        <a href="tags.html" class="tag">System Design</a>
+        <a href="tags.html" class="tag">PostgreSQL</a>
+      </div>
+      <div class="search-results" id="searchResults" aria-live="polite">
+        <!-- JS rendered results -->
+      </div>
+    </div>
   </div>
 
   <!-- Accessible Lightbox Modal -->

@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPopularCategories();
   renderEngineeringCircle();
   renderSidebarCategoryCounts();
+
+  // V3 Additions
+  if (typeof initV3Features === 'function') initV3Features();
 });
 
 /**
@@ -611,3 +614,198 @@ function renderSidebarCategoryCounts() {
     }
   });
 }
+
+/* ----------------------------------------------------
+   V3 Features Implementation
+   ---------------------------------------------------- */
+function initV3Features() {
+  initMegaMenu();
+  initSearchOverlay();
+  initToastFeedback();
+  initCategoryFilter();
+  initTagCloud();
+}
+
+function initMegaMenu() {
+  const triggers = document.querySelectorAll('.nav-link[aria-controls="megaMenu"], .mobile-nav-link[aria-controls="megaMenu"]');
+  const overlay = document.getElementById('megaMenu');
+  if (!overlay || triggers.length === 0) return;
+
+  const toggleMenu = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const isExpanded = overlay.getAttribute('aria-hidden') === 'false';
+    
+    if (isExpanded) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  };
+
+  const openMenu = () => {
+    overlay.setAttribute('aria-hidden', 'false');
+    triggers.forEach(t => t.setAttribute('aria-expanded', 'true'));
+  };
+
+  const closeMenu = () => {
+    overlay.setAttribute('aria-hidden', 'true');
+    triggers.forEach(t => t.setAttribute('aria-expanded', 'false'));
+  };
+
+  triggers.forEach(t => {
+    t.addEventListener('click', toggleMenu);
+    t.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMenu(e);
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (overlay.getAttribute('aria-hidden') === 'false' && !overlay.contains(e.target) && !Array.from(triggers).some(t => t.contains(e.target))) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.getAttribute('aria-hidden') === 'false') {
+      closeMenu();
+    }
+  });
+}
+
+const v3StaticSearchData = [
+  { title: 'ReAct 패턴을 활용한 AI Agent 도구 사용 최적화', category: 'AI Agent', summary: 'LLM이 다수의 API 도구 중 최적의 도구를 선택하고 잘못된 피드백을 통해 자가수정하는 과정에서의 프롬프트 및 컨텍스트 제어 기술.', tags: ['AI', 'ReAct', 'Agent'], link: 'article.html' },
+  { title: '트래픽 증가를 고려한 인증 시스템 설계', category: 'System Design', summary: '대용량 유저 유입에 대응하고 고가용성을 유지하기 위해 비대칭키 JWT 검증 방식과 Redis 캐싱을 결합한 하이브리드 세션 아키텍처...', tags: ['System Design', 'Architecture'], link: 'article.html' },
+  { title: 'Idempotency-Key 헤더를 통한 결제 API 멱등성 보장', category: 'Backend & API', summary: '네트워크 단절로 인한 중복 결제 시도를 API 게이트웨이 레벨에서 처리하고, 분산 락을 활용해 멱등 처리를 보장하는 가이드.', tags: ['API', 'Idempotency'], link: 'article.html' },
+  { title: 'PostgreSQL 인덱스 스캔 성능 최적화 및 모니터링', category: 'Data & Performance', summary: '테이블 풀스캔이 일어나는 쿼리를 EXPLAIN ANALYZE로 분석하고, 적합한 부분 인덱스(Partial Index)와 커버링 인덱스를 적용한 튜닝 기록.', tags: ['DB', 'PostgreSQL', 'Performance'], link: 'article.html' },
+  { title: 'Production 환경 JVM 메모리 누수 원인 파악 및 해결', category: 'Troubleshooting', summary: '특정 스케줄러 내의 로컬 캐시 객체가 가비지 컬렉션(GC)되지 않아 발생했던 힙 메모리 고갈 원인을 메모리 덤프 분석을 통해 짚어봅니다.', tags: ['JVM', 'Memory', 'Troubleshooting'], link: 'article.html' },
+  { title: 'Tistory 오픈소스 스킨 테마 보일러플레이트 기획', category: 'Project Log', summary: '정적 테마 프로토타입에서 실제 티스토리 스킨 엔진(skin.html) 구조로 자동 이관하기 위한 빌더와 컴포넌트 이식 계획 수립.', tags: ['Tistory', 'Project'], link: 'article.html' },
+  { title: '이벤트 기반 아키텍처를 도입하기 전 고려할 세 가지', category: 'System Design', summary: '비동기 메시지 큐 도입에 앞서 발생할 수 있는 Outbox 패턴의 당위성, 메시지 순서 보장 방안, 그리고 Dead Letter Queue 처리에 관하여.', tags: ['Architecture', 'Event-Driven'], link: 'article.html' }
+];
+
+function initSearchOverlay() {
+  const searchTriggers = document.querySelectorAll('.search-trigger');
+  const searchOverlay = document.getElementById('searchOverlay');
+  if (!searchOverlay) return;
+
+  const searchClose = document.getElementById('searchClose');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  const openSearch = (e) => {
+    if(e) e.preventDefault();
+    searchOverlay.classList.add('active');
+    setTimeout(() => searchInput.focus(), 100);
+  };
+
+  const closeSearch = () => {
+    searchOverlay.classList.remove('active');
+    searchInput.value = '';
+    searchResults.innerHTML = '';
+  };
+
+  searchTriggers.forEach(t => t.addEventListener('click', openSearch));
+  if(searchClose) searchClose.addEventListener('click', closeSearch);
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+      closeSearch();
+    }
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    const val = e.target.value.toLowerCase().trim();
+    if (!val) {
+      searchResults.innerHTML = '';
+      return;
+    }
+    const filtered = v3StaticSearchData.filter(item => 
+      item.title.toLowerCase().includes(val) || 
+      item.summary.toLowerCase().includes(val) || 
+      item.tags.some(tag => tag.toLowerCase().includes(val))
+    ).slice(0, 8);
+
+    if (filtered.length === 0) {
+      searchResults.innerHTML = '<div class="search-result-item" style="text-align:center; padding: 2rem; color: var(--text-muted)">검색 결과가 없습니다.</div>';
+    } else {
+      searchResults.innerHTML = filtered.map(item => `
+        <div class="search-result-item">
+          <div style="font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">${item.category}</div>
+          <div class="search-result-title"><a href="${item.link}">${item.title}</a></div>
+          <div class="search-result-summary">${item.summary}</div>
+        </div>
+      `).join('');
+    }
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter') {
+      const firstRes = searchResults.querySelector('a');
+      if(firstRes) {
+        window.location.href = firstRes.href;
+      }
+    }
+  });
+}
+
+function initToastFeedback() {
+  const feedbackTriggers = document.querySelectorAll('.toast-trigger');
+  if (feedbackTriggers.length === 0) return;
+
+  const toast = document.createElement('div');
+  toast.className = 'toast-container';
+  document.body.appendChild(toast);
+
+  let toastTimer;
+
+  feedbackTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const msg = btn.getAttribute('data-toast-msg') || '티스토리 스킨 연결 단계에서 활성화됩니다.';
+      toast.textContent = msg;
+      toast.classList.add('show');
+      
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    });
+  });
+}
+
+function initCategoryFilter() {
+  const chips = document.querySelectorAll('.archive-chip');
+  const items = document.querySelectorAll('.archive-item');
+  if (chips.length === 0 || items.length === 0) return;
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const targetCat = chip.getAttribute('data-filter');
+
+      items.forEach(item => {
+        if (targetCat === 'all' || item.getAttribute('data-cat') === targetCat) {
+          item.style.display = 'flex'; // Reset to flex based on our archive item design
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+function initTagCloud() {
+  const tags = document.querySelectorAll('.tag-item');
+  if (tags.length === 0) return;
+  // In V3, sizes are statically set through classes .tag-1 to .tag-5.
+  // We can leave this hook for future dynamic interactions.
+}
+
