@@ -25,7 +25,7 @@ V4는 단순한 클론 코딩을 넘어, 사용자의 엄격한 피드백을 수
 ### 🛠 파일 구조 (cubism-skin 디렉토리)
 1. `index.xml` (스킨 정보 및 옵션)
 2. `skin.html` (티스토리 치환자가 포함된 뼈대)
-3. `style.css` (Apple+Picasso 스타일시트)
+3. `style.css` (Apple+Picasso 스타일시트)123
 4. `images/script.js` (날씨 API 및 각종 UI 로직)
 5. `images/dachshund-loader.png` (강아지 버튼 이미지)
 *(로컬 테스트용 `preview.html` 별도 존재)*

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="system" data-weather="none">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>로컬 미리보기 - HOPEDEV</title>
+  <link rel="stylesheet" href="./style.css">
+
+  <script>
+    // Theme initialization
+    const savedTheme = localStorage.getItem('theme');
+    const varTheme = 'system';
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (varTheme !== 'system') {
+      document.documentElement.setAttribute('data-theme', varTheme);
+    }
+
+    // Pass variables to script (Mocked for local preview V5)
+    window.SkinOptions = {
+      heroKeywords: 'Architecture, System Design, AI Agents, Clean Code, Data Pipelines',
+      themeStyle: 'gallery',
+      motionLevel: 'subtle',
+      weatherGreeting: true,
+      blogStartDate: '2023-01-01'
+    };
+  </script>
+</head>
+
+<body id="tt-body-index">
+
+  <!-- Landing Preloader (Star Drawing Animation) -->
+  <div id="page-preloader" class="preloader">
+    <div class="star-loader-wrapper">
+      <svg class="star-spinner" viewBox="0 0 100 100" width="80" height="80">
+        <polygon points="50,5 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" 
+                 fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <div class="loading-text" style="margin-top:1rem; font-weight:700; color:var(--point-color); letter-spacing:2px;">LOADING</div>
+    </div>
+  </div>
+
+  <!-- Global Canvas Effects (Meteor, Weather) -->
+  <canvas id="effectCanvas" class="meteor-canvas" aria-hidden="true"></canvas>
+
+  <!-- Cubism Abstract Background -->
+  <div class="cubism-bg-layer" aria-hidden="true">
+    <div class="cubism-shape shape-1"></div>
+    <div class="cubism-shape shape-2"></div>
+    <div class="cubism-shape shape-3"></div>
+  </div>
+
+  <div id="readingProgress" class="reading-progress"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <a href="#" class="brand-link">HOPEDEV</a>
+      </div>
+      <nav class="header-nav" aria-label="메인 메뉴">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Tech Log</a></li>
+          <li><a href="#">Projects</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div id="weatherBadge" class="weather-badge" style="display: none;">
+          <span class="weather-icon"></span>
+          <span class="weather-text">서울 날씨 로딩중...</span>
+        </div>
+        <button id="themeToggleBtn" class="action-btn" aria-label="테마 전환">
+          <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+          <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <!-- Post Header Actions Mock (Shown via JS since we are mocking post detail) -->
+        <div id="postHeaderActions" class="post-header-actions" style="display: none;">
+          <button class="action-btn btn-heart pulse-target" aria-label="공감하기" data-count="0">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path
+                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+              </path>
+            </svg>
+            <span class="action-count heart-count"></span>
+          </button>
+          <button class="action-btn btn-comment pulse-target" aria-label="댓글보기" data-count="0">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="action-count comment-count"></span>
+          </button>
+          <button class="action-btn btn-share" aria-label="공유하기">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
+        </div>
+        <button class="action-btn search-toggle" aria-label="검색창 열기">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button class="star-menu-btn" aria-label="메뉴 열기">
+          <svg viewBox="0 0 100 100" width="24" height="24">
+            <polygon points="50,5 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" 
+                     fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Landing Hero Section (Full Bleed) -->
+  <section class="hero-section">
+    <div class="hero-bg-image"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
+      <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point" aria-hidden="true"></span></h1>
+      <div class="hero-divider">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+        </svg>
+      </div>
+      <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
+    </div>
+  </section>
+
+  <main id="main-content" class="main-container">
+
+      <!-- Stats Section -->
+      <section class="dashboard-stats-section">
+        <div class="stats-header center">
+          <div class="stats-crown">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="2 4 5 16 19 16 22 4 16 11 12 4 8 11 2 4"></polygon>
+              <line x1="5" y1="20" x2="19" y2="20"></line>
+            </svg>
+          </div>
+          <h2 class="stats-title">Thanks for your support</h2>
+          <p class="stats-desc">여러분의 소중한 방문이 늘 큰 힘이 됩니다.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card stat-card-visitors">
+            <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+            <span class="stat-value">123,456<small>명</small></span>
+            <span class="stat-label">총 방문자</span>
+          </div>
+          <div class="stat-card stat-card-posts">
+            <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span>
+            <span class="stat-value" id="mainTotalPosts">342<small>개</small></span>
+            <span class="stat-label">총 포스팅</span>
+          </div>
+          <div class="stat-card stat-card-age">
+            <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+            <span class="stat-value" id="mainBlogAge">1,024<small>일째</small></span>
+            <span class="stat-label">블로그 운영</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Popular Categories Ranking -->
+      <section class="popular-categories-section">
+        <div class="section-header center">
+          <h2 class="section-title"><span class="editorial-index">01 &middot;</span> 인기있는 카테고리 👑</h2>
+          <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
+        </div>
+        <div class="category-grid">
+          <a href="#" class="cat-card">
+            <div class="cat-badge rank-1">#1</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=200&q=80" alt="AWS"></div>
+            <h3 class="cat-name">AWS</h3>
+            <span class="cat-count">34 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge rank-2">#2</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=200&q=80" alt="Linux"></div>
+            <h3 class="cat-name">Linux</h3>
+            <span class="cat-count">39 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge rank-3">#3</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&q=80" alt="Node.js"></div>
+            <h3 class="cat-name">Node.js</h3>
+            <span class="cat-count">76 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge">#4</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?w=200&q=80" alt="GIT"></div>
+            <h3 class="cat-name">GIT</h3>
+            <span class="cat-count">20 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge">#5</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=200&q=80" alt="WEB"></div>
+            <h3 class="cat-name">WEB 지식</h3>
+            <span class="cat-count">51 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge">#6</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633356122102-3fe601e05bd2?w=200&q=80" alt="JavaScript"></div>
+            <h3 class="cat-name">JavaScript</h3>
+            <span class="cat-count">88 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge">#7</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1614850715649-1d0106293bd1?w=200&q=80" alt="CSS"></div>
+            <h3 class="cat-name">CSS</h3>
+            <span class="cat-count">42 Articles</span>
+          </a>
+          <a href="#" class="cat-card">
+            <div class="cat-badge">#8</div>
+            <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401472504-2eb94918f4a1?w=200&q=80" alt="VSCode"></div>
+            <h3 class="cat-name">VSCode</h3>
+            <span class="cat-count">15 Articles</span>
+          </a>
+        </div>
+      </section>
+
+
+    <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
+    <section class="bento-posts-section">
+      <div class="editorial-grid"></div>
+      <h2 class="section-title">최신 포스팅</h2>
+      <div class="magazine-grid">
+        <article class="bento-card large-card">
+          <div class="bento-thumb">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="" loading="lazy">
+          </div>
+          <div class="bento-info">
+            <span class="bento-category">AI Agent</span>
+            <h3 class="bento-title"><a href="#">LLM 기반 자율 에이전트 설계 패턴 분석</a></h3>
+            <p class="bento-summary">현업에서 AI 에이전트를 구축하며 얻은 프롬프트 체이닝 기법과 예외 처리 노하우를 공유합니다.</p>
+            <span class="bento-date">2026. 06. 23</span>
+          </div>
+        </article>
+
+        <article class="bento-card">
+          <div class="bento-thumb" style="background-image:url('https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=400&q=80'); background-size:cover; background-position:center;"></div>
+          <div class="bento-info">
+            <span class="bento-category">System Design</span>
+            <h3 class="bento-title"><a href="#">대규모 트래픽 분산 아키텍처</a></h3>
+            <span class="bento-date">2026. 06. 21</span>
+          </div>
+        </article>
+
+        <article class="bento-card">
+          <div class="bento-fallback-cover" data-initial="DevOps"></div>
+          <div class="bento-thumb"></div>
+          <div class="bento-info">
+            <span class="bento-category">DevOps</span>
+            <h3 class="bento-title"><a href="#">CI/CD 파이프라인 최적화</a></h3>
+            <span class="bento-date">2026. 06. 19</span>
+          </div>
+        </article>
+
+        <article class="bento-card">
+          <div class="bento-thumb" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80'); background-size:cover; background-position:center;"></div>
+          <div class="bento-info">
+            <span class="bento-category">Backend</span>
+            <h3 class="bento-title"><a href="#">Java 21 Virtual Threads 분석</a></h3>
+            <span class="bento-date">2026. 06. 15</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pre-Footer Widgets (3 Columns) -->
+  <aside class="pre-footer-widgets">
+    <div class="widget-grid">
+      <div class="widget-col">
+        <h3 class="widget-title">최근 댓글 <span class="badge-new">new</span></h3>
+        <ul class="widget-list comment-list">
+          <li>
+            <a href="#">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span class="text">프록시 서버에 대해 한번에 이해가 가네요! 감사합니다.</span>
+            </a>
+            <span class="author"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 김유저</span>
+          </li>
+          <li>
+            <a href="#">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span class="text">좋은 정보 감사합니다. 즐겨찾기 해두고 자주 올게요.</span>
+            </a>
+            <span class="author"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Developer_99</span>
+          </li>
+        </ul>
+      </div>
+      <div class="widget-col">
+        <h3 class="widget-title">최근 글 <span class="badge-new">new</span></h3>
+        <ul class="widget-list post-list">
+          <li>
+            <a href="#">
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1607799279861-4dddf930c71a?w=100&q=80')"></div>
+              <div class="info">
+                <span class="title">React Server Components 실전 가이드</span>
+                <span class="date">2023.11.10</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=100&q=80')"></div>
+              <div class="info">
+                <span class="title">Kubernetes 클러스터 구성 삽질기</span>
+                <span class="date">2023.10.28</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="widget-col">
+        <h3 class="widget-title">인기 글 <span class="badge-hot">hot</span></h3>
+        <ul class="widget-list post-list">
+          <li>
+            <a href="#">
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=100&q=80')"></div>
+              <div class="info">
+                <span class="title">MSA 환경에서의 분산 트랜잭션 처리</span>
+                <span class="date">2023.10.15</span>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=100&q=80')"></div>
+              <div class="info">
+                <span class="title">Java 21 Virtual Threads 성능 분석</span>
+                <span class="date">2023.09.20</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="copyright">&copy; HOPEDEV. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="./images/script.js"></script>
+  <!-- Tistory Search Overlay (Hidden by default) -->
+  <div id="searchOverlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="검색창" style="display:none;">
+    <div class="search-modal">
+      <button class="search-close" aria-label="닫기">X</button>
+      <input type="text" id="searchInput" placeholder="검색어를 입력하세요..." class="search-input">
+    </div>
+  </div>
+
+  <!-- Sidebar Drawer -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
+    <div class="sidebar-header">
+      <h2>메뉴</h2>
+      <button class="sidebar-close" aria-label="닫기">X</button>
+    </div>
+    <div class="sidebar-content">
+    
+    <!-- Sidebar Profile -->
+    <div class="sidebar-profile">
+      <div class="profile-avatar">
+        <img src="https://via.placeholder.com/100" alt="profile" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="avatar-fallback" style="display:none;">H</div>
+      </div>
+      <div class="profile-info">
+        <h3 class="profile-name">HOPEDEV DEVLOG</h3>
+        <span class="profile-desc">Hope Developer</span>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="sidebar-quick-links">
+      <a href="/" aria-label="홈으로">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      </a>
+      <a href="#" class="search-toggle" aria-label="검색">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </a>
+      <a href="/manage" aria-label="관리자">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </a>
+    </div>
+
+    <hr class="sidebar-divider">
+
+    <ul class="tt_category">
+      <li><a href="#">전체보기 <span class="c_cnt">(42)</span></a>
+        <ul>
+          <li><a href="#">AI Agent <span class="c_cnt">(10)</span></a></li>
+          <li><a href="#">System Design <span class="c_cnt">(15)</span></a></li>
+          <li><a href="#">DevOps <span class="c_cnt">(17)</span></a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  </aside>
+
+  <!-- Toast Message -->
+  <div id="toastMessage" class="toast-message" aria-live="polite"></div>
+
+</body>
+
+</html>
