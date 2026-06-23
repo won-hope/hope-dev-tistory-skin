@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // V3 Additions
   if (typeof initV3Features === 'function') initV3Features();
+
+  // V3.1 Additions
+  initV3_1Features();
 });
 
 /**
@@ -809,3 +812,188 @@ function initTagCloud() {
   // We can leave this hook for future dynamic interactions.
 }
 
+// ==========================================
+// V3.1: Blue Navigation & Floating Controls
+// ==========================================
+function initV3_1Features() {
+  initVinylMenuDrawer();
+  initPillHeaderDropdowns();
+  initFloatingActionButton();
+  updateCategoryBadges();
+}
+
+/**
+ * 1. Vinyl Menu Button to toggle Side Drawer
+ */
+function initVinylMenuDrawer() {
+  const vinylBtn = document.getElementById('vinylMenuBtn');
+  const sideDrawer = document.getElementById('sideDrawer');
+  const drawerOverlay = document.getElementById('drawerOverlay');
+  const closeBtn = document.getElementById('drawerCloseBtn');
+
+  if (!vinylBtn || !sideDrawer || !drawerOverlay) return;
+
+  const openDrawer = () => {
+    drawerOverlay.classList.add('open');
+    vinylBtn.classList.add('spinning');
+    vinylBtn.setAttribute('aria-expanded', 'true');
+    drawerOverlay.setAttribute('aria-hidden', 'false');
+  };
+
+  const closeDrawer = () => {
+    drawerOverlay.classList.remove('open');
+    vinylBtn.classList.remove('spinning');
+    vinylBtn.setAttribute('aria-expanded', 'false');
+    drawerOverlay.setAttribute('aria-hidden', 'true');
+  };
+
+  vinylBtn.addEventListener('click', () => {
+    const isExpanded = vinylBtn.getAttribute('aria-expanded') === 'true';
+    if (isExpanded) {
+      closeDrawer();
+    } else {
+      openDrawer();
+    }
+  });
+
+  drawerOverlay.addEventListener('click', closeDrawer);
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeDrawer);
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sideDrawer.classList.contains('active')) {
+      closeDrawer();
+    }
+  });
+}
+
+/**
+ * 2. Pill Header Dropdowns
+ */
+function initPillHeaderDropdowns() {
+  const dropdownBtns = document.querySelectorAll('.nav-dropdown-trigger');
+
+  // Close all dropdowns
+  const closeAllDropdowns = () => {
+    dropdownBtns.forEach(btn => {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.classList.remove('active');
+    });
+  };
+
+  dropdownBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      closeAllDropdowns();
+      if (!isExpanded) {
+        btn.setAttribute('aria-expanded', 'true');
+        btn.classList.add('active');
+      }
+    });
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', () => {
+    closeAllDropdowns();
+  });
+}
+
+/**
+ * 3. Floating Action Button (FAB)
+ */
+function initFloatingActionButton() {
+  const fabMainBtn = document.getElementById('fabMainBtn');
+  const fabActions = document.getElementById('fabActions');
+  const fabScrollTop = document.getElementById('fabScrollTop');
+  const fabThemeToggle = document.getElementById('fabThemeToggle');
+
+  if (!fabMainBtn || !fabActions) return;
+
+  fabMainBtn.addEventListener('click', () => {
+    const isExpanded = fabMainBtn.getAttribute('aria-expanded') === 'true';
+    fabMainBtn.setAttribute('aria-expanded', !isExpanded);
+    fabActions.classList.toggle('active', !isExpanded);
+  });
+
+  // Scroll to Top
+  if (fabScrollTop) {
+    fabScrollTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      fabMainBtn.setAttribute('aria-expanded', 'false');
+      fabActions.classList.remove('active');
+    });
+  }
+
+  // Theme Toggle via FAB
+  if (fabThemeToggle) {
+    fabThemeToggle.addEventListener('click', () => {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme') || 'light';
+      const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      
+      updateAllThemeIcons(nextTheme);
+
+      fabMainBtn.setAttribute('aria-expanded', 'false');
+      fabActions.classList.remove('active');
+    });
+  }
+}
+
+// Helper for Theme Toggle Icons
+function updateAllThemeIcons(theme) {
+  const sunIcons = document.querySelectorAll('.sun-icon');
+  const moonIcons = document.querySelectorAll('.moon-icon');
+  
+  if (theme === 'dark') {
+    sunIcons.forEach(el => el.style.display = 'none');
+    moonIcons.forEach(el => el.style.display = 'inline-block');
+  } else {
+    sunIcons.forEach(el => el.style.display = 'inline-block');
+    moonIcons.forEach(el => el.style.display = 'none');
+  }
+}
+
+/**
+ * 4. Update Category Badges
+ */
+function updateCategoryBadges() {
+  const badges = document.querySelectorAll('.category-count-badge');
+  if (badges.length === 0) return;
+
+  const archiveItems = document.querySelectorAll('.archive-item');
+  const catMap = {};
+
+  if (archiveItems.length > 0) {
+    archiveItems.forEach(item => {
+      const cat = item.getAttribute('data-cat');
+      if (cat) catMap[cat] = (catMap[cat] || 0) + 1;
+    });
+
+    badges.forEach(badge => {
+      const cat = badge.getAttribute('data-cat');
+      badge.textContent = catMap[cat] || 0;
+    });
+  } else {
+    // Mock for other pages
+    const mockData = {
+      'AI Agent': 1,
+      'System Design': 2,
+      'Backend & API': 1,
+      'Data & Performance': 1,
+      'Troubleshooting': 1,
+      'Project Log': 1,
+      'Engineering Notes': 3
+    };
+
+    badges.forEach(badge => {
+      const cat = badge.getAttribute('data-cat');
+      badge.textContent = mockData[cat] || 0;
+    });
+  }
+}

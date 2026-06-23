@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin>
+  <information>
+    <name>HOPEDEV Editorial Cubism</name>
+    <version>1.0</version>
+    <description>은은한 큐비즘 추상 요소를 더한 에디토리얼 테크 갤러리 스킨입니다. 실제 날씨에 반응하는 미학적인 테마를 제공합니다.</description>
+    <license>MIT License</license>
+  </information>
+  <author>
+    <name>HOPEDEV</name>
+    <homepage>https://hopedev.tistory.com</homepage>
+    <email>hello@example.com</email>
+  </author>
+  <default>
+    <recentEntries>5</recentEntries>
+    <recentComments>5</recentComments>
+    <recentTrackbacks>5</recentTrackbacks>
+    <itemsOnPage>10</itemsOnPage>
+    <tree>
+      <color>000000</color>
+      <bgColor>ffffff</bgColor>
+      <activeColor>000000</activeColor>
+      <activeBgColor>eeeeee</activeBgColor>
+      <labelLength>25</labelLength>
+      <showValue>1</showValue>
+    </tree>
+  </default>
+  <variables>
+    <variablegroup name="테마 설정">
+      <variable>
+        <name>color_point</name>
+        <label>포인트 컬러</label>
+        <type>COLOR</type>
+        <option />
+        <default>#3b82f6</default>
+        <description>블로그의 주요 버튼과 강조 요소에 사용될 색상입니다.</description>
+      </variable>
+      <variable>
+        <name>theme_mode</name>
+        <label>라이트 / 다크 모드</label>
+        <type>SELECT</type>
+        <option>
+          <value>system</value><label>시스템 설정 따르기</label>
+          <value>light</value><label>항상 라이트 모드</label>
+          <value>dark</value><label>항상 다크 모드</label>
+        </option>
+        <default>system</default>
+        <description>기본 테마 모드를 설정합니다.</description>
+      </variable>
+      <variable>
+        <name>use_animation</name>
+        <label>애니메이션 사용</label>
+        <type>SELECT</type>
+        <option>
+          <value>true</value><label>사용</label>
+          <value>false</value><label>사용 안 함</label>
+        </option>
+        <default>true</default>
+        <description>스킨의 미세한 타이핑 애니메이션과 전환 효과를 사용합니다.</description>
+      </variable>
+    </variablegroup>
+
+    <variablegroup name="히어로 (Hero) 설정">
+      <variable>
+        <name>hero_title</name>
+        <label>메인 문구</label>
+        <type>STRING</type>
+        <option />
+        <default>설계하고, 검증하고, 기록합니다.</default>
+        <description>첫 화면 히어로 영역의 큰 제목입니다.</description>
+      </variable>
+      <variable>
+        <name>hero_desc</name>
+        <label>소개 문구</label>
+        <type>STRING</type>
+        <option />
+        <default>AI Agent와 시스템 디자인, 운영 이슈 해결 과정에서 얻은 기술 인사이트를 구조적으로 정리합니다.</default>
+        <description>히어로 영역의 짧은 설명입니다.</description>
+      </variable>
+      <variable>
+        <name>hero_keywords</name>
+        <label>코드 키워드 (쉼표 구분)</label>
+        <type>STRING</type>
+        <option />
+        <default>Java, Spring Boot, React, AI Agent, System Design</default>
+        <description>타이핑 애니메이션에 표시될 단어들입니다.</description>
+      </variable>
+    </variablegroup>
+
+    <variablegroup name="서울 날씨 테마 설정">
+      <variable>
+        <name>use_weather</name>
+        <label>날씨 테마 사용</label>
+        <type>SELECT</type>
+        <option>
+          <value>true</value><label>사용</label>
+          <value>false</value><label>사용 안 함</label>
+        </option>
+        <default>true</default>
+        <description>서울의 실시간 날씨에 따라 배경 색감과 추상 도형이 변화합니다.</description>
+      </variable>
+      <variable>
+        <name>weather_intensity</name>
+        <label>날씨 효과 강도</label>
+        <type>SELECT</type>
+        <option>
+          <value>subtle</value><label>Subtle (은은하게)</label>
+          <value>none</value><label>None (효과 없음)</label>
+        </option>
+        <default>subtle</default>
+        <description>날씨 시각 효과의 강도를 조절합니다. 가독성을 위해 subtle을 권장합니다.</description>
+      </variable>
+      <variable>
+        <name>show_weather_badge</name>
+        <label>날씨 배지 표시</label>
+        <type>SELECT</type>
+        <option>
+          <value>true</value><label>표시</label>
+          <value>false</value><label>숨김</label>
+        </option>
+        <default>true</default>
+        <description>헤더 우측에 현재 날씨 상태(예: 서울 · 맑음 · 23°C)를 표시합니다.</description>
+      </variable>
+      <variable>
+        <name>auto_weather_theme</name>
+        <label>날씨 상태 자동 전환</label>
+        <type>SELECT</type>
+        <option>
+          <value>true</value><label>사용</label>
+          <value>false</value><label>사용 안 함</label>
+        </option>
+        <default>true</default>
+        <description>날씨 데이터 수신 시 백그라운드로 스킨 테마를 자연스럽게 갱신합니다.</description>
+      </variable>
+    </variablegroup>
+  </variables>
+</skin>

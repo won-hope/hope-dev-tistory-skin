@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="system" data-weather="none">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>로컬 미리보기 - HOPEDEV</title>
+  <link rel="stylesheet" href="./style.css">
+  
+  <script>
+    // Theme initialization
+    const savedTheme = localStorage.getItem('theme');
+    const varTheme = 'system';
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } else if (varTheme !== 'system') {
+      document.documentElement.setAttribute('data-theme', varTheme);
+    }
+    
+    // Pass variables to script (Mocked for local preview)
+    window.SkinOptions = {
+      heroKeywords: 'Java, Spring Boot, React, AI Agent, System Design',
+      useAnimation: true,
+      useWeather: true,
+      weatherIntensity: 'subtle',
+      showWeatherBadge: true,
+      autoWeatherTheme: true
+    };
+  </script>
+</head>
+<body id="tt-body-index">
+  
+  <!-- Cubism Abstract Background -->
+  <div class="cubism-bg-layer" aria-hidden="true">
+    <div class="cubism-shape shape-1"></div>
+    <div class="cubism-shape shape-2"></div>
+    <div class="cubism-shape shape-3"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <a href="#" class="brand-link">HOPEDEV</a>
+      </div>
+      <nav class="header-nav" aria-label="메인 메뉴">
+        <ul>
+          <li>
+            <a href="#">Develop</a>
+            <ul>
+              <li><a href="#">Java & Spring</a></li>
+              <li><a href="#">React</a></li>
+            </ul>
+          </li>
+          <li><a href="#">DevOps</a></li>
+          <li><a href="#">DevKit</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <div id="weatherBadge" class="weather-badge" style="display: none;">
+          <span class="weather-icon"></span>
+          <span class="weather-text">서울 날씨 로딩중...</span>
+        </div>
+        <button id="themeToggleBtn" class="action-btn" aria-label="테마 전환">
+          <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="dog-spinner-btn" aria-label="사이드 메뉴 열기"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="main-container">
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">설계하고, 검증하고, 기록합니다.</h1>
+        <p class="hero-desc">AI Agent와 시스템 디자인, 운영 이슈 해결 과정에서 얻은 기술 인사이트를 구조적으로 정리합니다.</p>
+        <div class="hero-typing-wrap">
+          <span class="brace">{</span>
+          <span id="heroTypingText" class="typing-text"></span>
+          <span class="brace">}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats & Welcome Section -->
+    <section class="stats-section">
+      <div class="stats-welcome">
+        <h2>환영합니다.</h2>
+        <p>지식과 인사이트를 기록하는 공간입니다.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">총 방문자</span>
+          <span class="stat-value">123,456</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">총 포스팅</span>
+          <span class="stat-value">342</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">블로그 운영</span>
+          <span class="stat-value">1,024일차</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">구독자</span>
+          <span class="stat-value">8,912</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Chips Navigator -->
+    <section class="category-nav-section">
+      <div class="category-chips-wrapper" id="categoryChips">
+        <div class="chips-track">
+          <a href="#" class="chip-item">전체보기</a>
+          <a href="#" class="chip-item">AI Agent</a>
+          <a href="#" class="chip-item">System Design</a>
+          <a href="#" class="chip-item">Backend</a>
+          <a href="#" class="chip-item">DevOps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid Recent Posts -->
+    <section class="bento-posts-section">
+      <h2 class="section-title">Latest Articles</h2>
+      <div class="bento-grid">
+        <article class="bento-card">
+          <div class="bento-thumb">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="" loading="lazy">
+          </div>
+          <div class="bento-info">
+            <span class="bento-category">AI Agent</span>
+            <h3 class="bento-title"><a href="#">LLM 기반 자율 에이전트 설계 패턴 분석</a></h3>
+            <p class="bento-summary">현업에서 AI 에이전트를 구축하며 얻은 프롬프트 체이닝 기법과 예외 처리 노하우를 공유합니다.</p>
+            <span class="bento-date">2026. 06. 23</span>
+          </div>
+        </article>
+        
+        <article class="bento-card">
+          <div class="bento-thumb" style="background:#eee;"></div>
+          <div class="bento-info">
+            <span class="bento-category">System Design</span>
+            <h3 class="bento-title"><a href="#">대규모 트래픽 분산 아키텍처</a></h3>
+            <p class="bento-summary">초당 10만 건의 요청을 버티는 쿠버네티스 기반의 백엔드 구성 경험기.</p>
+            <span class="bento-date">2026. 06. 21</span>
+          </div>
+        </article>
+        
+        <article class="bento-card">
+          <div class="bento-thumb" style="background:#eee;"></div>
+          <div class="bento-info">
+            <span class="bento-category">DevOps</span>
+            <h3 class="bento-title"><a href="#">CI/CD 파이프라인 최적화</a></h3>
+            <p class="bento-summary">빌드 시간을 30% 단축시킨 GitHub Actions 캐싱 전략.</p>
+            <span class="bento-date">2026. 06. 19</span>
+          </div>
+        </article>
+      </div>
+      <div class="bento-cta">
+        <a href="#" class="btn-cta">전체 글 보기</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pre-Footer Widgets (3 Columns) -->
+  <aside class="pre-footer-widgets">
+    <div class="widget-grid">
+      <div class="widget-col">
+        <h3 class="widget-title">Recent Posts</h3>
+        <ul class="widget-list">
+          <li><a href="#">LLM 기반 자율 에이전트 설계 패턴 분석</a></li>
+          <li><a href="#">대규모 트래픽 분산 아키텍처</a></li>
+          <li><a href="#">CI/CD 파이프라인 최적화</a></li>
+        </ul>
+      </div>
+      <div class="widget-col">
+        <h3 class="widget-title">Popular Posts</h3>
+        <ul class="widget-list">
+          <li><a href="#">Spring Boot 무중단 배포하기</a></li>
+          <li><a href="#">React 성능 최적화 가이드</a></li>
+        </ul>
+      </div>
+      <div class="widget-col">
+        <h3 class="widget-title">Recent Comments</h3>
+        <ul class="widget-list">
+          <li><a href="#">정말 유익한 글이네요! 감사합니다.</a></li>
+          <li><a href="#">이 부분은 어떻게 구현하셨는지 궁금합니다.</a></li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="copyright">&copy; HOPEDEV. All rights reserved.</p>
+      <p class="powered">Powered by Tistory / Designed by HOPEDEV</p>
+    </div>
+  </footer>
+
+<script src="./images/script.js"></script>
+<style>
+  /* Local Preview only override for dog image absolute path */
+  .dog-spinner-btn { background-image: url('file:///C:/Users/young/.gemini/antigravity-ide/brain/3356df33-ea63-43ef-b765-b9bf3337549f/dog_spinner_1782181095141.png') !important; }
+</style>
+</body>
+</html>
