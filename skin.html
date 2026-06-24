@@ -55,7 +55,7 @@
           <a href="[##_blog_link_##]" class="brand-link">[##_title_##]</a>
         </div>
         <nav class="header-nav" aria-label="메인 메뉴">
-          [##_blog_menu_##]
+          [##_category_list_##]
         </nav>
         <div class="header-actions">
           <div id="weatherBadge" class="weather-badge" style="display: none;">
@@ -283,6 +283,9 @@
                     <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
                   </svg> <span class="time-val">계산중...</span></span>
+                <span class="post-comments-count" style="margin-left: 1rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg> [##_article_rep_rp_cnt_##]</span>
               </div>
             </header>
 
@@ -307,7 +310,7 @@
                         viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                       </svg>
-                      <span>댓글</span>
+                      <span>댓글 [##_article_rep_rp_cnt_##]</span>
                     </button>
                     <button class="action-btn bottom-share" aria-label="공유하기">
                       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -567,6 +570,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       initThemeToggle();
       initSearchToggle();
+      initSidebarToggle();
+      initTOC();
       if (window.SkinOptions && window.SkinOptions.useAnimation) {
         initTypingAnimation();
       }
@@ -574,6 +579,82 @@
         initWeatherTheme();
       }
     });
+
+    
+    /* --------------------------------------------------------------------------
+       Sidebar Toggle
+       -------------------------------------------------------------------------- */
+    function initSidebarToggle() {
+      const toggleBtn = document.querySelector('.star-menu-btn');
+      const drawer = document.getElementById('sidebarDrawer');
+      const overlay = document.getElementById('sidebarOverlay');
+      const closeBtn = document.querySelector('.sidebar-close');
+
+      if (!toggleBtn || !drawer || !overlay) return;
+
+      const openSidebar = () => {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeSidebar = () => {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
+      };
+
+      toggleBtn.addEventListener('click', openSidebar);
+      closeBtn.addEventListener('click', closeSidebar);
+      overlay.addEventListener('click', closeSidebar);
+    }
+
+    /* --------------------------------------------------------------------------
+       TOC Generation
+       -------------------------------------------------------------------------- */
+    function initTOC() {
+      const content = document.querySelector('.post-content');
+      const tocContainer = document.getElementById('tocContainer');
+      
+      if (!content || !tocContainer) return;
+
+      const headings = content.querySelectorAll('h2, h3');
+      if (headings.length === 0) return;
+
+      const title = document.createElement('h3');
+      title.textContent = '목차';
+      title.style.marginBottom = '1rem';
+      title.style.fontWeight = '700';
+      tocContainer.appendChild(title);
+
+      headings.forEach((heading, index) => {
+        if (!heading.id) {
+          heading.id = 'heading-' + index;
+        }
+
+        const link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent;
+        
+        if (heading.tagName.toLowerCase() === 'h3') {
+          link.classList.add('toc-h3');
+        }
+
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.getElementById(heading.id);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
+
+        tocContainer.appendChild(link);
+      });
+      tocContainer.style.display = 'block';
+    }
 
     /* --------------------------------------------------------------------------
        Theme Toggle

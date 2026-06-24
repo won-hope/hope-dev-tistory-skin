@@ -420,6 +420,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       initThemeToggle();
       initSearchToggle();
+      initSidebarToggle();
+      initTOC();
       if (window.SkinOptions && window.SkinOptions.useAnimation) {
         initTypingAnimation();
       }
@@ -427,6 +429,82 @@
         initWeatherTheme();
       }
     });
+
+    
+    /* --------------------------------------------------------------------------
+       Sidebar Toggle
+       -------------------------------------------------------------------------- */
+    function initSidebarToggle() {
+      const toggleBtn = document.querySelector('.star-menu-btn');
+      const drawer = document.getElementById('sidebarDrawer');
+      const overlay = document.getElementById('sidebarOverlay');
+      const closeBtn = document.querySelector('.sidebar-close');
+
+      if (!toggleBtn || !drawer || !overlay) return;
+
+      const openSidebar = () => {
+        drawer.classList.add('open');
+        overlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeSidebar = () => {
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
+        document.body.style.overflow = '';
+      };
+
+      toggleBtn.addEventListener('click', openSidebar);
+      closeBtn.addEventListener('click', closeSidebar);
+      overlay.addEventListener('click', closeSidebar);
+    }
+
+    /* --------------------------------------------------------------------------
+       TOC Generation
+       -------------------------------------------------------------------------- */
+    function initTOC() {
+      const content = document.querySelector('.post-content');
+      const tocContainer = document.getElementById('tocContainer');
+      
+      if (!content || !tocContainer) return;
+
+      const headings = content.querySelectorAll('h2, h3');
+      if (headings.length === 0) return;
+
+      const title = document.createElement('h3');
+      title.textContent = '목차';
+      title.style.marginBottom = '1rem';
+      title.style.fontWeight = '700';
+      tocContainer.appendChild(title);
+
+      headings.forEach((heading, index) => {
+        if (!heading.id) {
+          heading.id = 'heading-' + index;
+        }
+
+        const link = document.createElement('a');
+        link.href = '#' + heading.id;
+        link.textContent = heading.textContent;
+        
+        if (heading.tagName.toLowerCase() === 'h3') {
+          link.classList.add('toc-h3');
+        }
+
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const target = document.getElementById(heading.id);
+          if (target) {
+            window.scrollTo({
+              top: target.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }
+        });
+
+        tocContainer.appendChild(link);
+      });
+      tocContainer.style.display = 'block';
+    }
 
     /* --------------------------------------------------------------------------
        Theme Toggle
