@@ -1434,6 +1434,9 @@ html[data-weather="snowy"] .shape-2 { background: rgba(248, 250, 252, 0.6) !impo
 }
 
 /* 2. Mega Menu / Header Navigation */
+/* Fix tt_category disappearing */
+.header-nav .tt_category { display: flex !important; margin: 0; padding: 0; list-style: none; }
+.header-nav .tt_category > li { list-style: none; display: flex; align-items: center; }
 /* Hide "분류 전체보기" */
 .header-nav .tt_category > li > a.link_tit { display: none !important; }
 
@@ -1443,6 +1446,7 @@ html[data-weather="snowy"] .shape-2 { background: rgba(248, 250, 252, 0.6) !impo
   flex-direction: row; 
   gap: 2.5rem; 
   align-items: center; 
+  padding: 0; margin: 0; list-style: none;
 }
 .header-nav .category_list > li { 
   position: relative; 
@@ -1463,6 +1467,8 @@ html[data-weather="snowy"] .shape-2 { background: rgba(248, 250, 252, 0.6) !impo
   min-width: 180px;
   z-index: 100;
   border: 1px solid var(--border-color);
+  list-style: none;
+  margin: 0;
 }
 .header-nav .category_list > li:hover > ul.sub_category_list {
   display: flex !important;
@@ -1522,6 +1528,7 @@ body#tt-body-page .magazine-grid { display: block !important; }
   max-width: 840px; margin: 0 auto 5rem; background: var(--surface-color);
   padding: 4rem; border-radius: var(--radius-card); box-shadow: 0 10px 40px rgba(0,0,0,0.02);
   border: 1px solid var(--border-color);
+  width: 100%; box-sizing: border-box; clear: both;
 }
 @media (max-width: 768px) {
   .post-detail { padding: 2rem 1.5rem; }

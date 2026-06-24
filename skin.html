@@ -1099,29 +1099,90 @@
           badge.querySelector('.weather-text').textContent = `서울 · ${weatherKo} · ${temp}°C`;
         }
       }
-      // Populate Popular Categories
-      document.addEventListener('DOMContentLoaded', () => {
-        const catLinks = document.querySelectorAll('.header-nav .category_list > li > a');
-        const popCards = document.querySelectorAll('.popular-categories-section .cat-card');
-        if(catLinks.length > 0 && popCards.length > 0) {
-          for(let i=0; i<popCards.length; i++) {
-            if(catLinks[i]) {
-              const match = catLinks[i].textContent.match(/(.*?)\s*\((\d+)\)/);
-              let name = catLinks[i].textContent;
-              let count = '0';
-              if(match) { name = match[1].trim(); count = match[2]; }
-              
-              popCards[i].href = catLinks[i].href;
-              popCards[i].querySelector('.cat-name').textContent = name;
-              popCards[i].querySelector('.cat-count').textContent = count + " Articles";
-            } else {
-              popCards[i].style.display = 'none';
-            }
+    } // End of applyWeatherTheme
+
+    // ==========================================
+    // HOTFIX: Restore Scope & Features
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Popular Categories
+      const catLinks = document.querySelectorAll('.header-nav .category_list > li > a, .header-nav .category_list > li > ul > li > a');
+      const popCards = document.querySelectorAll('.popular-categories-section .cat-card');
+      if(catLinks.length > 0 && popCards.length > 0) {
+        for(let i=0; i<popCards.length; i++) {
+          if(catLinks[i]) {
+            const match = catLinks[i].textContent.match(/(.*?)\s*\((\d+)\)/);
+            let name = catLinks[i].textContent;
+            let count = '0';
+            if(match) { name = match[1].trim(); count = match[2]; }
+            
+            popCards[i].href = catLinks[i].href;
+            popCards[i].querySelector('.cat-name').textContent = name;
+            popCards[i].querySelector('.cat-count').textContent = count + " Articles";
+          } else {
+            popCards[i].style.display = 'none';
           }
         }
-      });
-    }
+      }
+
+      // 2. Stats Counters (Blog Age, Total Posts)
+      const startDateStr = window.SkinOptions && window.SkinOptions.blogStartDate ? window.SkinOptions.blogStartDate : '2024-01-01';
+      const start = new Date(startDateStr).getTime();
+      const now = new Date().getTime();
+      const diffDays = Math.floor((now - start) / (1000 * 60 * 60 * 24));
+      
+      const ageEl = document.getElementById('mainBlogAge');
+      if (ageEl) ageEl.innerHTML = diffDays + '<small>일째</small>';
+
+      const totalPostsEl = document.getElementById('mainTotalPosts');
+      if (totalPostsEl) totalPostsEl.innerHTML = '[##_count_total_##]' + '<small>개</small>'; // Fallback logic using visitor count if tistory doesn't provide total posts.
+
+      // 3. Preloader Hide Failsafe
+      const preloader = document.getElementById('hopePreloader');
+      if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => { if(preloader.parentNode) preloader.remove(); }, 500);
+      }
+    });
+
+    // 4. Sidebar Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.querySelector('.star-menu-btn');
+      const sidebar = document.getElementById('sidebarDrawer');
+      if (menuBtn && sidebar) {
+        menuBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          sidebar.classList.toggle('active');
+        });
+        const closeBtn = sidebar.querySelector('.sidebar-close');
+        if(closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
+      }
+    });
   </script>
+
+  <!-- Restored UI Components: Preloader & Sidebar -->
+  <div id="hopePreloader" class="preloader" style="position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out;">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2" style="animation: spin 2s linear infinite;">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    </svg>
+    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+  </div>
+
+  <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
+    <div class="sidebar-inner">
+      <button class="sidebar-close" aria-label="닫기">✕</button>
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar">H</div>
+        <h3 class="sidebar-name">HOPEDEV DEVLOG</h3>
+        <p class="sidebar-bio">Hope Developer</p>
+      </div>
+      <div class="sidebar-content">
+        [##_category_list_##]
+      </div>
+    </div>
+  </aside>
+
 </body>
 
 </html>
