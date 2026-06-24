@@ -507,14 +507,16 @@
     }
 
     
-    /* Fetch Tistory Native Like Count */
-    setTimeout(() => {
-      const nativeLikeSpan = document.querySelector('.wrap_btn .em_stat');
+    /* Fetch Tistory Native Like Count (Polling) */
+    const likeInterval = setInterval(() => {
+      const nativeLikeSpan = document.querySelector('.wrap_btn_etc .cnt, .uoc-count, .txt_like + .cnt');
       const fabLikeCount = document.getElementById('fabLikeCount');
       if (nativeLikeSpan && fabLikeCount) {
         fabLikeCount.textContent = nativeLikeSpan.textContent;
+        clearInterval(likeInterval);
       }
-    }, 2000); // Delay to allow Tistory AJAX to load
+    }, 500); // Poll every 500ms
+    setTimeout(() => clearInterval(likeInterval), 10000); // Stop polling after 10s
 
     /* --------------------------------------------------------------------------
        Theme Toggle

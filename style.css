@@ -1126,37 +1126,38 @@ html[data-theme-style="minimal"] .sidebar-drawer {
 /* --------------------------------------------------------------------------
    Mega Menu Design
    -------------------------------------------------------------------------- */
-.header-nav .tt_category {
+.header-nav > ul, .header-nav .tt_category {
   display: flex; gap: 2.5rem; margin: 0; padding: 0; list-style: none;
 }
-.header-nav .tt_category > li {
+.header-nav > ul > li, .header-nav .tt_category > li {
   position: static;
 }
-.header-nav .tt_category > li > .link_tit {
+.header-nav > ul > li > a, .header-nav .tt_category > li > .link_tit {
   font-weight: 700; color: var(--text-color); display: block; padding: 1.5rem 0; font-size: 0.9375rem; text-decoration: none;
 }
-.header-nav .tt_category > li > .link_tit .c_cnt { display: none; } /* Hide root count */
+.header-nav > ul > li > a .c_cnt, .header-nav .tt_category > li > .link_tit .c_cnt { display: none; } /* Hide root count */
 
 .header-nav .category_list {
   position: absolute; top: 100%; left: 0; right: 0; width: 100%;
   background: var(--surface-color); border-radius: 0 0 var(--radius-card) var(--radius-card);
   box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-  padding: 3rem; display: flex; gap: 3rem; opacity: 0; visibility: hidden;
+  padding: 3rem; display: grid; grid-template-columns: repeat(4, 1fr) 300px; gap: 3rem; opacity: 0; visibility: hidden;
   transform: translateY(-10px); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: 1px solid var(--border-color); border-top: none; z-index: 1000;
   flex-wrap: wrap; list-style: none;
 }
-.header-nav .tt_category > li:hover .category_list {
+.header-nav > ul > li:hover ul, .header-nav .tt_category > li:hover .category_list {
   opacity: 1; visibility: visible; transform: translateY(0);
 }
 
 .header-nav .category_list::after {
+  grid-column: 5;
   content: ""; display: block; flex: 1; min-width: 300px;
   background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800');
   background-size: cover; background-position: center; border-radius: var(--radius-card);
 }
 
-.header-nav .category_list > li { flex: 1; min-width: 150px; display: flex; flex-direction: column; }
+.header-nav .category_list > li { display: flex; flex-direction: column; }
 .header-nav .category_list > li > .link_item {
   font-weight: 800; font-size: 0.875rem; color: var(--point-color); text-transform: uppercase;
   margin-bottom: 1.5rem; display: block; text-decoration: none; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;
@@ -1203,3 +1204,160 @@ html[data-theme-style="minimal"] .sidebar-drawer {
 /* Sidebar Fixes */
 .star-menu-btn { z-index: 101; position: relative; pointer-events: auto; }
 .header-actions { position: relative; z-index: 100; pointer-events: auto; }
+
+/* --------------------------------------------------------------------------
+   Inpa Style Grid Cards
+   -------------------------------------------------------------------------- */
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.inpa-card {
+  background: var(--surface-color);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.inpa-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.inpa-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.inpa-card-thumb {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  background: #f1c40f; /* Default yellow */
+  display: flex; align-items: center; justify-content: center;
+}
+/* Alternate fallback background colors using nth-child */
+.inpa-card:nth-child(2n) .inpa-card-thumb { background: #e74c3c; }
+.inpa-card:nth-child(3n) .inpa-card-thumb { background: #2ecc71; }
+.inpa-card:nth-child(4n) .inpa-card-thumb { background: #3498db; }
+.inpa-card:nth-child(5n) .inpa-card-thumb { background: #9b59b6; }
+
+.inpa-card-fallback {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+}
+.inpa-card-img {
+  width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; z-index: 1;
+}
+.inpa-card-body {
+  padding: 1.5rem; flex: 1;
+}
+.inpa-card-badge {
+  display: inline-block; background: #ff6b81; color: #fff; padding: 0.2rem 0.6rem; border-radius: 15px; font-size: 0.75rem; font-weight: 800; margin-bottom: 0.75rem;
+}
+.inpa-card-title {
+  font-size: 1.125rem; font-weight: 800; color: var(--text-color); margin-bottom: 0.5rem; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.inpa-card-desc {
+  font-size: 0.875rem; color: var(--text-muted); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.inpa-card-footer {
+  padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;
+}
+.inpa-author-info {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.inpa-avatar {
+  width: 24px; height: 24px; border-radius: 50%; object-fit: cover;
+}
+.inpa-author-text {
+  display: flex; flex-direction: column;
+}
+.inpa-author {
+  font-size: 0.75rem; font-weight: 800; color: var(--text-color);
+}
+.inpa-date {
+  font-size: 0.65rem; color: var(--text-muted);
+}
+.inpa-card-stats {
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.inpa-stat-badge {
+  display: flex; align-items: center; gap: 0.2rem; font-size: 0.75rem; font-weight: 800; color: #ff4757;
+}
+.inpa-stat-share {
+  width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.2s;
+}
+.inpa-card:hover .inpa-stat-share {
+  border-color: var(--point-color); color: var(--point-color);
+}
+
+/* --------------------------------------------------------------------------
+   Inpa Style Post Header
+   -------------------------------------------------------------------------- */
+.inpa-post-header {
+  position: relative;
+  background-color: #f1c40f; /* Inpa yellow */
+  padding: 4rem 2rem;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* Random SVG pattern overlay */
+.inpa-post-header::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><text x="10" y="40" font-size="30" font-family="monospace" fill="rgba(0,0,0,0.05)" transform="rotate(-15)">&lt;p&gt;</text><text x="150" y="80" font-size="40" font-family="monospace" fill="rgba(0,0,0,0.05)" transform="rotate(20)">&lt;div&gt;</text><text x="50" y="150" font-size="60" font-family="monospace" fill="rgba(0,0,0,0.05)" transform="rotate(-10)">&lt;html&gt;</text></svg>');
+  background-size: 400px;
+  z-index: 1;
+}
+.inpa-post-header-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+.inpa-post-badge {
+  display: inline-block;
+  background: #ff4757;
+  color: #fff;
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+.inpa-post-title {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  word-break: keep-all;
+}
+.inpa-post-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.inpa-post-meta .meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}

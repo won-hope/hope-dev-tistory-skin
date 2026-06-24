@@ -244,19 +244,210 @@
           <!-- Tistory loop: The CSS will automatically make the first child large -->
           <s_article_rep>
             <s_index_article_rep>
-              <article class="bento-card">
-                <div class="bento-fallback-cover" data-initial="[##_article_rep_category_##]"></div>
-                <s_article_rep_thumbnail>
-                  <div class="bento-thumb"
-                    style="background-image:url('[##_article_rep_thumbnail_url_##]'); background-size:cover; background-position:center;">
+              <article class="inpa-card">
+                <a href="[##_article_rep_link_##]" class="inpa-card-link">
+                  <div class="inpa-card-thumb">
+                    <div class="inpa-card-fallback">
+                       <svg viewBox="0 0 100 100" width="60" height="60" fill="rgba(0,0,0,0.1)"><path d="M20,20 h60 v60 h-60 z"/><text x="50" y="55" font-size="20" text-anchor="middle" font-weight="bold" fill="rgba(0,0,0,0.3)">HTML</text></svg>
+                    </div>
+                    <s_article_rep_thumbnail>
+                      <img src="[##_article_rep_thumbnail_url_##]" alt="thumbnail" class="inpa-card-img">
+                    </s_article_rep_thumbnail>
                   </div>
-                </s_article_rep_thumbnail>
-                <div class="bento-info">
-                  <span class="bento-category">[##_article_rep_category_##]</span>
-                  <h3 class="bento-title"><a href="[##_article_rep_link_##]">[##_article_rep_title_##]</a></h3>
-                  <p class="bento-summary">[##_article_rep_summary_##]</p>
-                  <span class="bento-date">[##_article_rep_date_##]</span>
-                </div>
+                  <div class="inpa-card-body">
+                    <span class="inpa-card-badge">[##_article_rep_category_##]</span>
+                    <h3 class="inpa-card-title">[##_article_rep_title_##]</h3>
+                    <p class="inpa-card-desc">[##_article_rep_summary_##]</p>
+                  </div>
+                  <div class="inpa-card-footer">
+                    <div class="inpa-author-info">
+                      <img src="[##_image_##]" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
+                      <div class="inpa-author-text">
+                        <span class="inpa-author">[##_blogger_##]</span>
+                        <span class="inpa-date">[##_article_rep_date_##]</span>
+                      </div>
+                    </div>
+                    <div class="inpa-card-stats">
+                      <div class="inpa-stat-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]
+                      </div>
+                      <div class="inpa-stat-share">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            </s_index_article_rep>
+
+            <s_permalink_article_rep>
+              <article class="post-detail">
+                <header class="inpa-post-header">
+                  <div class="inpa-post-header-inner">
+                    <span class="inpa-post-badge">[##_article_rep_category_##]</span>
+                    <h1 class="inpa-post-title">[##_article_rep_title_##]</h1>
+                    <div class="inpa-post-meta">
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> [##_article_rep_author_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> [##_article_rep_date_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> 1�?/span>
+                    </div>
+                  </div>
+                </header>
+
+    <!-- Landing Hero Section (Full Bleed) -->
+    <section class="hero-section">
+      <div class="hero-bg-image"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
+        <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point"
+            aria-hidden="true"></span></h1>
+        <div class="hero-divider">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+          </svg>
+        </div>
+        <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
+      </div>
+    </section>
+
+    <main id="main-content" class="main-container">
+
+      <!-- 첫 화면(홈) 영역 -->
+      <div class="home-only-widgets">
+
+        <!-- Stats Section -->
+        <section class="dashboard-stats-section">
+          <div class="stats-header center">
+            <div class="stats-crown">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="2 4 5 16 19 16 22 4 16 11 12 4 8 11 2 4"></polygon>
+                <line x1="5" y1="20" x2="19" y2="20"></line>
+              </svg>
+            </div>
+            <h2 class="stats-title">Thanks for your support</h2>
+            <p class="stats-desc">여러분의 소중한 방문이 늘 큰 힘이 됩니다.</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card stat-card-visitors">
+              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                  viewBox="0 0 24 24">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg></span>
+              <span class="stat-value">[##_count_total_##]<small>명</small></span>
+              <span class="stat-label">총 방문자</span>
+            </div>
+            <div class="stat-card stat-card-posts">
+              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                  viewBox="0 0 24 24">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg></span>
+              <span class="stat-value" id="mainTotalPosts">0<small>개</small></span>
+              <span class="stat-label">총 포스팅</span>
+            </div>
+            <div class="stat-card stat-card-age">
+              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                  viewBox="0 0 24 24">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg></span>
+              <span class="stat-value" id="mainBlogAge">0<small>일째</small></span>
+              <span class="stat-label">블로그 운영</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Popular Categories Ranking -->
+        <section class="popular-categories-section">
+          <div class="section-header center">
+            <h2 class="section-title"><span class="editorial-index">01 &middot;</span> 인기있는 카테고리 👑</h2>
+            <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
+          </div>
+          <div class="category-grid">
+            <a href="#" class="cat-card">
+              <div class="cat-badge rank-1">#1</div>
+              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=200&q=80"
+                  alt="AWS"></div>
+              <h3 class="cat-name">AWS</h3>
+              <span class="cat-count">34 Articles</span>
+            </a>
+            <a href="#" class="cat-card">
+              <div class="cat-badge rank-2">#2</div>
+              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=200&q=80"
+                  alt="Linux"></div>
+              <h3 class="cat-name">Linux</h3>
+              <span class="cat-count">39 Articles</span>
+            </a>
+            <a href="#" class="cat-card">
+              <div class="cat-badge rank-3">#3</div>
+              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&q=80"
+                  alt="Node.js"></div>
+              <h3 class="cat-name">프론트엔드</h3>
+              <span class="cat-count">Posts</span>
+            </a>
+            <a href="/category" class="cat-card">
+              <div class="cat-badge">#4</div>
+              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?w=200&q=80"
+                  alt="GIT"></div>
+              <h3 class="cat-name">백엔드</h3>
+              <span class="cat-count">Posts</span>
+            </a>
+          </div>
+        </section>
+
+
+
+      </div>
+
+      <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
+      <section class="bento-posts-section">
+        <div class="editorial-grid"></div>
+        <h2 class="section-title">최신 포스팅</h2>
+        <div class="magazine-grid">
+          <!-- Tistory loop: The CSS will automatically make the first child large -->
+          <s_article_rep>
+            <s_index_article_rep>
+              <article class="inpa-card">
+                <a href="[##_article_rep_link_##]" class="inpa-card-link">
+                  <div class="inpa-card-thumb">
+                    <div class="inpa-card-fallback">
+                       <svg viewBox="0 0 100 100" width="60" height="60" fill="rgba(0,0,0,0.1)"><path d="M20,20 h60 v60 h-60 z"/><text x="50" y="55" font-size="20" text-anchor="middle" font-weight="bold" fill="rgba(0,0,0,0.3)">HTML</text></svg>
+                    </div>
+                    <s_article_rep_thumbnail>
+                      <img src="[##_article_rep_thumbnail_url_##]" alt="thumbnail" class="inpa-card-img">
+                    </s_article_rep_thumbnail>
+                  </div>
+                  <div class="inpa-card-body">
+                    <span class="inpa-card-badge">[##_article_rep_category_##]</span>
+                    <h3 class="inpa-card-title">[##_article_rep_title_##]</h3>
+                    <p class="inpa-card-desc">[##_article_rep_summary_##]</p>
+                  </div>
+                  <div class="inpa-card-footer">
+                    <div class="inpa-author-info">
+                      <img src="[##_image_##]" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
+                      <div class="inpa-author-text">
+                        <span class="inpa-author">[##_blogger_##]</span>
+                        <span class="inpa-date">[##_article_rep_date_##]</span>
+                      </div>
+                    </div>
+                    <div class="inpa-card-stats">
+                      <div class="inpa-stat-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]
+                      </div>
+                      <div class="inpa-stat-share">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </article>
             </s_index_article_rep>
 
