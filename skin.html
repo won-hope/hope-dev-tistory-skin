@@ -24,9 +24,9 @@
       themeStyle: '[##_var_theme_style_##]',
       motionLevel: '[##_var_motion_level_##]',
       useAnimation: '[##_var_motion_level_##]' !== 'off',
-      useWeather: '[##_var_use_weather_##]' === 'true',
-      showWeatherBadge: '[##_var_show_weather_badge_##]' === 'true',
-      autoWeatherTheme: '[##_var_auto_weather_theme_##]' === 'true',
+      useWeather: '[##_var_use_weather_##]' !== 'false',
+      showWeatherBadge: '[##_var_show_weather_badge_##]' !== 'false',
+      autoWeatherTheme: '[##_var_auto_weather_theme_##]' !== 'false',
       weatherGreeting: '[##_var_weather_greeting_##]' === 'true',
       blogStartDate: '[##_var_blog_start_date_##]'
     };
@@ -239,7 +239,24 @@
       <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
       <section class="bento-posts-section">
         <div class="editorial-grid"></div>
-        <h2 class="section-title">최신 포스팅</h2>
+        
+        <h2 class="section-title home-only-title">최신 포스팅</h2>
+        <div class="category-hero-wrap list-only-title">
+          <s_list_rep>
+            <div class="category-hero-inner">
+              <div class="hero-bg-layer cubism-bg-layer">
+                <div class="cubism-shape shape-1" style="animation-delay: -2s;"></div>
+                <div class="cubism-shape shape-2" style="animation-delay: -5s;"></div>
+              </div>
+              <div class="category-hero-content">
+                <span class="category-hero-badge">Category</span>
+                <h1 class="category-hero-title">[##_list_conform_##]</h1>
+                <p class="category-hero-desc">해당 카테고리의 모든 글을 모아보세요.</p>
+              </div>
+            </div>
+          </s_list_rep>
+        </div>
+
         <div class="magazine-grid">
           <!-- Tistory loop: The CSS will automatically make the first child large -->
           <s_article_rep>
@@ -1082,6 +1099,27 @@
           badge.querySelector('.weather-text').textContent = `서울 · ${weatherKo} · ${temp}°C`;
         }
       }
+      // Populate Popular Categories
+      document.addEventListener('DOMContentLoaded', () => {
+        const catLinks = document.querySelectorAll('.header-nav .category_list > li > a');
+        const popCards = document.querySelectorAll('.popular-categories-section .cat-card');
+        if(catLinks.length > 0 && popCards.length > 0) {
+          for(let i=0; i<popCards.length; i++) {
+            if(catLinks[i]) {
+              const match = catLinks[i].textContent.match(/(.*?)\s*\((\d+)\)/);
+              let name = catLinks[i].textContent;
+              let count = '0';
+              if(match) { name = match[1].trim(); count = match[2]; }
+              
+              popCards[i].href = catLinks[i].href;
+              popCards[i].querySelector('.cat-name').textContent = name;
+              popCards[i].querySelector('.cat-count').textContent = count + " Articles";
+            } else {
+              popCards[i].style.display = 'none';
+            }
+          }
+        }
+      });
     }
   </script>
 </body>
