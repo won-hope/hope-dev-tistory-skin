@@ -5,20 +5,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>[##_page_title_##] - [##_title_##]</title>
+  <meta name="description" content="[##_desc_##]">
   <link rel="alternate" type="application/rss+xml" title="[##_title_##]" href="[##_rss_url_##]" />
+
   <link rel="stylesheet" href="./style.css">
 
   <script>
-    // Theme initialization
     const savedTheme = localStorage.getItem('theme');
     const varTheme = '[##_var_theme_mode_##]';
     if (savedTheme) {
       document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (varTheme !== 'system') {
+    } else if (varTheme !== 'system' && varTheme !== '') {
       document.documentElement.setAttribute('data-theme', varTheme);
     }
 
-    // Pass variables to script
     window.SkinOptions = {
       heroKeywords: '[##_var_hero_keywords_##]',
       themeStyle: '[##_var_theme_style_##]',
@@ -28,26 +28,29 @@
       showWeatherBadge: '[##_var_show_weather_badge_##]' !== 'false',
       autoWeatherTheme: '[##_var_auto_weather_theme_##]' !== 'false',
       weatherGreeting: '[##_var_weather_greeting_##]' === 'true',
-      blogStartDate: '[##_var_blog_start_date_##]'
+      blogStartDate: '[##_var_blog_start_date_##]' || '2024-01-01'
     };
   </script>
 </head>
 
 <body id="[##_body_id_##]">
-
+  <div id="hopePreloader" class="preloader">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
+      class="star-spinner">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+      </polygon>
+    </svg>
+  </div>
 
   <s_t3>
-    <!-- Global Canvas Effects (Meteor, Weather) -->
     <canvas id="effectCanvas" class="meteor-canvas" aria-hidden="true"></canvas>
 
-    <!-- Cubism Abstract Background -->
     <div class="cubism-bg-layer" aria-hidden="true">
       <div class="cubism-shape shape-1"></div>
       <div class="cubism-shape shape-2"></div>
-      <div class="cubism-shape shape-3"></div>
     </div>
 
-    <div id="readingProgress" class="reading-progress"></div>
+    <div id="readingProgress" class="reading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
     <header class="site-header">
       <div class="header-inner">
@@ -80,32 +83,6 @@
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
           </button>
-          <!-- Post Header Actions (Hidden by default, shown via JS in post detail) -->
-          <div id="postHeaderActions" class="post-header-actions" style="display: none;">
-            <button class="action-btn btn-heart pulse-target" aria-label="공감하기" data-count="0">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path
-                  d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                </path>
-              </svg>
-              <span class="action-count heart-count"></span>
-            </button>
-            <button class="action-btn btn-comment pulse-target" aria-label="댓글보기" data-count="0">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-              </svg>
-              <span class="action-count comment-count"></span>
-            </button>
-            <button class="action-btn btn-share" aria-label="공유하기">
-              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-              </svg>
-            </button>
-          </div>
 
           <button class="action-btn search-toggle" aria-label="검색창 열기">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -123,30 +100,26 @@
       </div>
     </header>
 
-    <!-- Landing Hero Section (Full Bleed) -->
-    <section class="hero-section">
-      <div class="hero-bg-image"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
-        <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point"
-            aria-hidden="true"></span></h1>
-        <div class="hero-divider">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-          </svg>
-        </div>
-        <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
-      </div>
-    </section>
-
     <main id="main-content" class="main-container">
 
-      <!-- 첫 화면(홈) 영역 -->
-      <div class="home-only-widgets">
+      <section class="hero-section home-only-widgets">
+        <div class="hero-bg-image"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
+          <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point"
+              aria-hidden="true"></span></h1>
+          <div class="hero-divider">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+          <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
+        </div>
+      </section>
 
-        <!-- Stats Section -->
+      <div class="home-only-widgets">
         <section class="dashboard-stats-section">
           <div class="stats-header center">
             <div class="stats-crown">
@@ -161,92 +134,63 @@
           </div>
           <div class="stats-grid">
             <div class="stat-card stat-card-visitors">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
+              <span class="stat-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                   <circle cx="9" cy="7" r="4"></circle>
                   <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                   <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg></span>
+                </svg>
+              </span>
               <span class="stat-value">[##_count_total_##]<small>명</small></span>
               <span class="stat-label">총 방문자</span>
             </div>
             <div class="stat-card stat-card-posts">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
+              <span class="stat-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                   <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg></span>
+                </svg>
+              </span>
               <span class="stat-value" id="mainTotalPosts">0<small>개</small></span>
               <span class="stat-label">총 포스팅</span>
             </div>
             <div class="stat-card stat-card-age">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
+              <span class="stat-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                   <line x1="16" y1="2" x2="16" y2="6"></line>
                   <line x1="8" y1="2" x2="8" y2="6"></line>
                   <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg></span>
+                </svg>
+              </span>
               <span class="stat-value" id="mainBlogAge">0<small>일째</small></span>
               <span class="stat-label">블로그 운영</span>
             </div>
           </div>
         </section>
 
-        <!-- Popular Categories Ranking -->
         <section class="popular-categories-section">
           <div class="section-header center">
             <h2 class="section-title"><span class="editorial-index">01 &middot;</span> 인기있는 카테고리 👑</h2>
             <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
           </div>
-          <div class="category-grid">
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-1">#1</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=200&q=80"
-                  alt="AWS"></div>
-              <h3 class="cat-name">AWS</h3>
-              <span class="cat-count">34 Articles</span>
-            </a>
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-2">#2</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=200&q=80"
-                  alt="Linux"></div>
-              <h3 class="cat-name">Linux</h3>
-              <span class="cat-count">39 Articles</span>
-            </a>
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-3">#3</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&q=80"
-                  alt="Node.js"></div>
-              <h3 class="cat-name">프론트엔드</h3>
-              <span class="cat-count">Posts</span>
-            </a>
-            <a href="/category" class="cat-card">
-              <div class="cat-badge">#4</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?w=200&q=80"
-                  alt="GIT"></div>
-              <h3 class="cat-name">백엔드</h3>
-              <span class="cat-count">Posts</span>
-            </a>
+          <div class="category-grid" id="popularCategoryGrid">
           </div>
         </section>
-
-
-
       </div>
 
-      <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
       <section class="bento-posts-section">
         <div class="editorial-grid"></div>
-        
+
         <h2 class="section-title home-only-title">최신 포스팅</h2>
+
         <div class="category-hero-wrap list-only-title">
           <s_list_rep>
             <div class="category-hero-inner">
               <div class="hero-bg-layer cubism-bg-layer">
-                <div class="cubism-shape shape-1" style="animation-delay: -2s;"></div>
-                <div class="cubism-shape shape-2" style="animation-delay: -5s;"></div>
+                <div class="cubism-shape shape-1"></div>
+                <div class="cubism-shape shape-2"></div>
               </div>
               <div class="category-hero-content">
                 <span class="category-hero-badge">Category</span>
@@ -258,194 +202,35 @@
         </div>
 
         <div class="magazine-grid">
-          <!-- Tistory loop: The CSS will automatically make the first child large -->
           <s_article_rep>
             <s_index_article_rep>
-              <article class="inpa-card">
+              <article class="inpa-card bento-card">
                 <a href="[##_article_rep_link_##]" class="inpa-card-link">
-                  <div class="inpa-card-thumb">
-                    <div class="inpa-card-fallback">
-                       <svg viewBox="0 0 100 100" width="60" height="60" fill="rgba(0,0,0,0.1)"><path d="M20,20 h60 v60 h-60 z"/><text x="50" y="55" font-size="20" text-anchor="middle" font-weight="bold" fill="rgba(0,0,0,0.3)">HTML</text></svg>
-                    </div>
+                  <div class="inpa-card-thumb bento-thumb">
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="[##_article_rep_title_##]"></div>
                     <s_article_rep_thumbnail>
-                      <img src="[##_article_rep_thumbnail_url_##]" alt="thumbnail" class="inpa-card-img">
+                      <img src="[##_article_rep_thumbnail_url_##]" alt="[##_article_rep_title_##] 썸네일"
+                        class="inpa-card-img">
                     </s_article_rep_thumbnail>
                   </div>
-                  <div class="inpa-card-body">
-                    <span class="inpa-card-badge">[##_article_rep_category_##]</span>
-                    <h3 class="inpa-card-title">[##_article_rep_title_##]</h3>
-                    <p class="inpa-card-desc">[##_article_rep_summary_##]</p>
+                  <div class="inpa-card-body bento-info">
+                    <span class="inpa-card-badge bento-category">[##_article_rep_category_##]</span>
+                    <h3 class="inpa-card-title bento-title">[##_article_rep_title_##]</h3>
+                    <p class="inpa-card-desc bento-summary">[##_article_rep_summary_##]</p>
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
                       <img src="[##_image_##]" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
                       <div class="inpa-author-text">
                         <span class="inpa-author">[##_blogger_##]</span>
-                        <span class="inpa-date">[##_article_rep_date_##]</span>
+                        <span class="inpa-date bento-date">[##_article_rep_date_##]</span>
                       </div>
                     </div>
                     <div class="inpa-card-stats">
                       <div class="inpa-stat-badge">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]
-                      </div>
-                      <div class="inpa-stat-share">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </article>
-            </s_index_article_rep>
-    <!-- Landing Hero Section (Full Bleed) -->
-    <section class="hero-section">
-      <div class="hero-bg-image"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
-        <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point"
-            aria-hidden="true"></span></h1>
-        <div class="hero-divider">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-          </svg>
-        </div>
-        <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
-      </div>
-    </section>
-
-    <main id="main-content" class="main-container">
-
-      <!-- 첫 화면(홈) 영역 -->
-      <div class="home-only-widgets">
-
-        <!-- Stats Section -->
-        <section class="dashboard-stats-section">
-          <div class="stats-header center">
-            <div class="stats-crown">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="2 4 5 16 19 16 22 4 16 11 12 4 8 11 2 4"></polygon>
-                <line x1="5" y1="20" x2="19" y2="20"></line>
-              </svg>
-            </div>
-            <h2 class="stats-title">Thanks for your support</h2>
-            <p class="stats-desc">여러분의 소중한 방문이 늘 큰 힘이 됩니다.</p>
-          </div>
-          <div class="stats-grid">
-            <div class="stat-card stat-card-visitors">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg></span>
-              <span class="stat-value">[##_count_total_##]<small>명</small></span>
-              <span class="stat-label">총 방문자</span>
-            </div>
-            <div class="stat-card stat-card-posts">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg></span>
-              <span class="stat-value" id="mainTotalPosts">0<small>개</small></span>
-              <span class="stat-label">총 포스팅</span>
-            </div>
-            <div class="stat-card stat-card-age">
-              <span class="stat-icon"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                  viewBox="0 0 24 24">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg></span>
-              <span class="stat-value" id="mainBlogAge">0<small>일째</small></span>
-              <span class="stat-label">블로그 운영</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- Popular Categories Ranking -->
-        <section class="popular-categories-section">
-          <div class="section-header center">
-            <h2 class="section-title"><span class="editorial-index">01 &middot;</span> 인기있는 카테고리 👑</h2>
-            <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
-          </div>
-          <div class="category-grid">
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-1">#1</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633412802994-5c058f151b66?w=200&q=80"
-                  alt="AWS"></div>
-              <h3 class="cat-name">AWS</h3>
-              <span class="cat-count">34 Articles</span>
-            </a>
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-2">#2</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=200&q=80"
-                  alt="Linux"></div>
-              <h3 class="cat-name">Linux</h3>
-              <span class="cat-count">39 Articles</span>
-            </a>
-            <a href="#" class="cat-card">
-              <div class="cat-badge rank-3">#3</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=200&q=80"
-                  alt="Node.js"></div>
-              <h3 class="cat-name">프론트엔드</h3>
-              <span class="cat-count">Posts</span>
-            </a>
-            <a href="/category" class="cat-card">
-              <div class="cat-badge">#4</div>
-              <div class="cat-icon"><img src="https://images.unsplash.com/photo-1618401479427-c8ef9465fbe1?w=200&q=80"
-                  alt="GIT"></div>
-              <h3 class="cat-name">백엔드</h3>
-              <span class="cat-count">Posts</span>
-            </a>
-          </div>
-        </section>
-
-
-
-      </div>
-
-      <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
-      <section class="bento-posts-section">
-        <div class="editorial-grid"></div>
-        <h2 class="section-title">최신 포스팅</h2>
-        <div class="magazine-grid">
-          <!-- Tistory loop: The CSS will automatically make the first child large -->
-          <s_article_rep>
-            <s_index_article_rep>
-              <article class="inpa-card">
-                <a href="[##_article_rep_link_##]" class="inpa-card-link">
-                  <div class="inpa-card-thumb">
-                    <div class="inpa-card-fallback">
-                       <svg viewBox="0 0 100 100" width="60" height="60" fill="rgba(0,0,0,0.1)"><path d="M20,20 h60 v60 h-60 z"/><text x="50" y="55" font-size="20" text-anchor="middle" font-weight="bold" fill="rgba(0,0,0,0.3)">HTML</text></svg>
-                    </div>
-                    <s_article_rep_thumbnail>
-                      <img src="[##_article_rep_thumbnail_url_##]" alt="thumbnail" class="inpa-card-img">
-                    </s_article_rep_thumbnail>
-                  </div>
-                  <div class="inpa-card-body">
-                    <span class="inpa-card-badge">[##_article_rep_category_##]</span>
-                    <h3 class="inpa-card-title">[##_article_rep_title_##]</h3>
-                    <p class="inpa-card-desc">[##_article_rep_summary_##]</p>
-                  </div>
-                  <div class="inpa-card-footer">
-                    <div class="inpa-author-info">
-                      <img src="[##_image_##]" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
-                      <div class="inpa-author-text">
-                        <span class="inpa-author">[##_blogger_##]</span>
-                        <span class="inpa-date">[##_article_rep_date_##]</span>
-                      </div>
-                    </div>
-                    <div class="inpa-card-stats">
-                      <div class="inpa-stat-badge">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]
-                      </div>
-                      <div class="inpa-stat-share">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg> [##_article_rep_rp_cnt_##]
                       </div>
                     </div>
                   </div>
@@ -460,10 +245,23 @@
                     <span class="inpa-post-badge">[##_article_rep_category_##]</span>
                     <h1 class="inpa-post-title">[##_article_rep_title_##]</h1>
                     <div class="inpa-post-meta">
-                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> [##_article_rep_author_##]</span>
-                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> [##_article_rep_date_##]</span>
-                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> <span class="time-val">계산중...</span></span>
-                      <span class="meta-item" style="margin-left: 1rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="12" cy="7" r="4"></circle>
+                        </svg> [##_article_rep_author_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg> [##_article_rep_date_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg> <span class="time-val">계산중...</span></span>
                     </div>
                   </div>
                 </header>
@@ -472,10 +270,9 @@
                   <div class="post-content">
                     [##_article_rep_desc_##]
 
-                    <!-- Bottom Action Bar -->
                     <div class="post-bottom-actions">
                       <div class="bottom-action-buttons">
-                        <button class="action-btn bottom-heart" aria-label="공감하기">
+                        <button class="action-btn bottom-heart pulse-target" aria-label="공감하기">
                           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path
@@ -484,50 +281,39 @@
                           </svg>
                           <span>공감</span>
                         </button>
-                        <button class="action-btn bottom-comment" aria-label="댓글달기">
+                        <button class="action-btn bottom-comment" aria-label="댓글달기"
+                          onclick="document.getElementById('commentContainer').scrollIntoView({behavior: 'smooth'})">
                           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                           </svg>
                           <span>댓글 [##_article_rep_rp_cnt_##]</span>
                         </button>
-                        <button class="action-btn bottom-share" aria-label="공유하기">
-                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <circle cx="18" cy="5" r="3"></circle>
-                            <circle cx="6" cy="12" r="3"></circle>
-                            <circle cx="18" cy="19" r="3"></circle>
-                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                          </svg>
-                          <span>공유</span>
-                        </button>
                       </div>
                     </div>
-
                   </div>
-                  <aside id="tocContainer" class="toc-container" aria-label="목차"></aside>
                 </div>
+
                 <s_tag_label>
                   <div class="post-tags">
                     [##_tag_label_rep_##]
                   </div>
                 </s_tag_label>
 
-                <!-- Related Articles -->
                 <s_article_related>
                   <div class="related-articles">
                     <h3>'[##_article_rep_category_##]' 카테고리의 다른 글</h3>
                     <ul>
                       <s_article_related_rep>
-                        <li><a href="[##_article_related_rep_link_##]">[##_article_related_rep_title_##]</a> <span
-                            class="related-date">[##_article_related_rep_date_##]</span></li>
+                        <li>
+                          <a href="[##_article_related_rep_link_##]">[##_article_related_rep_title_##]</a>
+                          <span class="related-date">[##_article_related_rep_date_##]</span>
+                        </li>
                       </s_article_related_rep>
                     </ul>
                   </div>
                 </s_article_related>
 
-                <!-- Prev / Next Articles -->
                 <div class="post-nav">
                   <s_article_prev>
                     <a href="[##_article_prev_link_##]" class="nav-prev">
@@ -543,37 +329,42 @@
                   </s_article_next>
                 </div>
 
-                
-                <!-- Floating Action Bar (Sticky UI) -->
                 <div class="fab-container">
                   <div class="fab-inner">
                     <div class="fab-item fab-page">
-                      <span class="fab-label">Page</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                      <span class="fab-label">Top</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                        <path d="M6 15l6-6 6 6" />
+                      </svg>
                     </div>
                     <div class="fab-divider"></div>
-                    <button class="fab-item fab-like pulse-target" aria-label="공감">
-                      <div class="fab-icon-wrapper">
-                        <!-- Kiss Emoji SVG -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                        <span class="fab-badge fab-badge-red" id="fabLikeCount">0</span>
-                      </div>
+                    <button class="fab-item fab-toc" aria-label="목차" id="tocToggleBtn">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                      </svg>
                     </button>
-                    <a href="#entry[##_article_rep_id_##]Comment" class="fab-item fab-comment" aria-label="댓글">
+                    <div class="fab-divider"></div>
+                    <a href="#commentContainer" class="fab-item fab-comment" aria-label="댓글">
                       <div class="fab-icon-wrapper">
-                        <!-- Comment Bubble SVG -->
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                          stroke-width="2">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
                         <span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span>
                       </div>
                     </a>
-                    <button class="fab-item fab-search search-toggle" aria-label="검색">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                    </button>
                   </div>
                 </div>
 
                 <s_rp>
-                  <div class="post-comments">
+                  <div id="commentContainer" class="post-comments">
                     <h3>댓글</h3>
                     [##_guestbook_disp_##]
                   </div>
@@ -584,15 +375,10 @@
         </div>
       </section>
 
-
-
-      <!-- 글 상세 / 리스트 (비 홈 화면) -->
       <s_page_rep>
         <div class="page-container">
           <h2>[##_article_rep_title_##]</h2>
-          <div class="page-content">
-            [##_article_rep_desc_##]
-          </div>
+          <div class="page-content">[##_article_rep_desc_##]</div>
         </div>
       </s_page_rep>
 
@@ -602,8 +388,6 @@
           <div class="page-content">[##_notice_rep_desc_##]</div>
         </div>
       </s_notice_rep>
-
-
 
       <s_tag>
         <div class="page-container tag-container">
@@ -622,39 +406,42 @@
           [##_guestbook_disp_##]
         </div>
       </s_guest>
-
     </main>
 
-    <!-- Pre-Footer Widgets (3 Columns) -->
     <aside class="pre-footer-widgets">
+      <svg class="pre-footer-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
+        <path fill="#12121a" fill-opacity="1"
+          d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,42.7C672,32,768,32,864,37.3C960,43,1056,53,1152,58.7C1248,64,1344,64,1392,64L1440,64L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z">
+        </path>
+      </svg>
       <div class="widget-grid">
         <s_sidebar>
           <s_sidebar_element>
-            <!-- 최신 댓글 -->
             <div class="widget-col">
               <h3 class="widget-title">최근 댓글 <span class="badge-new">new</span></h3>
               <ul class="widget-list comment-list">
                 <s_rctrp_rep>
                   <li>
                     <a href="[##_rctrp_rep_link_##]">
-                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
                         viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                       </svg>
                       <span class="text">[##_rctrp_rep_desc_##]</span>
                     </a>
-                    <span class="author"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                      </svg> [##_rctrp_rep_name_##]</span>
+                    <span class="author">
+                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                      </svg>
+                      [##_rctrp_rep_name_##]
+                    </span>
                   </li>
                 </s_rctrp_rep>
               </ul>
             </div>
           </s_sidebar_element>
           <s_sidebar_element>
-            <!-- 최신 글 -->
             <div class="widget-col">
               <h3 class="widget-title">최근 글 <span class="badge-new">new</span></h3>
               <ul class="widget-list post-list">
@@ -673,7 +460,6 @@
             </div>
           </s_sidebar_element>
           <s_sidebar_element>
-            <!-- 인기 글 -->
             <div class="widget-col">
               <h3 class="widget-title">인기 글 <span class="badge-hot">hot</span></h3>
               <ul class="widget-list post-list">
@@ -695,15 +481,21 @@
       </div>
     </aside>
 
-    <footer class="site-footer">
-      <div class="footer-inner">
-        <p class="copyright">&copy; [##_title_##]. All rights reserved.</p>
+    <footer class="site-footer" style="background: #0d0d12; border:none;">
+      <div class="footer-inner" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top:2rem;">
+        <p class="copyright" style="color: #6c757d;">&copy; Copyright 2024 [##_title_##]. All rights reserved.</p>
       </div>
     </footer>
-
   </s_t3>
 
-  <!-- Tistory Search Overlay (Hidden by default) -->
+  <aside id="sideTocPanel" class="side-toc-panel">
+    <div class="side-toc-header">
+      <h3>목차</h3>
+      <button id="tocCloseBtn" aria-label="닫기">×</button>
+    </div>
+    <div id="sideTocContent" class="side-toc-content"></div>
+  </aside>
+
   <s_search>
     <div id="searchOverlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="검색창"
       style="display:none;">
@@ -716,519 +508,54 @@
     </div>
   </s_search>
 
-  <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
-    <div class="sidebar-header">
-      <h2>메뉴</h2>
-      <button class="sidebar-close" aria-label="닫기">X</button>
-    </div>
-    <div class="sidebar-content">
-
-      <!-- Sidebar Profile -->
-      <div class="sidebar-profile">
-        <div class="profile-avatar">
-          <img src="[##_image_##]" alt="profile"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="avatar-fallback" style="display:none;">[##_title_##]</div>
-        </div>
-        <div class="profile-info">
-          <h3 class="profile-name">[##_title_##]</h3>
-          <span class="profile-desc">[##_blogger_##]</span>
-        </div>
-      </div>
-
-      <!-- Quick Links -->
-      <div class="sidebar-quick-links">
-        <a href="/" aria-label="홈으로">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-          </svg>
-        </a>
-        <a href="#" class="search-toggle" aria-label="검색">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </a>
-        <a href="/manage" aria-label="관리자">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </a>
-      </div>
-
-      <hr class="sidebar-divider">
-
-      [##_category_list_##]
-    </div>
-  </aside>
-
-  <!-- Toast Message -->
-  <div id="toastMessage" class="toast-message" aria-live="polite"></div>
-
-  <script>
-    /**
-     * HOPEDEV Editorial Cubism Skin Script
-     * Vanilla JS implementation
-     */
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initThemeToggle();
-      initSearchToggle();
-      initSidebarToggle();
-      initTOC();
-      if (window.SkinOptions && window.SkinOptions.useAnimation) {
-        initTypingAnimation();
-      }
-      if (window.SkinOptions && window.SkinOptions.useWeather) {
-        initWeatherTheme();
-      }
-    });
-
-
-    /* --------------------------------------------------------------------------
-       Sidebar Toggle
-       -------------------------------------------------------------------------- */
-    function initSidebarToggle() {
-      const toggleBtn = document.querySelector('.star-menu-btn');
-      const drawer = document.getElementById('sidebarDrawer');
-      const overlay = document.getElementById('sidebarOverlay');
-      const closeBtn = document.querySelector('.sidebar-close');
-
-      if (!toggleBtn || !drawer || !overlay) return;
-
-      const openSidebar = () => {
-        drawer.classList.add('open');
-        overlay.classList.add('show');
-        document.body.style.overflow = 'hidden';
-      };
-
-      const closeSidebar = () => {
-        drawer.classList.remove('open');
-        overlay.classList.remove('show');
-        document.body.style.overflow = '';
-      };
-
-      toggleBtn.addEventListener('click', openSidebar);
-      closeBtn.addEventListener('click', closeSidebar);
-      overlay.addEventListener('click', closeSidebar);
-    }
-
-    /* --------------------------------------------------------------------------
-       TOC Generation
-       -------------------------------------------------------------------------- */
-    function initTOC() {
-      const content = document.querySelector('.post-content');
-      const tocContainer = document.getElementById('tocContainer');
-
-      if (!content || !tocContainer) return;
-
-      const headings = content.querySelectorAll('h2, h3');
-      if (headings.length === 0) return;
-
-      const title = document.createElement('h3');
-      title.textContent = '목차';
-      title.style.marginBottom = '1rem';
-      title.style.fontWeight = '700';
-      tocContainer.appendChild(title);
-
-      headings.forEach((heading, index) => {
-        if (!heading.id) {
-          heading.id = 'heading-' + index;
-        }
-
-        const link = document.createElement('a');
-        link.href = '#' + heading.id;
-        link.textContent = heading.textContent;
-
-        if (heading.tagName.toLowerCase() === 'h3') {
-          link.classList.add('toc-h3');
-        }
-
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.getElementById(heading.id);
-          if (target) {
-            window.scrollTo({
-              top: target.offsetTop - 100,
-              behavior: 'smooth'
-            });
-          }
-        });
-
-        tocContainer.appendChild(link);
-      });
-      tocContainer.style.display = 'block';
-    }
-
-    /* --------------------------------------------------------------------------
-       Theme Toggle
-       -------------------------------------------------------------------------- */
-    function initThemeToggle() {
-      const btn = document.getElementById('themeToggleBtn');
-      if (!btn) return;
-
-      const sunIcon = btn.querySelector('.icon-sun');
-      const moonIcon = btn.querySelector('.icon-moon');
-      const html = document.documentElement;
-
-      const updateIcon = (theme) => {
-        if (theme === 'dark') {
-          sunIcon.style.display = 'none';
-          moonIcon.style.display = 'block';
-        } else {
-          sunIcon.style.display = 'block';
-          moonIcon.style.display = 'none';
-        }
-      };
-
-      // Initial icon
-      const currentTheme = html.getAttribute('data-theme') || 'light';
-      updateIcon(currentTheme);
-
-      btn.addEventListener('click', () => {
-        let current = html.getAttribute('data-theme');
-        let next = current === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('theme', next);
-        updateIcon(next);
-      });
-    }
-
-    /* --------------------------------------------------------------------------
-       Search Toggle
-       -------------------------------------------------------------------------- */
-    function initSearchToggle() {
-      const toggleBtn = document.querySelector('.search-toggle');
-      const overlay = document.getElementById('searchOverlay');
-      const closeBtn = document.querySelector('.search-close');
-
-      if (!toggleBtn || !overlay) return;
-
-      toggleBtn.addEventListener('click', () => {
-        overlay.style.display = 'flex';
-        const input = overlay.querySelector('input');
-        if (input) input.focus();
-      });
-
-      closeBtn.addEventListener('click', () => {
-        overlay.style.display = 'none';
-      });
-    }
-
-    /* --------------------------------------------------------------------------
-       Typing Animation
-       -------------------------------------------------------------------------- */
-    function initTypingAnimation() {
-      const target = document.getElementById('heroTypingText');
-      if (!target || !window.SkinOptions.heroKeywords) return;
-
-      // Split by comma and trim
-      const keywords = window.SkinOptions.heroKeywords.split(',').map(s => s.trim()).filter(Boolean);
-      if (keywords.length === 0) return;
-
-      // Respect reduced motion
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        target.textContent = keywords[0];
-        return;
-      }
-
-      let wordIndex = 0;
-      let charIndex = 0;
-      let isDeleting = false;
-
-      function type() {
-        const currentWord = keywords[wordIndex];
-
-        if (isDeleting) {
-          target.textContent = currentWord.substring(0, charIndex - 1);
-          charIndex--;
-        } else {
-          target.textContent = currentWord.substring(0, charIndex + 1);
-          charIndex++;
-        }
-
-        let typeSpeed = isDeleting ? 50 : 100;
-
-        if (!isDeleting && charIndex === currentWord.length) {
-          typeSpeed = 2000; // Pause at end of word
-          isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-          isDeleting = false;
-          wordIndex = (wordIndex + 1) % keywords.length;
-          typeSpeed = 500; // Pause before typing next
-        }
-
-        setTimeout(type, typeSpeed);
-      }
-
-      // Start
-      setTimeout(type, 1000);
-    }
-
-    /* --------------------------------------------------------------------------
-       Weather API (Seoul) - Open-Meteo
-       -------------------------------------------------------------------------- */
-    async function initWeatherTheme() {
-      const CACHE_KEY = 'hopedev_weather_cache';
-      const CACHE_MINS = 30;
-
-      // Seoul Coordinates
-      const lat = 37.5665;
-      const lon = 126.9780;
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover&timezone=Asia%2FSeoul`;
-
-      let weatherData = null;
-
-      // Check cache
-      try {
-        const cached = localStorage.getItem(CACHE_KEY);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          const now = new Date().getTime();
-          if (now - parsed.timestamp < CACHE_MINS * 60 * 1000) {
-            weatherData = parsed.data;
-          }
-        }
-      } catch (e) { }
-
-      if (!weatherData) {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) throw new Error('API Error');
-          const json = await res.json();
-          weatherData = json.current;
-
-          // Save cache
-          localStorage.setItem(CACHE_KEY, JSON.stringify({
-            timestamp: new Date().getTime(),
-            data: weatherData
-          }));
-        } catch (err) {
-          console.warn('Weather fetch failed. Using fallback.');
-          document.documentElement.setAttribute('data-weather', 'none');
-          return;
-        }
-      }
-
-      applyWeatherTheme(weatherData);
-    }
-
-    function applyWeatherTheme(current) {
-      const code = current.weather_code;
-      const isDay = current.is_day === 1;
-      const temp = Math.round(current.temperature_2m);
-      const snow = current.snowfall > 0;
-      const rain = current.precipitation > 0 || current.rain > 0 || current.showers > 0;
-
-      let weatherState = 'sunny';
-      let weatherKo = '맑음';
-
-      // Logic prioritizing snow/rain
-      if (snow) {
-        weatherState = 'snowy';
-        weatherKo = '눈';
-      } else if (rain) {
-        weatherState = 'rainy';
-        weatherKo = '비';
-      } else {
-        // 0: Clear sky
-        // 1, 2, 3: Mainly clear, partly cloudy, and overcast
-        // 45, 48: Fog
-        if ([0, 1].includes(code)) {
-          weatherState = 'sunny';
-          weatherKo = '맑음';
-        } else if ([2, 3, 45, 48].includes(code)) {
-          weatherState = 'cloudy';
-          weatherKo = '흐림';
-        } else {
-          // Fallback for missing unmapped codes
-          weatherState = 'cloudy';
-          weatherKo = '흐림';
-        }
-      }
-
-      // Night modifier
-      if (!isDay) {
-        weatherState = 'night';
-      }
-
-      // Set Theme if auto is true or unset
-      if (window.SkinOptions.autoWeatherTheme) {
-        document.documentElement.setAttribute('data-weather', weatherState);
-      }
-
-      // Set Badge
-      if (window.SkinOptions.showWeatherBadge) {
-        const badge = document.getElementById('weatherBadge');
-        if (badge) {
-          badge.style.display = 'flex';
-          badge.querySelector('.weather-text').textContent = `서울 · ${weatherKo} · ${temp}°C`;
-        }
-      }
-    } // End of applyWeatherTheme
-
-    // ==========================================
-    // HOTFIX: Restore Scope & Features
-    // ==========================================
-    document.addEventListener('DOMContentLoaded', () => {
-      
-      // 1. Popular Categories
-      const catLinks = document.querySelectorAll('.header-nav .category_list > li > a, .header-nav .category_list > li > ul > li > a');
-      const popCards = document.querySelectorAll('.popular-categories-section .cat-card');
-      if(catLinks.length > 0 && popCards.length > 0) {
-        for(let i=0; i<popCards.length; i++) {
-          if(catLinks[i]) {
-            const match = catLinks[i].textContent.match(/(.*?)\s*\((\d+)\)/);
-            let name = catLinks[i].textContent;
-            let count = '0';
-            if(match) { name = match[1].trim(); count = match[2]; }
-            
-            popCards[i].href = catLinks[i].href;
-            popCards[i].querySelector('.cat-name').textContent = name;
-            popCards[i].querySelector('.cat-count').textContent = count + " Articles";
-          } else {
-            popCards[i].style.display = 'none';
-          }
-        }
-      }
-
-      // 2. Stats Counters (Blog Age, Total Posts)
-      const startDateStr = window.SkinOptions && window.SkinOptions.blogStartDate ? window.SkinOptions.blogStartDate : '2024-01-01';
-      const start = new Date(startDateStr).getTime();
-      const now = new Date().getTime();
-      const diffDays = Math.floor((now - start) / (1000 * 60 * 60 * 24));
-      
-      const ageEl = document.getElementById('mainBlogAge');
-      if (ageEl) ageEl.innerHTML = diffDays + '<small>일째</small>';
-
-      const totalPostsEl = document.getElementById('mainTotalPosts');
-      if (totalPostsEl) {
-        let total = 0;
-        // Search all sub-category links in the mega menu
-        const subLinks = document.querySelectorAll('.header-nav .category_list > li > ul > li > a');
-        if (subLinks.length > 0) {
-          subLinks.forEach(link => {
-            const match = link.textContent.match(/\((\d+)\)/);
-            if(match) total += parseInt(match[1]);
-          });
-        } else {
-          // If no subcategories, search main categories
-          const mainLinks = document.querySelectorAll('.header-nav .category_list > li > a');
-          mainLinks.forEach(link => {
-            const match = link.textContent.match(/\((\d+)\)/);
-            if(match) total += parseInt(match[1]);
-          });
-        }
-        if (total > 0) {
-          totalPostsEl.innerHTML = total + '<small>개</small>';
-        } else {
-          // Fallback if no counts are found
-          totalPostsEl.innerHTML = document.querySelectorAll('.inpa-card').length + 10 + '<small>개</small>';
-        }
-      }
-
-      // 3. Preloader Hide Failsafe
-      const preloader = document.getElementById('hopePreloader');
-      if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => { if(preloader.parentNode) preloader.remove(); }, 500);
-      }
-
-      // 4. Initialize TOC (Table of Contents)
-      initTOC();
-    });
-
-    // Sidebar Logic
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.querySelector('.star-menu-btn');
-      const sidebar = document.getElementById('sidebarDrawer');
-      if (menuBtn && sidebar) {
-        menuBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          sidebar.classList.toggle('active');
-        });
-        const closeBtn = sidebar.querySelector('.sidebar-close');
-        if(closeBtn) closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
-      }
-    });
-
-    // ==========================================
-    // TOC Generation Logic
-    // ==========================================
-    function initTOC() {
-      const content = document.querySelector('.post-content');
-      const tocContainer = document.getElementById('tocContainer');
-      
-      if (!content || !tocContainer) return;
-
-      const headings = content.querySelectorAll('h2, h3');
-      if (headings.length === 0) return;
-
-      const title = document.createElement('div');
-      title.textContent = '목차';
-      title.style.fontSize = '1.125rem';
-      title.style.marginBottom = '1rem';
-      title.style.fontWeight = '700';
-      title.style.color = 'var(--text-color)';
-      tocContainer.appendChild(title);
-
-      headings.forEach((heading, index) => {
-        if (!heading.id) heading.id = 'toc-heading-' + index;
-
-        const link = document.createElement('a');
-        link.href = '#' + heading.id;
-        link.textContent = heading.textContent;
-        link.className = 'toc-link';
-        
-        if (heading.tagName.toLowerCase() === 'h3') {
-          link.classList.add('toc-h3');
-          link.style.paddingLeft = '1rem';
-        }
-
-        link.style.display = 'block';
-        link.style.color = 'var(--text-muted)';
-        link.style.textDecoration = 'none';
-        link.style.marginBottom = '0.5rem';
-        link.style.fontSize = '0.95rem';
-
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const target = document.getElementById(heading.id);
-          if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-
-        tocContainer.appendChild(link);
-      });
-      tocContainer.style.display = 'block';
-    }
-  </script>
-
-  <!-- Restored UI Components: Preloader & Sidebar -->
-  <div id="hopePreloader" class="preloader" style="position: fixed; inset: 0; background: var(--bg-color); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease-out;">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2" style="animation: spin 2s linear infinite;">
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-    </svg>
-    <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
-  </div>
-
-  <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
     <div class="sidebar-inner">
-      <button class="sidebar-close" aria-label="닫기">✕</button>
-      <div class="sidebar-profile">
-        <div class="sidebar-avatar">H</div>
-        <h3 class="sidebar-name">HOPEDEV DEVLOG</h3>
-        <p class="sidebar-bio">Hope Developer</p>
+      <div class="sidebar-header">
+        <h2>메뉴</h2>
+        <button class="sidebar-close" aria-label="닫기">X</button>
       </div>
       <div class="sidebar-content">
+        <div class="sidebar-profile">
+          <div class="profile-avatar">
+            <img src="[##_image_##]" alt="profile"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="avatar-fallback" style="display:none;">[##_title_##]</div>
+          </div>
+          <div class="profile-info">
+            <h3 class="profile-name">[##_title_##]</h3>
+            <span class="profile-desc">[##_blogger_##]</span>
+          </div>
+        </div>
+        <div class="sidebar-quick-links">
+          <a href="/" aria-label="홈으로">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </a>
+          <a href="#" class="search-toggle" aria-label="검색">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </a>
+          <a href="/manage" aria-label="관리자">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </a>
+        </div>
+        <hr class="sidebar-divider">
         [##_category_list_##]
       </div>
     </div>
   </aside>
 
+  <div id="toastMessage" class="toast-message" aria-live="polite"></div>
+
+  <script src="./images/script.js"></script>
 </body>
 
 </html>
