@@ -569,7 +569,8 @@ html[data-motion="subtle"] .star-menu-btn.anim-once svg { animation: spin-top 1.
 .stat-label { 
   font-size: 0.9375rem; 
   font-weight: 700; 
-  color: var(--text-muted); 
+  color: var(--card-color); 
+  opacity: 0.8;
   margin-top: 0.5rem; 
 }
 
@@ -620,29 +621,52 @@ html[data-motion="subtle"] .star-menu-btn.anim-once svg { animation: spin-top 1.
 }
 
 .magazine-grid {
-  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+  display: block; /* Default block for post details */
   max-width: var(--content-width); margin: 0 auto;
 }
+
+/* Apply grid ONLY on list pages (Home, Category, Search, Tag) */
+body#tt-body-index .magazine-grid,
+body#tt-body-category .magazine-grid,
+body#tt-body-search .magazine-grid,
+body#tt-body-tag .magazine-grid {
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+}
 @media (min-width: 768px) {
-  .magazine-grid { grid-template-columns: repeat(2, 1fr); }
+  body#tt-body-index .magazine-grid,
+  body#tt-body-category .magazine-grid,
+  body#tt-body-search .magazine-grid,
+  body#tt-body-tag .magazine-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1024px) {
-  .magazine-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(180px, auto); }
+  body#tt-body-index .magazine-grid,
+  body#tt-body-category .magazine-grid,
+  body#tt-body-search .magazine-grid,
+  body#tt-body-tag .magazine-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: minmax(180px, auto); }
   
   /* Make the first article large! */
-  .magazine-grid article:first-child {
+  body#tt-body-index .magazine-grid article.bento-card:first-child,
+  body#tt-body-category .magazine-grid article.bento-card:first-child {
     grid-column: span 2; grid-row: span 3;
     display: flex; flex-direction: column;
   }
-  .magazine-grid article:first-child .bento-thumb {
+  body#tt-body-index .magazine-grid article.bento-card:first-child .bento-thumb,
+  body#tt-body-category .magazine-grid article.bento-card:first-child .bento-thumb {
     height: 300px; flex-shrink: 0; background-color: var(--bg-color);
   }
-  .magazine-grid article:first-child .bento-info {
+  body#tt-body-index .magazine-grid article.bento-card:first-child .bento-info,
+  body#tt-body-category .magazine-grid article.bento-card:first-child .bento-info {
     flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 2rem;
   }
-  .magazine-grid article:first-child .bento-title { font-size: 1.8rem; }
-  .magazine-grid article:first-child .bento-summary { display: block; font-size: 1rem; margin-bottom: 1rem; }
+  body#tt-body-index .magazine-grid article.bento-card:first-child .bento-title,
+  body#tt-body-category .magazine-grid article.bento-card:first-child .bento-title { font-size: 1.8rem; }
+  body#tt-body-index .magazine-grid article.bento-card:first-child .bento-summary,
+  body#tt-body-category .magazine-grid article.bento-card:first-child .bento-summary { display: block; font-size: 1rem; margin-bottom: 1rem; }
 }
+
+/* Hide Home-Only sections on non-home pages */
+body:not(#tt-body-index) .home-only-widgets { display: none !important; }
+body:not(#tt-body-index) .hero-section { display: none !important; }
 
 .bento-card {
   position: relative;

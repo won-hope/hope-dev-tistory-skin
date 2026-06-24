@@ -144,7 +144,7 @@
     <main id="main-content" class="main-container">
 
       <!-- 첫 화면(홈) 영역 -->
-      <s_cover_group>
+      <div class="home-only-widgets">
 
         <!-- Stats Section -->
         <section class="dashboard-stats-section">
@@ -234,7 +234,9 @@
 
 
 
-        <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
+        </div>
+
+      <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
         <section class="bento-posts-section">
           <div class="editorial-grid"></div>
           <h2 class="section-title">최신 포스팅</h2>
@@ -257,31 +259,8 @@
                   </div>
                 </article>
               </s_index_article_rep>
-            </s_article_rep>
-          </div>
-        </section>
 
-      </s_cover_group>
-
-      <!-- 글 상세 / 리스트 (비 홈 화면) -->
-      <s_page_rep>
-        <div class="page-container">
-          <h2>[##_article_rep_title_##]</h2>
-          <div class="page-content">
-            [##_article_rep_desc_##]
-          </div>
-        </div>
-      </s_page_rep>
-
-      <s_notice_rep>
-        <div class="page-container notice-container">
-          <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
-          <div class="page-content">[##_notice_rep_desc_##]</div>
-        </div>
-      </s_notice_rep>
-
-      <s_article_rep>
-        <s_permalink_article_rep>
+            <s_permalink_article_rep>
           <article class="post-detail">
             <header class="post-header">
               <div class="post-category-tag">[##_article_rep_category_##]</div>
@@ -390,7 +369,30 @@
             </s_rp>
           </article>
         </s_permalink_article_rep>
-      </s_article_rep>
+            </s_article_rep>
+          </div>
+        </section>
+
+      
+
+      <!-- 글 상세 / 리스트 (비 홈 화면) -->
+      <s_page_rep>
+        <div class="page-container">
+          <h2>[##_article_rep_title_##]</h2>
+          <div class="page-content">
+            [##_article_rep_desc_##]
+          </div>
+        </div>
+      </s_page_rep>
+
+      <s_notice_rep>
+        <div class="page-container notice-container">
+          <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
+          <div class="page-content">[##_notice_rep_desc_##]</div>
+        </div>
+      </s_notice_rep>
+
+      
 
       <s_tag>
         <div class="page-container tag-container">
