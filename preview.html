@@ -506,6 +506,16 @@
       tocContainer.style.display = 'block';
     }
 
+    
+    /* Fetch Tistory Native Like Count */
+    setTimeout(() => {
+      const nativeLikeSpan = document.querySelector('.wrap_btn .em_stat');
+      const fabLikeCount = document.getElementById('fabLikeCount');
+      if (nativeLikeSpan && fabLikeCount) {
+        fabLikeCount.textContent = nativeLikeSpan.textContent;
+      }
+    }, 2000); // Delay to allow Tistory AJAX to load
+
     /* --------------------------------------------------------------------------
        Theme Toggle
        -------------------------------------------------------------------------- */

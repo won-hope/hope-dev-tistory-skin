@@ -234,149 +234,179 @@
 
 
 
-        </div>
+      </div>
 
       <!-- Bento Grid Recent Posts (Magazine Layout: 1 Big + 3 Small) -->
-        <section class="bento-posts-section">
-          <div class="editorial-grid"></div>
-          <h2 class="section-title">최신 포스팅</h2>
-          <div class="magazine-grid">
-            <!-- Tistory loop: The CSS will automatically make the first child large -->
-            <s_article_rep>
-              <s_index_article_rep>
-                <article class="bento-card">
-                  <div class="bento-fallback-cover" data-initial="[##_article_rep_category_##]"></div>
-                  <s_article_rep_thumbnail>
-                    <div class="bento-thumb"
-                      style="background-image:url('[##_article_rep_thumbnail_url_##]'); background-size:cover; background-position:center;">
-                    </div>
-                  </s_article_rep_thumbnail>
-                  <div class="bento-info">
-                    <span class="bento-category">[##_article_rep_category_##]</span>
-                    <h3 class="bento-title"><a href="[##_article_rep_link_##]">[##_article_rep_title_##]</a></h3>
-                    <p class="bento-summary">[##_article_rep_summary_##]</p>
-                    <span class="bento-date">[##_article_rep_date_##]</span>
+      <section class="bento-posts-section">
+        <div class="editorial-grid"></div>
+        <h2 class="section-title">최신 포스팅</h2>
+        <div class="magazine-grid">
+          <!-- Tistory loop: The CSS will automatically make the first child large -->
+          <s_article_rep>
+            <s_index_article_rep>
+              <article class="bento-card">
+                <div class="bento-fallback-cover" data-initial="[##_article_rep_category_##]"></div>
+                <s_article_rep_thumbnail>
+                  <div class="bento-thumb"
+                    style="background-image:url('[##_article_rep_thumbnail_url_##]'); background-size:cover; background-position:center;">
                   </div>
-                </article>
-              </s_index_article_rep>
+                </s_article_rep_thumbnail>
+                <div class="bento-info">
+                  <span class="bento-category">[##_article_rep_category_##]</span>
+                  <h3 class="bento-title"><a href="[##_article_rep_link_##]">[##_article_rep_title_##]</a></h3>
+                  <p class="bento-summary">[##_article_rep_summary_##]</p>
+                  <span class="bento-date">[##_article_rep_date_##]</span>
+                </div>
+              </article>
+            </s_index_article_rep>
 
             <s_permalink_article_rep>
-          <article class="post-detail">
-            <header class="post-header">
-              <div class="post-category-tag">[##_article_rep_category_##]</div>
-              <h1 class="post-title">[##_article_rep_title_##]</h1>
-              <div class="post-meta">
-                <span class="post-author"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg> [##_article_rep_author_##]</span>
-                <span class="post-date"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg> [##_article_rep_date_##]</span>
-                <span id="readTime" class="post-read-time"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                  </svg> <span class="time-val">계산중...</span></span>
-                <span class="post-comments-count" style="margin-left: 1rem;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                  </svg> [##_article_rep_rp_cnt_##]</span>
-              </div>
-            </header>
-
-            <div class="post-body-wrap">
-              <div class="post-content">
-                [##_article_rep_desc_##]
-
-                <!-- Bottom Action Bar -->
-                <div class="post-bottom-actions">
-                  <div class="bottom-action-buttons">
-                    <button class="action-btn bottom-heart" aria-label="공감하기">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <path
-                          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                        </path>
-                      </svg>
-                      <span>공감</span>
-                    </button>
-                    <button class="action-btn bottom-comment" aria-label="댓글달기">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
+              <article class="post-detail">
+                <header class="post-header">
+                  <div class="post-category-tag">[##_article_rep_category_##]</div>
+                  <h1 class="post-title">[##_article_rep_title_##]</h1>
+                  <div class="post-meta">
+                    <span class="post-author"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg> [##_article_rep_author_##]</span>
+                    <span class="post-date"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                      </svg> [##_article_rep_date_##]</span>
+                    <span id="readTime" class="post-read-time"><svg width="14" height="14" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                      </svg> <span class="time-val">계산중...</span></span>
+                    <span class="post-comments-count" style="margin-left: 1rem;"><svg width="14" height="14"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                      </svg>
-                      <span>댓글 [##_article_rep_rp_cnt_##]</span>
+                      </svg> [##_article_rep_rp_cnt_##]</span>
+                  </div>
+                </header>
+
+                <div class="post-body-wrap">
+                  <div class="post-content">
+                    [##_article_rep_desc_##]
+
+                    <!-- Bottom Action Bar -->
+                    <div class="post-bottom-actions">
+                      <div class="bottom-action-buttons">
+                        <button class="action-btn bottom-heart" aria-label="공감하기">
+                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path
+                              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                            </path>
+                          </svg>
+                          <span>공감</span>
+                        </button>
+                        <button class="action-btn bottom-comment" aria-label="댓글달기">
+                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                          </svg>
+                          <span>댓글 [##_article_rep_rp_cnt_##]</span>
+                        </button>
+                        <button class="action-btn bottom-share" aria-label="공유하기">
+                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <circle cx="18" cy="5" r="3"></circle>
+                            <circle cx="6" cy="12" r="3"></circle>
+                            <circle cx="18" cy="19" r="3"></circle>
+                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                          </svg>
+                          <span>공유</span>
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                  <aside id="tocContainer" class="toc-container" aria-label="목차"></aside>
+                </div>
+                <s_tag_label>
+                  <div class="post-tags">
+                    [##_tag_label_rep_##]
+                  </div>
+                </s_tag_label>
+
+                <!-- Related Articles -->
+                <s_article_related>
+                  <div class="related-articles">
+                    <h3>'[##_article_rep_category_##]' 카테고리의 다른 글</h3>
+                    <ul>
+                      <s_article_related_rep>
+                        <li><a href="[##_article_related_rep_link_##]">[##_article_related_rep_title_##]</a> <span
+                            class="related-date">[##_article_related_rep_date_##]</span></li>
+                      </s_article_related_rep>
+                    </ul>
+                  </div>
+                </s_article_related>
+
+                <!-- Prev / Next Articles -->
+                <div class="post-nav">
+                  <s_article_prev>
+                    <a href="[##_article_prev_link_##]" class="nav-prev">
+                      <span class="nav-label">이전 글</span>
+                      <span class="nav-title">[##_article_prev_title_##]</span>
+                    </a>
+                  </s_article_prev>
+                  <s_article_next>
+                    <a href="[##_article_next_link_##]" class="nav-next">
+                      <span class="nav-label">다음 글</span>
+                      <span class="nav-title">[##_article_next_title_##]</span>
+                    </a>
+                  </s_article_next>
+                </div>
+
+                
+                <!-- Floating Action Bar (Sticky UI) -->
+                <div class="fab-container">
+                  <div class="fab-inner">
+                    <div class="fab-item fab-page">
+                      <span class="fab-label">Page</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="fab-divider"></div>
+                    <button class="fab-item fab-like pulse-target" aria-label="공감">
+                      <div class="fab-icon-wrapper">
+                        <!-- Kiss Emoji SVG -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <span class="fab-badge fab-badge-red" id="fabLikeCount">0</span>
+                      </div>
                     </button>
-                    <button class="action-btn bottom-share" aria-label="공유하기">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                        viewBox="0 0 24 24">
-                        <circle cx="18" cy="5" r="3"></circle>
-                        <circle cx="6" cy="12" r="3"></circle>
-                        <circle cx="18" cy="19" r="3"></circle>
-                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                      </svg>
-                      <span>공유</span>
+                    <a href="#entry[##_article_rep_id_##]Comment" class="fab-item fab-comment" aria-label="댓글">
+                      <div class="fab-icon-wrapper">
+                        <!-- Comment Bubble SVG -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span>
+                      </div>
+                    </a>
+                    <button class="fab-item fab-search search-toggle" aria-label="검색">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                     </button>
                   </div>
                 </div>
 
-              </div>
-              <aside id="tocContainer" class="toc-container" aria-label="목차"></aside>
-            </div>
-            <s_tag_label>
-              <div class="post-tags">
-                [##_tag_label_rep_##]
-              </div>
-            </s_tag_label>
+                <s_rp>
+                  <div class="post-comments">
+                    <h3>댓글</h3>
+                    [##_guestbook_disp_##]
+                  </div>
+                </s_rp>
+              </article>
+            </s_permalink_article_rep>
+          </s_article_rep>
+        </div>
+      </section>
 
-            <!-- Related Articles -->
-            <s_article_related>
-              <div class="related-articles">
-                <h3>'[##_article_rep_category_##]' 카테고리의 다른 글</h3>
-                <ul>
-                  <s_article_related_rep>
-                    <li><a href="[##_article_related_rep_link_##]">[##_article_related_rep_title_##]</a> <span
-                        class="related-date">[##_article_related_rep_date_##]</span></li>
-                  </s_article_related_rep>
-                </ul>
-              </div>
-            </s_article_related>
 
-            <!-- Prev / Next Articles -->
-            <div class="post-nav">
-              <s_article_prev>
-                <a href="[##_article_prev_link_##]" class="nav-prev">
-                  <span class="nav-label">이전 글</span>
-                  <span class="nav-title">[##_article_prev_title_##]</span>
-                </a>
-              </s_article_prev>
-              <s_article_next>
-                <a href="[##_article_next_link_##]" class="nav-next">
-                  <span class="nav-label">다음 글</span>
-                  <span class="nav-title">[##_article_next_title_##]</span>
-                </a>
-              </s_article_next>
-            </div>
-
-            <s_rp>
-              <div class="post-comments">
-                <h3>댓글</h3>
-                [##_guestbook_disp_##]
-              </div>
-            </s_rp>
-          </article>
-        </s_permalink_article_rep>
-            </s_article_rep>
-          </div>
-        </section>
-
-      
 
       <!-- 글 상세 / 리스트 (비 홈 화면) -->
       <s_page_rep>
@@ -395,7 +425,7 @@
         </div>
       </s_notice_rep>
 
-      
+
 
       <s_tag>
         <div class="page-container tag-container">
@@ -580,7 +610,7 @@
       }
     });
 
-    
+
     /* --------------------------------------------------------------------------
        Sidebar Toggle
        -------------------------------------------------------------------------- */
@@ -615,7 +645,7 @@
     function initTOC() {
       const content = document.querySelector('.post-content');
       const tocContainer = document.getElementById('tocContainer');
-      
+
       if (!content || !tocContainer) return;
 
       const headings = content.querySelectorAll('h2, h3');
@@ -635,7 +665,7 @@
         const link = document.createElement('a');
         link.href = '#' + heading.id;
         link.textContent = heading.textContent;
-        
+
         if (heading.tagName.toLowerCase() === 'h3') {
           link.classList.add('toc-h3');
         }
