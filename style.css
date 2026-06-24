@@ -1365,8 +1365,8 @@ html[data-theme-style="minimal"] .sidebar-drawer {
 /* --------------------------------------------------------------------------
    Category Header (Inpa Style)
    -------------------------------------------------------------------------- */
-body:not(#tt-body-index) .home-only-title { display: none; }
-body#tt-body-index .list-only-title { display: none; }
+body:not(#tt-body-index) .home-only-title { display: none !important; }
+body#tt-body-index .list-only-title { display: none !important; }
 
 .category-header-wrap {
   text-align: center;

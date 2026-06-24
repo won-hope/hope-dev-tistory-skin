@@ -289,11 +289,13 @@
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> [##_article_rep_rp_cnt_##]
                       </div>
                       <div class="inpa-stat-share">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></c"0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> 1�?/span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                      </div>
                     </div>
                   </div>
-                </header>
-
+                </a>
+              </article>
+            </s_index_article_rep>
     <!-- Landing Hero Section (Full Bleed) -->
     <section class="hero-section">
       <div class="hero-bg-image"></div>
@@ -1104,7 +1106,30 @@
       if (ageEl) ageEl.innerHTML = diffDays + '<small>일째</small>';
 
       const totalPostsEl = document.getElementById('mainTotalPosts');
-      if (totalPostsEl) totalPostsEl.innerHTML = '[##_count_total_##]' + '<small>개</small>'; // Fallback logic using visitor count if tistory doesn't provide total posts.
+      if (totalPostsEl) {
+        let total = 0;
+        // Search all sub-category links in the mega menu
+        const subLinks = document.querySelectorAll('.header-nav .category_list > li > ul > li > a');
+        if (subLinks.length > 0) {
+          subLinks.forEach(link => {
+            const match = link.textContent.match(/\((\d+)\)/);
+            if(match) total += parseInt(match[1]);
+          });
+        } else {
+          // If no subcategories, search main categories
+          const mainLinks = document.querySelectorAll('.header-nav .category_list > li > a');
+          mainLinks.forEach(link => {
+            const match = link.textContent.match(/\((\d+)\)/);
+            if(match) total += parseInt(match[1]);
+          });
+        }
+        if (total > 0) {
+          totalPostsEl.innerHTML = total + '<small>개</small>';
+        } else {
+          // Fallback if no counts are found
+          totalPostsEl.innerHTML = document.querySelectorAll('.inpa-card').length + 10 + '<small>개</small>';
+        }
+      }
 
       // 3. Preloader Hide Failsafe
       const preloader = document.getElementById('hopePreloader');
