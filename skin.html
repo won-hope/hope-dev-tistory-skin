@@ -5,9 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>[##_page_title_##] - [##_title_##]</title>
-  <meta name="description" content="[##_desc_##]">
   <link rel="alternate" type="application/rss+xml" title="[##_title_##]" href="[##_rss_url_##]" />
-
   <link rel="stylesheet" href="./style.css">
 
   <script>
@@ -35,22 +33,23 @@
 
 <body id="[##_body_id_##]">
   <div id="hopePreloader" class="preloader">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
-      class="star-spinner">
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-      </polygon>
-    </svg>
+    <div class="star-loader-wrapper">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
+        class="star-spinner">
+        <polygon
+          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+        </polygon>
+      </svg>
+    </div>
   </div>
 
   <s_t3>
     <canvas id="effectCanvas" class="meteor-canvas" aria-hidden="true"></canvas>
-
     <div class="cubism-bg-layer" aria-hidden="true">
       <div class="cubism-shape shape-1"></div>
       <div class="cubism-shape shape-2"></div>
     </div>
-
-    <div id="readingProgress" class="reading-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+    <div id="readingProgress" class="reading-progress"></div>
 
     <header class="site-header">
       <div class="header-inner">
@@ -62,8 +61,7 @@
         </nav>
         <div class="header-actions">
           <div id="weatherBadge" class="weather-badge" style="display: none;">
-            <span class="weather-icon"></span>
-            <span class="weather-text">서울 날씨 로딩중...</span>
+            <span class="weather-icon"></span><span class="weather-text">로딩중...</span>
           </div>
           <button id="themeToggleBtn" class="action-btn" aria-label="테마 전환">
             <svg class="icon-sun" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
@@ -102,6 +100,7 @@
 
     <main id="main-content" class="main-container">
 
+      <!-- Home Only Hero Section -->
       <section class="hero-section home-only-widgets">
         <div class="hero-bg-image"></div>
         <div class="hero-overlay"></div>
@@ -121,50 +120,27 @@
 
       <div class="home-only-widgets">
         <section class="dashboard-stats-section">
-          <div class="stats-header center">
-            <div class="stats-crown">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="2 4 5 16 19 16 22 4 16 11 12 4 8 11 2 4"></polygon>
-                <line x1="5" y1="20" x2="19" y2="20"></line>
-              </svg>
-            </div>
-            <h2 class="stats-title">Thanks for your support</h2>
-            <p class="stats-desc">여러분의 소중한 방문이 늘 큰 힘이 됩니다.</p>
-          </div>
           <div class="stats-grid">
-            <div class="stat-card stat-card-visitors">
-              <span class="stat-icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-              </span>
-              <span class="stat-value">[##_count_total_##]<small>명</small></span>
+            <div class="stat-card border-blue">
+              <span class="stat-icon">👥</span>
+              <span class="stat-value"><span class="counter-num"
+                  data-raw="[##_count_total_##]">0</span><small>명</small></span>
               <span class="stat-label">총 방문자</span>
             </div>
-            <div class="stat-card stat-card-posts">
-              <span class="stat-icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-              </span>
-              <span class="stat-value" id="mainTotalPosts">0<small>개</small></span>
+            <div class="stat-card border-red">
+              <span class="stat-icon">📖</span>
+              <span class="stat-value"><span class="counter-num" id="mainTotalPosts">0</span><small>개</small></span>
               <span class="stat-label">총 포스팅</span>
             </div>
-            <div class="stat-card stat-card-age">
-              <span class="stat-icon">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </span>
-              <span class="stat-value" id="mainBlogAge">0<small>일째</small></span>
+            <div class="stat-card border-yellow">
+              <span class="stat-icon">👍</span>
+              <span class="stat-value"><span class="counter-num"
+                  data-raw="[##_count_today_##]">0</span><small>명</small></span>
+              <span class="stat-label">오늘 방문자</span>
+            </div>
+            <div class="stat-card border-green">
+              <span class="stat-icon">🗓️</span>
+              <span class="stat-value"><span class="counter-num" id="mainBlogAge">0</span><small>일 째</small></span>
               <span class="stat-label">블로그 운영</span>
             </div>
           </div>
@@ -172,34 +148,18 @@
 
         <section class="popular-categories-section">
           <div class="section-header center">
-            <h2 class="section-title"><span class="editorial-index">01 &middot;</span> 인기있는 카테고리 👑</h2>
+            <h2 class="section-title" style="color:#3498db;">인기있는 카테고리 👑</h2>
             <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
           </div>
-          <div class="category-grid" id="popularCategoryGrid">
-          </div>
+          <div class="category-grid" id="popularCategoryGrid"></div>
         </section>
       </div>
 
       <section class="bento-posts-section">
-        <div class="editorial-grid"></div>
-
-        <h2 class="section-title home-only-title">최신 포스팅</h2>
-
-        <div class="category-hero-wrap list-only-title">
-          <s_list_rep>
-            <div class="category-hero-inner">
-              <div class="hero-bg-layer cubism-bg-layer">
-                <div class="cubism-shape shape-1"></div>
-                <div class="cubism-shape shape-2"></div>
-              </div>
-              <div class="category-hero-content">
-                <span class="category-hero-badge">Category</span>
-                <h1 class="category-hero-title">[##_list_conform_##]</h1>
-                <p class="category-hero-desc">해당 카테고리의 모든 글을 모아보세요.</p>
-              </div>
-            </div>
-          </s_list_rep>
-        </div>
+        <h2 class="section-title home-only-title">최신 글</h2>
+        <s_list_rep>
+          <h2 class="section-title list-only-title">[##_list_conform_##]</h2>
+        </s_list_rep>
 
         <div class="magazine-grid">
           <s_article_rep>
@@ -209,8 +169,7 @@
                   <div class="inpa-card-thumb bento-thumb">
                     <div class="inpa-card-fallback bento-fallback-cover" data-initial="[##_article_rep_title_##]"></div>
                     <s_article_rep_thumbnail>
-                      <img src="[##_article_rep_thumbnail_url_##]" alt="[##_article_rep_title_##] 썸네일"
-                        class="inpa-card-img">
+                      <img src="[##_article_rep_thumbnail_url_##]" alt="thumbnail" class="inpa-card-img">
                     </s_article_rep_thumbnail>
                   </div>
                   <div class="inpa-card-body bento-info">
@@ -226,18 +185,12 @@
                         <span class="inpa-date bento-date">[##_article_rep_date_##]</span>
                       </div>
                     </div>
-                    <div class="inpa-card-stats">
-                      <div class="inpa-stat-badge">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg> [##_article_rep_rp_cnt_##]
-                      </div>
-                    </div>
                   </div>
                 </a>
               </article>
             </s_index_article_rep>
 
+            <!-- 상세 포스팅 영역 -->
             <s_permalink_article_rep>
               <article class="post-detail">
                 <header class="inpa-post-header">
@@ -257,11 +210,6 @@
                           <line x1="8" y1="2" x2="8" y2="6"></line>
                           <line x1="3" y1="10" x2="21" y2="10"></line>
                         </svg> [##_article_rep_date_##]</span>
-                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2">
-                          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                        </svg> <span class="time-val">계산중...</span></span>
                     </div>
                   </div>
                 </header>
@@ -269,75 +217,31 @@
                 <div class="post-body-wrap">
                   <div class="post-content">
                     [##_article_rep_desc_##]
-
-                    <div class="post-bottom-actions">
-                      <div class="bottom-action-buttons">
-                        <button class="action-btn bottom-heart pulse-target" aria-label="공감하기">
-                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path
-                              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
-                            </path>
-                          </svg>
-                          <span>공감</span>
-                        </button>
-                        <button class="action-btn bottom-comment" aria-label="댓글달기"
-                          onclick="document.getElementById('commentContainer').scrollIntoView({behavior: 'smooth'})">
-                          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                          </svg>
-                          <span>댓글 [##_article_rep_rp_cnt_##]</span>
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
                 <s_tag_label>
-                  <div class="post-tags">
-                    [##_tag_label_rep_##]
-                  </div>
+                  <div class="post-tags">[##_tag_label_rep_##]</div>
                 </s_tag_label>
-
-                <s_article_related>
-                  <div class="related-articles">
-                    <h3>'[##_article_rep_category_##]' 카테고리의 다른 글</h3>
-                    <ul>
-                      <s_article_related_rep>
-                        <li>
-                          <a href="[##_article_related_rep_link_##]">[##_article_related_rep_title_##]</a>
-                          <span class="related-date">[##_article_related_rep_date_##]</span>
-                        </li>
-                      </s_article_related_rep>
-                    </ul>
-                  </div>
-                </s_article_related>
 
                 <div class="post-nav">
                   <s_article_prev>
-                    <a href="[##_article_prev_link_##]" class="nav-prev">
-                      <span class="nav-label">이전 글</span>
-                      <span class="nav-title">[##_article_prev_title_##]</span>
-                    </a>
+                    <a href="[##_article_prev_link_##]" class="nav-prev"><span class="nav-label">이전 글</span><span
+                        class="nav-title">[##_article_prev_title_##]</span></a>
                   </s_article_prev>
                   <s_article_next>
-                    <a href="[##_article_next_link_##]" class="nav-next">
-                      <span class="nav-label">다음 글</span>
-                      <span class="nav-title">[##_article_next_title_##]</span>
-                    </a>
+                    <a href="[##_article_next_link_##]" class="nav-next"><span class="nav-label">다음 글</span><span
+                        class="nav-title">[##_article_next_title_##]</span></a>
                   </s_article_next>
                 </div>
 
                 <div class="fab-container">
                   <div class="fab-inner">
-                    <div class="fab-item fab-page">
-                      <span class="fab-label">Top</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="fab-item fab-page" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span
+                        class="fab-label">TOP</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
                         <path d="M6 15l6-6 6 6" />
-                      </svg>
-                    </div>
+                      </svg></div>
                     <div class="fab-divider"></div>
                     <button class="fab-item fab-toc" aria-label="목차" id="tocToggleBtn">
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -352,23 +256,85 @@
                     </button>
                     <div class="fab-divider"></div>
                     <a href="#commentContainer" class="fab-item fab-comment" aria-label="댓글">
-                      <div class="fab-icon-wrapper">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                          stroke-width="2">
+                      <div class="fab-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
                           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg>
-                        <span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span>
-                      </div>
+                        </svg><span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span></div>
                     </a>
                   </div>
                 </div>
 
+                <!-- 완벽 복구된 티스토리 댓글 모듈 (애플 스타일) -->
                 <s_rp>
                   <div id="commentContainer" class="post-comments">
-                    <h3>댓글</h3>
-                    [##_guestbook_disp_##]
+                    <h3 class="comment-title">Comments <span
+                        class="comment-count-badge">[##_article_rep_rp_cnt_##]</span></h3>
+
+                    <!-- 댓글 작성 폼 -->
+                    <s_rp_input_form>
+                      <div class="comment-form-wrap">
+                        <s_rp_member>
+                          <s_rp_guest>
+                            <div class="comment-guest-inputs">
+                              <input type="text" name="[##_rp_input_name_##]" value="[##_guest_name_##]"
+                                placeholder="이름" />
+                              <input type="password" name="[##_rp_input_password_##]" value="[##_rp_admin_check_##]"
+                                placeholder="비밀번호" />
+                            </div>
+                          </s_rp_guest>
+                        </s_rp_member>
+                        <div class="comment-textarea-wrap">
+                          <textarea name="[##_rp_input_comment_##]" placeholder="댓글을 남겨주세요..."></textarea>
+                          <button type="submit" class="comment-submit-btn"
+                            onclick="[##_rp_onclick_submit_##]">등록</button>
+                        </div>
+                      </div>
+                    </s_rp_input_form>
+
+                    <!-- 댓글 리스트 -->
+                    <s_rp_container>
+                      <ul class="comment-list-wrap">
+                        <s_rp_rep>
+                          <li id='[##_rp_rep_id_##]'>
+                            <div class="comment-item">
+                              <div class="comment-meta">
+                                <span class="comment-author">[##_rp_rep_name_##]</span>
+                                <span class="comment-date">[##_rp_rep_date_##]</span>
+                              </div>
+                              <div class="comment-text">[##_rp_rep_desc_##]</div>
+                              <div class="comment-actions">
+                                <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
+                                <a href="#" onclick="[##_rp_rep_onclick_reply_##]">답글 달기</a>
+                              </div>
+                            </div>
+
+                            <!-- 대댓글 리스트 -->
+                            <s_rp2_container>
+                              <ul class="reply-list-wrap">
+                                <s_rp2_rep>
+                                  <li id='[##_rp_rep_id_##]'>
+                                    <div class="comment-item reply-item">
+                                      <div class="comment-meta">
+                                        <span class="comment-author">[##_rp_rep_name_##]</span>
+                                        <span class="comment-date">[##_rp_rep_date_##]</span>
+                                      </div>
+                                      <div class="comment-text">[##_rp_rep_desc_##]</div>
+                                      <div class="comment-actions">
+                                        <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </s_rp2_rep>
+                              </ul>
+                            </s_rp2_container>
+                          </li>
+                        </s_rp_rep>
+                      </ul>
+                    </s_rp_container>
+
                   </div>
                 </s_rp>
+
               </article>
             </s_permalink_article_rep>
           </s_article_rep>
@@ -381,36 +347,43 @@
           <div class="page-content">[##_article_rep_desc_##]</div>
         </div>
       </s_page_rep>
-
       <s_notice_rep>
         <div class="page-container notice-container">
           <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
           <div class="page-content">[##_notice_rep_desc_##]</div>
         </div>
       </s_notice_rep>
-
       <s_tag>
         <div class="page-container tag-container">
           <h2 class="section-title">태그 모음</h2>
           <div class="tag-cloud">
-            <s_tag_rep>
-              <a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a>
-            </s_tag_rep>
+            <s_tag_rep><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></s_tag_rep>
           </div>
         </div>
       </s_tag>
-
       <s_guest>
         <div class="page-container guestbook-container">
-          <h2 class="section-title">방명록</h2>
-          [##_guestbook_disp_##]
+          <h2 class="section-title">방명록</h2>[##_guestbook_disp_##]
         </div>
       </s_guest>
     </main>
 
+    <!-- Side Floating TOC Panel -->
+    <aside id="sideTocPanel" class="side-toc-panel">
+      <div class="side-toc-header">
+        <div class="mac-window-dots">
+          <span class="mac-dot mac-red"></span>
+          <span class="mac-dot mac-yellow"></span>
+          <span class="mac-dot mac-green"></span>
+        </div>
+        <button id="tocCloseBtn" aria-label="닫기">✕</button>
+      </div>
+      <div id="sideTocContent" class="side-toc-content"></div>
+    </aside>
+
     <aside class="pre-footer-widgets">
       <svg class="pre-footer-wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100">
-        <path fill="#12121a" fill-opacity="1"
+        <path fill="#1a1b26" fill-opacity="1"
           d="M0,32L48,42.7C96,53,192,75,288,74.7C384,75,480,53,576,42.7C672,32,768,32,864,37.3C960,43,1056,53,1152,58.7C1248,64,1344,64,1392,64L1440,64L1440,100L1392,100C1344,100,1248,100,1152,100C1056,100,960,100,864,100C768,100,672,100,576,100C480,100,384,100,288,100C192,100,96,100,48,100L0,100Z">
         </path>
       </svg>
@@ -419,7 +392,7 @@
           <s_sidebar_element>
             <div class="widget-col">
               <h3 class="widget-title">최근 댓글 <span class="badge-new">new</span></h3>
-              <ul class="widget-list comment-list">
+              <ul class="widget-list footer-comment-list">
                 <s_rctrp_rep>
                   <li>
                     <a href="[##_rctrp_rep_link_##]">
@@ -429,13 +402,10 @@
                       </svg>
                       <span class="text">[##_rctrp_rep_desc_##]</span>
                     </a>
-                    <span class="author">
-                      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                    <span class="author"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                         <path
                           d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
-                      [##_rctrp_rep_name_##]
-                    </span>
+                      </svg> [##_rctrp_rep_name_##]</span>
                   </li>
                 </s_rctrp_rep>
               </ul>
@@ -481,26 +451,17 @@
       </div>
     </aside>
 
-    <footer class="site-footer" style="background: #0d0d12; border:none;">
+    <footer class="site-footer" style="background: #12121a; border:none;">
       <div class="footer-inner" style="border-top: 1px solid rgba(255,255,255,0.05); padding-top:2rem;">
         <p class="copyright" style="color: #6c757d;">&copy; Copyright 2024 [##_title_##]. All rights reserved.</p>
       </div>
     </footer>
   </s_t3>
 
-  <aside id="sideTocPanel" class="side-toc-panel">
-    <div class="side-toc-header">
-      <h3>목차</h3>
-      <button id="tocCloseBtn" aria-label="닫기">×</button>
-    </div>
-    <div id="sideTocContent" class="side-toc-content"></div>
-  </aside>
-
   <s_search>
-    <div id="searchOverlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="검색창"
-      style="display:none;">
+    <div id="searchOverlay" class="search-overlay" style="display:none;">
       <div class="search-modal">
-        <button class="search-close" aria-label="닫기">X</button>
+        <button class="search-close" aria-label="닫기">✕</button>
         <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
           onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="검색어를 입력하세요..."
           class="search-input">
@@ -508,52 +469,45 @@
     </div>
   </s_search>
 
+  <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
+    <div class="sidebar-cover-bg"></div>
     <div class="sidebar-inner">
-      <div class="sidebar-header">
-        <h2>메뉴</h2>
-        <button class="sidebar-close" aria-label="닫기">X</button>
+      <button class="sidebar-close" aria-label="닫기">✕</button>
+      <div class="sidebar-profile">
+        <div class="profile-avatar">
+          <img src="[##_image_##]" alt="profile"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="avatar-fallback" style="display:none;">H</div>
+        </div>
+        <h3 class="profile-name">[##_title_##] 💻</h3>
+        <p class="profile-desc">[##_blogger_##]</p>
       </div>
-      <div class="sidebar-content">
-        <div class="sidebar-profile">
-          <div class="profile-avatar">
-            <img src="[##_image_##]" alt="profile"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <div class="avatar-fallback" style="display:none;">[##_title_##]</div>
-          </div>
-          <div class="profile-info">
-            <h3 class="profile-name">[##_title_##]</h3>
-            <span class="profile-desc">[##_blogger_##]</span>
-          </div>
-        </div>
-        <div class="sidebar-quick-links">
-          <a href="/" aria-label="홈으로">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-              <polyline points="9 22 9 12 15 12 15 22"></polyline>
-            </svg>
-          </a>
-          <a href="#" class="search-toggle" aria-label="검색">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </a>
-          <a href="/manage" aria-label="관리자">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-          </a>
-        </div>
-        <hr class="sidebar-divider">
+
+      <div class="sidebar-quick-links">
+        <a href="/" aria-label="홈으로"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg></a>
+        <a href="#" class="search-toggle" aria-label="검색"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg></a>
+        <a href="/manage" aria-label="관리자"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg></a>
+      </div>
+
+      <div class="sidebar-content" id="sidebarCategoryWrap">
         [##_category_list_##]
       </div>
     </div>
   </aside>
-
-  <div id="toastMessage" class="toast-message" aria-live="polite"></div>
 
   <script src="./images/script.js"></script>
 </body>
