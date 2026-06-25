@@ -656,12 +656,13 @@ body:not(#tt-body-index) .home-only-title {
   body#tt-body-index .magazine-grid article.bento-card:first-child,
   body#tt-body-category .magazine-grid article.bento-card:first-child {
     grid-column: span 2;
-    grid-row: span 2;
+    grid-row: span 3;
   }
 
   body#tt-body-index .magazine-grid article.bento-card:first-child .bento-thumb,
   body#tt-body-category .magazine-grid article.bento-card:first-child .bento-thumb {
-    height: 350px;
+    height: 100%;
+    min-height: 350px;
   }
 
   body#tt-body-index .magazine-grid article.bento-card:first-child .bento-title,
@@ -1595,3 +1596,44 @@ html[data-theme="dark"] .fab-inner {
   font-size: 0.8rem;
   color: #86868b;
 }
+
+/* ==========================================
+   6. Cubism Background (Fixing Top Gap)
+   ========================================== */
+.cubism-bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cubism-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+.shape-1 {
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 71, 87, 0.4);
+  top: -100px;
+  right: -100px;
+}
+
+.shape-2 {
+  width: 500px;
+  height: 500px;
+  background: rgba(52, 152, 219, 0.3);
+  bottom: -200px;
+  left: -150px;
+}
+
+.pop-cat-section {
+  margin-top: 5rem;
+}

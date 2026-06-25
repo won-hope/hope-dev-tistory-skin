@@ -156,9 +156,14 @@
       </div>
 
       <section class="bento-posts-section">
-        <h2 class="section-title home-only-title">최신 글</h2>
+        <div class="section-header home-only-widgets">
+          <h2 class="section-title">최신 글 ✨</h2>
+          <p class="section-desc" style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">따끈따근 하게 올라온 최신 포스팅을 구경해보세요 !</p>
+        </div>
         <s_list_rep>
-          <h2 class="section-title list-only-title">[##_list_conform_##]</h2>
+          <div class="section-header list-only-title">
+            <h2 class="section-title">[##_list_conform_##]</h2>
+          </div>
         </s_list_rep>
 
         <div class="magazine-grid">
@@ -340,6 +345,8 @@
           </s_article_rep>
         </div>
       </section>
+
+      <section class="pop-cat-section home-only-widgets" id="popCatPostsWrap" style="display:none;"></section>
 
       <s_page_rep>
         <div class="page-container">

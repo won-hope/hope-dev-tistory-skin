@@ -15,6 +15,7 @@
     // UI Enhancements
     beautifyMegaMenu();
     initPopularCategories();
+    fetchPopularPosts();
     animateCounters();
 
     // Post Detail Scripts
@@ -268,6 +269,70 @@
       `;
       grid.insertAdjacentHTML('beforeend', cardHTML);
       count++;
+    });
+  }
+
+  function fetchPopularPosts() {
+    const popWrap = document.getElementById('popCatPostsWrap');
+    if (!popWrap) return;
+    
+    const catLinks = document.querySelectorAll('.header-nav .category_list > li > a, .header-nav .category_list > li > ul > li > a');
+    let topCats = [];
+    catLinks.forEach(link => {
+      let name = link.textContent.replace(/\(\d+\)/g, '').trim();
+      if (name !== '분류 전체보기' && name !== '' && topCats.length < 2) {
+        topCats.push({ name: name, href: link.href });
+      }
+    });
+
+    if (topCats.length === 0) return;
+    popWrap.style.display = 'block';
+    
+    topCats.forEach((cat, index) => {
+      const sectionHtml = `
+        <div class="pop-cat-section" id="popCatBlock-${index}" style="margin-top: 5rem;">
+          <div class="section-header">
+            <h2 class="section-title">${cat.name} 인기 글 🚀</h2>
+            <p class="section-desc" style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">${cat.name} 카테고리의 인기 포스팅을 확인해보세요.</p>
+          </div>
+          <div class="magazine-grid" id="popCatGrid-${index}" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+             <div style="text-align:center; padding: 2rem; color:var(--text-muted); grid-column: 1 / -1;">포스팅을 불러오는 중입니다...</div>
+          </div>
+        </div>
+      `;
+      popWrap.insertAdjacentHTML('beforeend', sectionHtml);
+
+      fetch(cat.href)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const articles = doc.querySelectorAll('.magazine-grid article.bento-card');
+          const grid = document.getElementById(`popCatGrid-${index}`);
+          if(grid) {
+            grid.innerHTML = '';
+            if(articles.length === 0) {
+              grid.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-muted); grid-column: 1 / -1;">등록된 포스팅이 없습니다.</div>`;
+              return;
+            }
+            let added = 0;
+            articles.forEach(art => {
+              if(added >= 3) return;
+              art.style.gridColumn = 'span 1';
+              art.style.gridRow = 'span 1';
+              const thumb = art.querySelector('.bento-thumb');
+              if(thumb) thumb.style.height = '180px';
+              const title = art.querySelector('.bento-title');
+              if(title) title.style.fontSize = '1.15rem';
+              grid.appendChild(art);
+              added++;
+            });
+          }
+        })
+        .catch(err => {
+          const grid = document.getElementById(`popCatGrid-${index}`);
+          if(grid) grid.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-muted); grid-column: 1 / -1;">불러오기 실패</div>`;
+        });
     });
   }
 
