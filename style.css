@@ -1636,4 +1636,39 @@ html[data-theme="dark"] .fab-inner {
 
 .pop-cat-section {
   margin-top: 5rem;
+}
+
+.meteor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -3;
+}
+
+.reading-progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--point-color); z-index: 9999; pointer-events: none; }
+
+/* ==========================================
+   7. Tistory Aggressive Gap Fix & Visibility
+   ========================================== */
+html, body, #kakaoWrap, #dkWrap {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+body > div[style*="padding-top"], body > div[style*="margin-top"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Visibility Rules */
+body:not(#tt-body-index) .home-only-widgets,
+body:not(#tt-body-index) .home-only-title {
+  display: none !important;
+}
+
+body#tt-body-index .list-only-title {
+  display: none !important;
 }
