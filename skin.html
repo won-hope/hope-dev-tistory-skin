@@ -101,68 +101,89 @@
     <main id="main-content" class="main-container">
 
       <!-- Home Only Hero Section -->
-      <section class="hero-section home-only-widgets">
-        <div class="hero-bg-image"></div>
+      <section class="hero-section cosmic-hero home-only-widgets">
+        <div class="hero-bg-image">
+          <div class="stars-layer stars1"></div>
+          <div class="stars-layer stars2"></div>
+          <div class="stars-layer stars3"></div>
+        </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-          <div class="hero-badge">KNOWLEDGE & INSIGHTS</div>
-          <h1 class="hero-title">Deep Dive into<br><span id="heroTypingText" class="typing-text text-point"
-              aria-hidden="true"></span></h1>
+          <div class="hero-badge cosmic-pulse">AGENTIC EXPLORATION</div>
+          <h1 class="hero-title cosmic-title">Co-evolving with<br><span id="decryptText" class="decrypt-text" data-target="Intelligence">Intelligence</span></h1>
           <div class="hero-divider">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>
           </div>
-          <p class="hero-desc">오늘도 선명하게 기록합니다.</p>
+          <p class="hero-desc cosmic-desc">인공지능과 함께 확장되는 사고의 경계를 기록합니다.</p>
         </div>
       </section>
 
       <div class="home-only-widgets">
-        <section class="dashboard-stats-section">
-          <div class="stats-grid">
-            <div class="stat-card border-blue">
-              <span class="stat-icon">👥</span>
-              <span class="stat-value"><span class="counter-num"
-                  data-raw="[##_count_total_##]">0</span><small>명</small></span>
-              <span class="stat-label">총 방문자</span>
+        <section class="dashboard-stats-section nature-dashboard">
+          <div class="nature-grid">
+            <!-- Left Wing -->
+            <div class="nature-side">
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">TODAY</span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="[##_count_today_##]">0</span></span>
+                </div>
+              </div>
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">TOTAL POSTS</span>
+                  <span class="nature-stat-value"><span class="counter-num" id="mainTotalPosts">0</span></span>
+                </div>
+              </div>
             </div>
-            <div class="stat-card border-red">
-              <span class="stat-icon">📖</span>
-              <span class="stat-value"><span class="counter-num" id="mainTotalPosts">0</span><small>개</small></span>
-              <span class="stat-label">총 포스팅</span>
+            
+            <!-- Center Focus -->
+            <div class="nature-center">
+              <div class="nature-center-content">
+                <span class="nature-center-label">TOTAL VISITORS</span>
+                <span class="nature-center-value"><span class="counter-num" data-raw="[##_count_total_##]">0</span></span>
+                <p class="nature-center-desc">지식의 씨앗이 자라나는 평온한 공간입니다.</p>
+              </div>
             </div>
-            <div class="stat-card border-yellow">
-              <span class="stat-icon">👍</span>
-              <span class="stat-value"><span class="counter-num"
-                  data-raw="[##_count_today_##]">0</span><small>명</small></span>
-              <span class="stat-label">오늘 방문자</span>
-            </div>
-            <div class="stat-card border-green">
-              <span class="stat-icon">🗓️</span>
-              <span class="stat-value"><span class="counter-num" id="mainBlogAge">0</span><small>일 째</small></span>
-              <span class="stat-label">블로그 운영</span>
+
+            <!-- Right Wing -->
+            <div class="nature-side">
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">YESTERDAY</span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="[##_count_yesterday_##]">0</span></span>
+                </div>
+              </div>
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">UPTIME (DAYS)</span>
+                  <span class="nature-stat-value"><span class="counter-num" id="mainBlogAge">0</span></span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         <section class="popular-categories-section">
-          <div class="section-header center">
-            <h2 class="section-title" style="color:#3498db;">인기있는 카테고리 👑</h2>
-            <p class="section-desc">잘 정리된 다양한 카테고리를 둘러보세요</p>
+          <div class="arch-section-header">
+            <h2 class="arch-section-title">POPULAR TOPICS</h2>
+            <p class="arch-section-desc">Explore curated categories.</p>
           </div>
           <div class="category-grid" id="popularCategoryGrid"></div>
         </section>
       </div>
 
-      <section class="bento-posts-section">
-        <div class="section-header home-only-widgets">
-          <h2 class="section-title">최신 글 ✨</h2>
-          <p class="section-desc" style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">따끈따근 하게 올라온 최신 포스팅을 구경해보세요 !</p>
+      <section class="arch-posts-section">
+        <div class="arch-section-header home-only-widgets">
+          <h2 class="arch-section-title">LATEST ARCHIVES</h2>
+          <p class="arch-section-desc">Recent publications and thoughts.</p>
         </div>
         <s_list_rep>
-          <div class="section-header list-only-title">
-            <h2 class="section-title">[##_list_conform_##]</h2>
+          <div class="arch-section-header list-only-title">
+            <h2 class="arch-section-title">[##_list_conform_##]</h2>
           </div>
         </s_list_rep>
 
@@ -466,12 +487,30 @@
   </s_t3>
 
   <s_search>
-    <div id="searchOverlay" class="search-overlay" style="display:none;">
+    <div id="searchOverlay" class="search-overlay">
+      <div class="search-overlay-backdrop"></div>
       <div class="search-modal">
-        <button class="search-close" aria-label="닫기">✕</button>
-        <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
-          onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="검색어를 입력하세요..."
-          class="search-input">
+        <div class="search-header">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
+            onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
+            class="search-input" autocomplete="off">
+          <div class="search-shortcut-hint">
+            <kbd>ESC</kbd>
+          </div>
+        </div>
+        <div class="search-body">
+          <div class="search-suggest-title">Trending Tags</div>
+          <div class="search-tags">
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">React</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">AI</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Node.js</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Architecture</span>
+          </div>
+        </div>
       </div>
     </div>
   </s_search>
@@ -479,7 +518,14 @@
   <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
-    <div class="sidebar-cover-bg"></div>
+    <div class="sidebar-cover-bg cosmic-hero">
+      <div class="hero-bg-image">
+        <div class="stars-layer stars1"></div>
+        <div class="stars-layer stars2"></div>
+        <div class="stars-layer stars3"></div>
+      </div>
+      <div class="hero-overlay"></div>
+    </div>
     <div class="sidebar-inner">
       <button class="sidebar-close" aria-label="닫기">✕</button>
       <div class="sidebar-profile">

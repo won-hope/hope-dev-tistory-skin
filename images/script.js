@@ -24,7 +24,7 @@
     initReadingProgress();
 
     if (window.SkinOptions) {
-      if (window.SkinOptions.useAnimation) initTypingAnimation();
+      if (window.SkinOptions.useAnimation) initDecryptAnimation();
       if (window.SkinOptions.useWeather) initWeatherTheme();
     }
   });
@@ -66,17 +66,58 @@
   function initSearchToggle() {
     const toggleBtns = document.querySelectorAll('.search-toggle');
     const overlay = document.getElementById('searchOverlay');
-    const closeBtn = document.querySelector('.search-close');
-    if (!toggleBtns.length || !overlay) return;
+    if (!overlay) return;
+
+    const input = document.getElementById('searchInput');
+    const backdrop = overlay.querySelector('.search-overlay-backdrop');
+
+    function openSearch() {
+      overlay.style.display = 'flex';
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+        if (input) input.focus();
+      });
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSearch() {
+      overlay.classList.remove('active');
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }, 200);
+    }
+
     toggleBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        overlay.style.display = 'flex';
-        const input = overlay.querySelector('input');
-        if (input) input.focus();
+        openSearch();
       });
     });
-    if (closeBtn) closeBtn.addEventListener('click', () => { overlay.style.display = 'none'; });
+
+    if (backdrop) backdrop.addEventListener('click', closeSearch);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        if (e.key === 'Escape') closeSearch();
+        return;
+      }
+      if (e.key === '/') {
+        e.preventDefault();
+        openSearch();
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      } else if (e.key === 'Escape') {
+        closeSearch();
+      }
+    });
+
+    window.submitSearch = function(keyword) {
+      if (keyword) {
+        window.location.href = '/search/' + encodeURIComponent(keyword);
+      }
+    };
   }
 
   function initThemeToggle() {
@@ -87,8 +128,8 @@
     const html = document.documentElement;
 
     const updateIcon = (theme) => {
-      if (theme === 'dark') { sunIcon.style.display = 'none'; moonIcon.style.display = 'block'; }
-      else { sunIcon.style.display = 'block'; moonIcon.style.display = 'none'; }
+      if (theme === 'dark') { sunIcon.style.display = 'block'; moonIcon.style.display = 'none'; }
+      else { sunIcon.style.display = 'none'; moonIcon.style.display = 'block'; }
     };
     const currentTheme = html.getAttribute('data-theme') || 'light';
     updateIcon(currentTheme);
@@ -181,6 +222,49 @@
     });
   }
 
+  function initDecryptAnimation() {
+    const el = document.getElementById('decryptText');
+    if (!el) return;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+    const rawKeywords = window.SkinOptions?.heroKeywords;
+    const targetWords = rawKeywords ? rawKeywords.split(',') : ['Intelligence', 'Agents', 'Future', 'Excellence'];
+    
+    let kIdx = 0;
+    
+    function decryptWord(word) {
+      let iteration = 0;
+      let interval = null;
+      
+      clearInterval(interval);
+      
+      interval = setInterval(() => {
+        el.innerText = word
+          .split('')
+          .map((letter, index) => {
+            if(index < iteration) {
+              return word[index];
+            }
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join('');
+        
+        if(iteration >= word.length){ 
+          clearInterval(interval);
+          setTimeout(() => {
+            kIdx = (kIdx + 1) % targetWords.length;
+            decryptWord(targetWords[kIdx].trim());
+          }, 3000);
+        }
+        iteration += 1 / 3;
+      }, 30);
+    }
+
+    setTimeout(() => {
+      decryptWord(targetWords[kIdx].trim());
+    }, 1000);
+  }
+
   function animateCounters() {
     const startDateStr = window.SkinOptions?.blogStartDate || '2024-01-01';
     const start = new Date(startDateStr).getTime();
@@ -209,21 +293,26 @@
           let target = parseInt(String(targetRaw).replace(/,/g, ''), 10);
           if (isNaN(target)) target = 0;
 
-          const speed = 40;
-          const inc = target / speed;
-          let current = 0;
+          let start = null;
+          const duration = 2500; 
 
-          const updateCount = () => {
-            current += inc;
-            if (current < target) {
-              el.innerText = Math.ceil(current).toLocaleString();
+          const easeOutExpo = (t) => {
+            return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+          };
+
+          const updateCount = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const current = target * easeOutExpo(progress);
+            
+            if (progress < 1) {
+              el.innerText = Math.floor(current).toLocaleString();
               requestAnimationFrame(updateCount);
             } else {
               el.innerText = target.toLocaleString();
             }
           };
-          updateCount();
-          obs.unobserve(el);
+          requestAnimationFrame(updateCount);
         }
       });
     }, { threshold: 0.5 });
@@ -347,7 +436,7 @@
       if (match) { rootName = match[1].trim(); rootCount = match[2]; }
       const newRoot = document.createElement('a');
       newRoot.href = rootLink.href; newRoot.className = 'sidebar-cat-root';
-      newRoot.innerHTML = `${rootName} <span style="color:var(--text-muted);font-weight:400;font-size:0.9rem;">(${rootCount})</span>`;
+      newRoot.innerHTML = `${rootName} <span class="sidebar-cat-count">${rootCount} Articles</span>`;
       sidebarWrap.insertBefore(newRoot, sidebarWrap.firstChild);
     }
 
@@ -369,7 +458,7 @@
       newA.href = aTag.href; newA.className = 'sidebar-cat-link';
 
       const iconSvg = getIconForCategory(name);
-      newA.innerHTML = `<span class="sidebar-cat-icon">${iconSvg}</span><span class="sidebar-cat-name">${name}</span><span class="sidebar-cat-count">${count}</span>`;
+      newA.innerHTML = `<span class="sidebar-cat-icon">${iconSvg}</span><span class="sidebar-cat-name">${name}</span><span class="sidebar-cat-count">${count} Articles</span>`;
       newLi.appendChild(newA);
       newList.appendChild(newLi);
     });
