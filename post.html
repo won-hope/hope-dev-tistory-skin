@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Post Detail - Hope Devlog</title>
   <link rel="stylesheet" href="./style.css">
 
@@ -57,7 +57,13 @@
     <section class="mock-post-detail" style="max-width: var(--content-width); margin: 0 auto; padding: 0 1.5rem;">
       <article class="post-detail">
         <header class="inpa-post-header">
-          <div class="inpa-post-header-inner">
+          <!-- Cosmic Background -->
+          <div class="hero-bg-image" style="opacity: 0.5;">
+            <div class="stars-layer stars1"></div>
+            <div class="stars-layer stars2"></div>
+            <div class="stars-layer stars3"></div>
+          </div>
+          <div class="inpa-post-header-inner" style="position: relative; z-index: 2;">
             <span class="inpa-post-badge">Tech / Frontend</span>
             <h1 class="inpa-post-title">프론트엔드 아키텍처 디자인 패턴 탐구</h1>
             <div class="inpa-post-meta">
@@ -86,10 +92,99 @@
             <p>초기의 MVC(Model-View-Controller)에서 시작하여 FLUX 패턴을 거쳐, 현재는 Redux, Zustand와 같은 다양한 상태 관리 라이브러리가 등장했습니다.</p>
           </div>
         </div>
-        <div class="post-tags" style="margin-top: 2rem; padding-bottom: 4rem; border-bottom: 1px solid var(--border-color);">
-          <a href="#" style="margin-right: 0.5rem; color: var(--point-color);">#frontend</a> 
-          <a href="#" style="margin-right: 0.5rem; color: var(--point-color);">#architecture</a> 
-          <a href="#" style="margin-right: 0.5rem; color: var(--point-color);">#react</a>
+        <div class="post-tags cosmic-tags">
+          <a href="#" class="cosmic-tag">#frontend</a> 
+          <a href="#" class="cosmic-tag">#architecture</a> 
+          <a href="#" class="cosmic-tag">#react</a>
+        </div>
+
+        <!-- Interaction Bar (Like & Comment) -->
+        <div class="post-interaction-bar">
+          <button class="interaction-btn like-btn" aria-label="공감">
+            <svg class="heart-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+            <span class="count">42</span>
+          </button>
+          <button class="interaction-btn comment-btn" aria-label="댓글" onclick="document.getElementById('commentContainer').scrollIntoView({behavior: 'smooth'})">
+            <svg class="comment-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span class="count">3</span>
+          </button>
+        </div>
+
+        <!-- Mock Tistory Comments Module -->
+        <div id="commentContainer" class="post-comments cosmic-comments">
+          <h3 class="comment-title">Comments <span class="comment-count-badge">3</span></h3>
+
+          <!-- Comment Input Form -->
+          <div class="comment-form-wrap">
+            <div class="comment-guest-inputs">
+              <input type="text" name="name" value="" placeholder="이름" class="cosmic-input" />
+              <input type="password" name="password" value="" placeholder="비밀번호" class="cosmic-input" />
+            </div>
+            <div class="comment-textarea-wrap">
+              <textarea name="comment" placeholder="지식의 경계를 넓히는 멋진 의견을 남겨주세요..." class="cosmic-textarea"></textarea>
+              <button type="button" class="comment-submit-btn cosmic-submit">🚀 POST</button>
+            </div>
+          </div>
+
+          <!-- Comment List -->
+          <ul class="comment-list-wrap">
+            <!-- Parent Comment -->
+            <li id="comment1">
+              <div class="comment-item cosmic-comment-card">
+                <div class="comment-meta">
+                  <div class="meta-left">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=50&q=80" alt="avatar" class="comment-avatar">
+                    <span class="comment-author">우주 여행자</span>
+                  </div>
+                  <span class="comment-date">2026.06.25 14:10</span>
+                </div>
+                <div class="comment-text">프론트엔드 아키텍처에 대해 이렇게 심도 있게 분석한 글은 오랜만이네요. 정말 잘 읽었습니다!</div>
+                <div class="comment-actions">
+                  <a href="#" class="action-link">수정/삭제</a>
+                  <a href="#" class="action-link reply-link">답글 달기</a>
+                </div>
+              </div>
+
+              <!-- Reply Comments -->
+              <ul class="reply-list-wrap">
+                <li id="reply1">
+                  <div class="comment-item reply-item cosmic-comment-card">
+                    <div class="comment-meta">
+                      <div class="meta-left">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=50&q=80" alt="avatar" class="comment-avatar">
+                        <span class="comment-author">프론트개발자</span>
+                      </div>
+                      <span class="comment-date">2026.06.25 14:15</span>
+                    </div>
+                    <div class="comment-text">동의합니다. 특히 CDD 부분이 와닿았어요.</div>
+                    <div class="comment-actions">
+                      <a href="#" class="action-link">수정/삭제</a>
+                    </div>
+                  </div>
+                </li>
+                
+                <li id="reply2">
+                  <div class="comment-item reply-item cosmic-comment-card">
+                    <div class="comment-meta">
+                      <div class="meta-left">
+                        <div class="comment-avatar fallback-avatar">H</div>
+                        <span class="comment-author admin-author">Hope Dev</span>
+                      </div>
+                      <span class="comment-date">2026.06.25 14:30</span>
+                    </div>
+                    <div class="comment-text">감사합니다! 앞으로도 다양한 패턴들을 다룰 예정입니다. 많은 관심 부탁드려요. 🌌</div>
+                    <div class="comment-actions">
+                      <a href="#" class="action-link">수정/삭제</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </article>
     </section>
@@ -136,6 +231,15 @@
     </div>
   </aside>
 
+  <!-- TOC Overlay & Toggle Button -->
+  <div id="tocOverlay" class="toc-overlay"></div>
+  <button class="fab-item fab-toc cosmic-pulse" aria-label="목차 열기" id="tocToggleBtn">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="star-icon">
+      <path d="M12 3l2.5 6h6.5l-5 4.5 2 6.5-6-4-6 4 2-6.5-5-4.5h6.5z" />
+    </svg>
+  </button>
+
   <script src="./images/script.js"></script>
 </body>
 </html>
+

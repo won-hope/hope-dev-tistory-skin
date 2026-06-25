@@ -11,6 +11,7 @@
     initThemeToggle();
     initSearchToggle();
     initSidebarToggle();
+    parseAndBuildSidebarCategories();
 
     // UI Enhancements
     beautifyMegaMenu();
@@ -22,6 +23,7 @@
     initDualTOC();
     initMacCodeBlocks(); // 언어표시 및 코드 복사 버튼 신규 추가
     initReadingProgress();
+    initGlobalMeteors(); // 다크모드 글로벌 유성우 추가
 
     if (window.SkinOptions) {
       if (window.SkinOptions.useAnimation) initDecryptAnimation();
@@ -349,11 +351,15 @@
       const iconSvg = getIconForCategory(name);
 
       const cardHTML = `
-        <a href="${link.href}" class="cat-card">
-          <div class="cat-badge ${rankClass}">#${rank}</div>
-          <div class="cat-icon">${iconSvg}</div>
-          <h3 class="cat-name">${name}</h3>
-          <span class="cat-count">${articleCount} Articles</span>
+        <a href="${link.href}" class="tech-core-card">
+          <div class="tech-core-bg"></div>
+          <div class="tech-badge ${rankClass}">#${rank}</div>
+          <div class="tech-icon-wrap">${iconSvg}</div>
+          <h3 class="tech-name">[ SYS / ${name} ]</h3>
+          <div class="tech-energy-bar">
+            <div class="energy-fill" style="width: ${Math.min(parseInt(articleCount)*5, 100)}%;"></div>
+          </div>
+          <span class="tech-count">${articleCount} DATA UNITS</span>
         </a>
       `;
       grid.insertAdjacentHTML('beforeend', cardHTML);
@@ -380,12 +386,15 @@
     topCats.forEach((cat, index) => {
       const sectionHtml = `
         <div class="pop-cat-section" id="popCatBlock-${index}" style="margin-top: 5rem;">
-          <div class="section-header">
-            <h2 class="section-title">${cat.name} 인기 글 🚀</h2>
-            <p class="section-desc" style="color: var(--text-muted); margin-top: 0.5rem; font-size: 0.95rem;">${cat.name} 카테고리의 인기 포스팅을 확인해보세요.</p>
+          <div class="section-header tech-section-header">
+            <h2 class="section-title cyber-title">${cat.name} HOT LOGS <span class="cyber-blink">_</span></h2>
+            <p class="section-desc cyber-desc">Analyzing popular data streams for [${cat.name}] sector.</p>
           </div>
           <div class="magazine-grid" id="popCatGrid-${index}" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-             <div style="text-align:center; padding: 2rem; color:var(--text-muted); grid-column: 1 / -1;">포스팅을 불러오는 중입니다...</div>
+             <div class="radar-scan-empty" style="grid-column: 1 / -1;">
+               <div class="radar-line"></div>
+               <div class="radar-text">[ INITIALIZING SCAN... ]</div>
+             </div>
           </div>
         </div>
       `;
@@ -401,7 +410,12 @@
           if(grid) {
             grid.innerHTML = '';
             if(articles.length === 0) {
-              grid.innerHTML = `<div style="text-align:center; padding: 2rem; color:var(--text-muted); grid-column: 1 / -1;">등록된 포스팅이 없습니다.</div>`;
+              grid.innerHTML = `
+                <div class="radar-scan-empty" style="grid-column: 1 / -1;">
+                  <div class="radar-line"></div>
+                  <div class="radar-text">[ NO DATA SIGNAL ]<br><span style="font-size:0.85rem; color:rgba(255,255,255,0.6); margin-top:0.5rem; display:block;">수집된 포스팅이 없습니다</span></div>
+                </div>
+              `;
               return;
             }
             let added = 0;
@@ -474,6 +488,7 @@
     const sideTocContent = document.getElementById('sideTocContent');
     const tocToggleBtn = document.getElementById('tocToggleBtn');
     const tocCloseBtn = document.getElementById('tocCloseBtn');
+    const tocOverlay = document.getElementById('tocOverlay');
 
     if (!content) return;
 
@@ -520,6 +535,9 @@
         if (target) {
           const offsetPosition = target.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+          if (sideTocPanel) sideTocPanel.classList.remove('active');
+          if (tocOverlay) tocOverlay.classList.remove('show');
+          document.body.style.overflow = '';
         }
       };
       inLink.addEventListener('click', clickHandler);
@@ -533,8 +551,20 @@
     content.insertBefore(inPostToc, content.firstChild);
 
     if (sideTocPanel && tocToggleBtn) {
-      tocToggleBtn.addEventListener('click', () => sideTocPanel.classList.toggle('active'));
-      if (tocCloseBtn) tocCloseBtn.addEventListener('click', () => sideTocPanel.classList.remove('active'));
+      const openToc = () => {
+        sideTocPanel.classList.add('active');
+        if (tocOverlay) tocOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      };
+      const closeToc = () => {
+        sideTocPanel.classList.remove('active');
+        if (tocOverlay) tocOverlay.classList.remove('show');
+        document.body.style.overflow = '';
+      };
+
+      tocToggleBtn.addEventListener('click', openToc);
+      if (tocCloseBtn) tocCloseBtn.addEventListener('click', closeToc);
+      if (tocOverlay) tocOverlay.addEventListener('click', closeToc);
 
       const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -590,6 +620,24 @@
     }).catch(err => {
       document.documentElement.setAttribute('data-weather', 'none');
     });
+  }
+
+  /* -------------------------------------------------------------
+     [New] Global Meteor Shower (Dark Mode Only)
+     ------------------------------------------------------------- */
+  function initGlobalMeteors() {
+    const meteorContainer = document.createElement('div');
+    meteorContainer.className = 'global-meteor-shower';
+    document.body.appendChild(meteorContainer);
+
+    for (let i = 0; i < 12; i++) {
+      const meteor = document.createElement('div');
+      meteor.className = 'meteor';
+      meteor.style.left = `${Math.random() * 100}%`;
+      meteor.style.top = `${Math.random() * 50}%`;
+      meteor.style.animationDelay = `${Math.random() * 10}s`;
+      meteorContainer.appendChild(meteor);
+    }
   }
 
 })();

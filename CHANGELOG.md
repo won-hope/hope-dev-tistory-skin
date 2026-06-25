@@ -1,5 +1,10 @@
 # Hope Devlog Skin - Update History (Cosmic & Nature Theme)
 
+## [2026-06-25] V7.0 "Cosmic Dashboard" 대규모 UI/UX 릴리즈
+- **전역 유성우 애니메이션**: 다크 모드 활성화 시 전체 화면에 사선으로 떨어지는 유성우(Meteor Shower) 이펙트 적용.
+- **테크 칩 카테고리 & 레이더 스캔**: 밋밋했던 인기 카테고리를 '글래스모피즘 테크 칩'으로 변경하고, 빈 공간(Empty State)을 '홀로그램 레이더 스캔' 애니메이션으로 개조.
+- **코드 블록 및 목차 리뉴얼**: Mac 터미널 스타일의 네온 Copy 버튼 추가 및 우측 하단 목차(TOC) 버튼을 스스로 그려지는 손그림 별(Star) 애니메이션으로 교체.
+- **라이트 모드 최적화**: 밝은 모드에서도 가독성이 유지되도록 빛바램 없는 고대비(High-contrast) CSS 오버라이딩 적용.
 ## [2026-06-25] 사이드바 우주 테마 연동 및 디자인 시스템 개편
 - **Cosmic Hero Section 도입**: 기존의 단순한 배경 대신, 3D Parallax 별(Stars) 애니메이션 효과를 부여한 딥 스페이스 테마 적용.
 - **Decryption 애니메이션 적용**: `script.js` 내에 텍스트가 글리치되며 해독되는(Decrypt) 고급 애니메이션 구현 ('Intelligence', 'Agents' 등).
