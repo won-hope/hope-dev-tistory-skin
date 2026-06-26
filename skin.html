@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>[##_page_title_##] - [##_title_##]</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="[##_desc_##]">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="[##_page_title_##] - [##_title_##]">
+  <meta property="og:description" content="[##_desc_##]">
+  <meta property="og:image" content="[##_image_##]">
+  <meta property="og:url" content="[##_blog_url_##]">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="alternate" type="application/rss+xml" title="[##_title_##]" href="[##_rss_url_##]" />
   <link rel="stylesheet" href="./style.css">
 
@@ -280,9 +290,33 @@
                   </div>
                 </header>
 
+                <!-- Premium Series Navigation -->
+                <div id="seriesNavContainer" class="series-nav-container"></div>
+
                 <div class="post-body-wrap">
+                  <!-- AdSense Top Placeholder -->
+                  <div class="ad-container ad-top">
+                    <div class="ad-skeleton"></div>
+                  </div>
+
                   <div class="post-content">
                     [##_article_rep_desc_##]
+                  </div>
+
+                  <!-- Premium CTA Banner -->
+                  <div class="btn-premium-cta-wrapper">
+                    <a href="#subscribe" class="btn-premium-cta">
+                      <span class="cta-icon">🚀</span>
+                      <div class="cta-text">
+                        <strong>더 깊은 인사이트가 필요하신가요?</strong>
+                        <span>개발 및 아키텍처 관련 뉴스레터를 구독하세요.</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- AdSense Bottom Placeholder -->
+                  <div class="ad-container ad-bottom">
+                    <div class="ad-skeleton"></div>
                   </div>
                 </div>
 
@@ -531,6 +565,16 @@
         <p class="copyright">&copy; Copyright 2024 [##_title_##]. All rights reserved.</p>
       </div>
     </footer>
+    
+    <!-- Premium FAB -->
+    <div class="hope-fab-wrapper">
+      <div id="hopeFabMenu" class="hope-fab-menu">
+        <button id="hopeFabShare" class="fab-item" aria-label="Share">🔗</button>
+        <button id="hopeFabTop" class="fab-item" aria-label="Top">⬆</button>
+      </div>
+      <button id="hopeFabMain" class="fab-main" aria-label="Quick Menu">✦</button>
+    </div>
+
   </s_t3>
   <div id="searchOverlay" class="search-overlay">
       <div class="search-overlay-backdrop"></div>

@@ -24,6 +24,13 @@
     initMacCodeBlocks(); // 언어표시 및 코드 복사 버튼 신규 추가
     initReadingProgress();
     initGlobalMeteors(); // 다크모드 글로벌 유성우 추가
+    
+    // Premium Features 2.0
+    initSeriesNav();
+    initScrollReveal();
+    initReadingTime();
+    initFAB();
+    initTerminalTyping();
 
     if (window.SkinOptions) {
       if (window.SkinOptions.useAnimation) initDecryptAnimation();
@@ -129,20 +136,39 @@
     const moonIcon = btn.querySelector('.icon-moon');
     const html = document.documentElement;
 
+    const isSystemDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+
     const updateIcon = (theme) => {
-      if (theme === 'dark') { sunIcon.style.display = 'block'; moonIcon.style.display = 'none'; }
-      else { sunIcon.style.display = 'none'; moonIcon.style.display = 'block'; }
+      const isDark = theme === 'dark' || (theme === 'system' && isSystemDark());
+      if (isDark) {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
     };
+
     const currentTheme = html.getAttribute('data-theme') || 'light';
     updateIcon(currentTheme);
+
     btn.addEventListener('click', () => {
       let current = html.getAttribute('data-theme');
-      let next = current === 'dark' ? 'light' : 'dark';
+      let next = 'dark';
+      
+      if (current === 'dark') {
+        next = 'light';
+      } else if (current === 'system' && isSystemDark()) {
+        next = 'light';
+      }
+      
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       updateIcon(next);
     });
   }
+
+
 
   /* -------------------------------------------------------------
      [Fix] 메가 메뉴의 카테고리 포스팅 갯수 살리기
@@ -199,6 +225,14 @@
       const langLabel = document.createElement('div');
       langLabel.className = 'mac-code-lang';
       langLabel.textContent = lang;
+      
+      // Premium Code Block: Add line numbers
+      let codeEl = pre.querySelector('code');
+      if (codeEl) {
+        let lines = codeEl.innerHTML.split('\n');
+        if (lines[lines.length-1] === '') lines.pop();
+        codeEl.innerHTML = lines.map(line => `<span class="line">${line}</span>`).join('\n');
+      }
 
       const copyBtn = document.createElement('button');
       copyBtn.className = 'mac-code-copy-btn';
@@ -582,8 +616,42 @@
   }
 
   function initReadingProgress() {
-    const progress = document.getElementById('readingProgress');
-    if (!progress) return;
+    let progress = document.getElementById('readingProgress');
+    if (!progress) {
+      progress = document.createElement('div');
+      progress.id = 'readingProgress';
+      progress.style.position = 'fixed';
+      progress.style.top = '0';
+      progress.style.left = '0';
+      progress.style.height = '3px';
+      progress.style.background = 'linear-gradient(90deg, #00f0ff, #ff0080)';
+      progress.style.boxShadow = '0 0 10px #00f0ff';
+      progress.style.zIndex = '9999';
+      progress.style.width = '0%';
+      progress.style.transition = 'width 0.1s ease-out';
+      document.body.appendChild(progress);
+    }
+    
+    // Add Estimated Reading Time
+    const postContent = document.querySelector('.post-content');
+    if (postContent) {
+      const text = postContent.innerText || postContent.textContent;
+      const wordCount = text.trim().length;
+      // Roughly 400 chars per minute for Korean
+      const readingTime = Math.max(1, Math.ceil(wordCount / 400));
+      const titleArea = document.querySelector('.post-title');
+      if (titleArea) {
+        const estBadge = document.createElement('div');
+        estBadge.className = 'est-reading-time cyber-desc';
+        estBadge.innerHTML = `<span class="cyber-blink">_</span> [ SCANNING... EST. TIME: ${readingTime} MINS ]`;
+        estBadge.style.marginTop = '1rem';
+        estBadge.style.color = '#00f0ff';
+        estBadge.style.fontFamily = 'var(--font-mono)';
+        estBadge.style.fontSize = '0.85rem';
+        titleArea.parentElement.insertBefore(estBadge, titleArea.nextSibling);
+      }
+    }
+
     const update = () => {
       const scrolled = window.scrollY;
       const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -623,6 +691,26 @@
   }
 
   /* -------------------------------------------------------------
+     [New] Background Stars Mouse Parallax (V8.0)
+     ------------------------------------------------------------- */
+  function initStarsParallax() {
+    const starsLayers = document.querySelectorAll('.stars-layer');
+    if (starsLayers.length === 0) return;
+    
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 60; // 60px max movement
+      const y = (e.clientY / window.innerHeight - 0.5) * 60;
+      
+      starsLayers.forEach((layer, index) => {
+        // Create 3D depth by moving each layer at different speeds
+        const factor = (index + 1) * 0.5; 
+        layer.style.marginLeft = `${-x * factor}px`;
+        layer.style.marginTop = `${-y * factor}px`;
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------
      [New] Global Meteor Shower (Dark Mode Only)
      ------------------------------------------------------------- */
   function initGlobalMeteors() {
@@ -639,5 +727,387 @@
       meteorContainer.appendChild(meteor);
     }
   }
+
+  /* -------------------------------------------------------------
+     [New] Warp Drive Page Transition (V9.0)
+     ------------------------------------------------------------- */
+  function initWarpDrive() {
+    document.addEventListener('click', (e) => {
+      const target = e.target.closest('a');
+      if (!target) return;
+      if (target.target === '_blank' || target.hasAttribute('download')) return;
+      
+      const href = target.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+      
+      // Allow default for modifier keys
+      if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+
+      const isInternal = target.host === window.location.host || !target.host;
+      if (!isInternal) return;
+
+      e.preventDefault();
+      
+      // Trigger Warp Engine
+      const engine = document.createElement('div');
+      engine.id = 'warpEngine';
+      
+      // Spawn 150 warp lines
+      for (let i = 0; i < 150; i++) {
+        const line = document.createElement('div');
+        line.className = 'warp-line';
+        const angle = Math.random() * 360;
+        const startDist = Math.random() * 100 + 20;
+        line.style.setProperty('--angle', `${angle}deg`);
+        line.style.setProperty('--start-dist', `${startDist}px`);
+        line.style.animationDelay = `${Math.random() * 0.15}s`;
+        engine.appendChild(line);
+      }
+      
+      const flash = document.createElement('div');
+      flash.id = 'warpFlash';
+
+      document.body.appendChild(engine);
+      document.body.appendChild(flash);
+      document.body.classList.add('warp-active');
+
+      // Navigate after animation
+      setTimeout(() => {
+        window.location.href = target.href;
+      }, 700);
+    });
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Series Navigation (RSS Fetch)
+     ------------------------------------------------------------- */
+  function initSeriesNav() {
+    const seriesContainer = document.getElementById('seriesNavContainer');
+    const categoryBadge = document.querySelector('.inpa-post-badge');
+    const categoryLinkEl = categoryBadge ? categoryBadge.querySelector('a') : null;
+    
+    if (!seriesContainer || !categoryLinkEl) return;
+    
+    const categoryUrl = categoryLinkEl.href;
+    const categoryName = categoryLinkEl.textContent;
+    
+    seriesContainer.innerHTML = `<div class="series-header"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> <strong>'${categoryName}'</strong> 시리즈</div><div class="series-list"><div style="text-align:center; padding: 20px;"><div class="star-spinner" style="display:inline-block; width:20px;height:20px;border:2px solid var(--point-color);border-top:transparent;border-radius:50%;animation:spin 1s linear infinite;"></div></div></div>`;
+    
+    fetch(categoryUrl)
+      .then(res => res.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // Extract links from standard inpa-card-link or list-items
+        const articles = Array.from(doc.querySelectorAll('.inpa-card-link')).slice(0, 5);
+        if (articles.length > 0) {
+          let listHtml = '<ul>';
+          articles.forEach(a => {
+            const titleEl = a.querySelector('.inpa-card-title') || a;
+            const title = titleEl.textContent;
+            const isCurrent = a.href === window.location.href ? 'class="current"' : '';
+            listHtml += `<li ${isCurrent}><a href="${a.href}">${title}</a></li>`;
+          });
+          listHtml += '</ul>';
+          seriesContainer.querySelector('.series-list').innerHTML = listHtml;
+        } else {
+          seriesContainer.style.display = 'none';
+        }
+      })
+      .catch(() => seriesContainer.style.display = 'none');
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Scroll Interaction (IntersectionObserver)
+     ------------------------------------------------------------- */
+  function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.inpa-card, .post-content h2, .post-content h3, .post-content p, .post-content img, .ad-container').forEach(el => {
+      el.classList.add('reveal-on-scroll');
+      observer.observe(el);
+    });
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Reading Time Calculation
+     ------------------------------------------------------------- */
+  function initReadingTime() {
+    const content = document.querySelector('.post-content');
+    const metaContainer = document.querySelector('.inpa-post-meta');
+    if (!content || !metaContainer) return;
+
+    const textLength = content.innerText.replace(/\s/g, '').length;
+    const wpm = 300; 
+    let time = Math.ceil(textLength / wpm);
+    if (time < 1) time = 1;
+    
+    const timeBadge = document.createElement('span');
+    timeBadge.className = 'meta-item reading-time';
+    timeBadge.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ☕ ${time}분 소요`;
+    metaContainer.appendChild(timeBadge);
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] FAB Toggle
+     ------------------------------------------------------------- */
+  function initFAB() {
+    const fabMain = document.getElementById('hopeFabMain');
+    const fabMenu = document.getElementById('hopeFabMenu');
+    if (!fabMain || !fabMenu) return;
+
+    fabMain.addEventListener('click', () => {
+      fabMenu.classList.toggle('active');
+      fabMain.classList.toggle('active');
+    });
+
+    document.getElementById('hopeFabTop')?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      fabMenu.classList.remove('active');
+      fabMain.classList.remove('active');
+    });
+    
+    document.getElementById('hopeFabShare')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('주소가 복사되었습니다!');
+        fabMenu.classList.remove('active');
+        fabMain.classList.remove('active');
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Terminal Typing Animation
+     ------------------------------------------------------------- */
+  function initTerminalTyping() {
+    const textTarget = document.getElementById('terminalTypingText');
+    if (!textTarget) return;
+    const text = "본질을 꿰뚫는 문제 해결과 견고한 시스템 설계를 통해,\n세상에 지속 가능한 가치를 더하는 소프트웨어를 만듭니다.";
+    let i = 0;
+    textTarget.innerHTML = ''; 
+    function typeWriter() {
+      if (i < text.length) {
+        if (text.charAt(i) === '\n') {
+          textTarget.innerHTML += '<br>';
+        } else {
+          textTarget.innerHTML += text.charAt(i);
+        }
+        i++;
+        setTimeout(typeWriter, Math.random() * 50 + 30); 
+      }
+    }
+    // Start typing animation after 1.5 seconds to feel like the terminal is booting up
+    setTimeout(typeWriter, 1500); 
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Nature CountUp Animation
+     ------------------------------------------------------------- */
+  function initNatureCountUp() {
+    const counters = document.querySelectorAll('.counter-num');
+    if(counters.length === 0) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          const el = entry.target;
+          const rawVal = el.getAttribute('data-raw');
+          const target = parseInt(rawVal || el.innerText.replace(/,/g, '') || 0, 10);
+          if (isNaN(target)) return;
+          let count = 0;
+          const duration = 2000;
+          const step = Math.max(1, Math.floor(target / (duration / 16)));
+          
+          function update() {
+            count += step;
+            if(count >= target) {
+              el.innerText = target.toLocaleString();
+            } else {
+              el.innerText = count.toLocaleString();
+              requestAnimationFrame(update);
+            }
+          }
+          requestAnimationFrame(update);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(c => observer.observe(c));
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] 3D Hover Tilt & Shine
+     ------------------------------------------------------------- */
+  function init3DTiltCards() {
+    const cards = document.querySelectorAll('.inpa-card.bento-card');
+    cards.forEach(card => {
+      // Create glare overlay dynamically
+      const glare = document.createElement('div');
+      glare.className = 'glare-overlay';
+      card.appendChild(glare);
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -10; 
+        const rotateY = ((x - centerX) / centerX) * 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3) 0%, transparent 60%)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        glare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)`;
+      });
+    });
+  }
+
+  /* -------------------------------------------------------------
+     [Premium] Interactive Hero Particles
+     ------------------------------------------------------------- */
+  function initHeroParticles() {
+    const heroOverlay = document.querySelector('.hero-overlay');
+    if (!heroOverlay) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.id = 'heroCanvas';
+    heroOverlay.appendChild(canvas);
+    
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let mouse = { x: undefined, y: undefined, radius: 120 };
+
+    function resize() {
+      width = heroOverlay.clientWidth;
+      height = heroOverlay.clientHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initParticles();
+    }
+
+    class Particle {
+      constructor(x, y, size, color) {
+        this.x = x; this.y = y;
+        this.size = size; this.color = color;
+        this.baseX = this.x; this.baseY = this.y;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+      update() {
+        if (mouse.x !== undefined && mouse.y !== undefined) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          let forceDirectionX = dx / distance;
+          let forceDirectionY = dy / distance;
+          let maxDistance = mouse.radius;
+          let force = (maxDistance - distance) / maxDistance;
+          let directionX = forceDirectionX * force * 5;
+          let directionY = forceDirectionY * force * 5;
+
+          if (distance < mouse.radius) {
+            this.x -= directionX;
+            this.y -= directionY;
+          } else {
+            if (this.x !== this.baseX) {
+              let dx = this.x - this.baseX;
+              this.x -= dx / 15;
+            }
+            if (this.y !== this.baseY) {
+              let dy = this.y - this.baseY;
+              this.y -= dy / 15;
+            }
+          }
+        } else {
+            if (this.x !== this.baseX) {
+              let dx = this.x - this.baseX;
+              this.x -= dx / 15;
+            }
+            if (this.y !== this.baseY) {
+              let dy = this.y - this.baseY;
+              this.y -= dy / 15;
+            }
+        }
+        this.draw();
+      }
+    }
+
+    function initParticles() {
+      particles = [];
+      let numberOfParticles = (canvas.width * canvas.height) / 8000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        let size = (Math.random() * 2) + 0.5;
+        let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+        let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+        let color = 'rgba(255, 255, 255, 0.6)';
+        particles.push(new Particle(x, y, size, color));
+      }
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+      }
+    }
+
+    window.addEventListener('resize', resize);
+    
+    // Mouse events directly on hero wrapper to easily track mouse
+    const heroContent = document.querySelector('.hero-content') || heroOverlay;
+    document.querySelector('.hero-section').addEventListener('mousemove', function(event) {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
+    });
+    document.querySelector('.hero-section').addEventListener('mouseleave', function() {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+
+    resize();
+    animate();
+  }
+
+  /* -------------------------------------------------------------
+     DOMContentLoaded
+     ------------------------------------------------------------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    initCopyButton();
+    initCodeCopy();
+    initTableOfContents();
+    initReadingProgress();
+    initWeatherTheme();
+    initPostFeatures();
+    initPopularCategories();
+    fetchPopularPosts();
+    parseAndBuildSidebarCategories();
+    initGlobalMeteors();
+    initStarsParallax();
+    initWarpDrive();
+    
+    // Premium Dashboard Features
+    initNatureCountUp();
+    init3DTiltCards();
+    initHeroParticles();
+  });
 
 })();
