@@ -575,3 +575,142 @@ body.zen-mode .zen-mode-toggle {
     display: none;
   }
 }
+
+/* -------------------------------------------------------------
+   7. UI/UX 퍼포먼스 및 편의성 개선 (V8.1)
+   ------------------------------------------------------------- */
+/* 부드러운 스크롤 (목차 등 앵커 이동 시 부드럽게) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 가로 스크롤 매거진 레이아웃 스크롤바 숨김 (앱 같은 경험 제공) */
+.magazine-grid::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리 등 */
+}
+.magazine-grid {
+  -ms-overflow-style: none; /* IE, Edge */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+/* 사이드바 아코디언 메뉴 스타일 */
+.sidebar-sub-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+  margin-left: 2rem;
+  padding-left: 1rem;
+  border-left: 1px dashed var(--border-color);
+  list-style: none;
+}
+
+.sidebar-cat-item.expanded .sidebar-sub-list {
+  max-height: 800px;
+  opacity: 1;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-cat-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s ease;
+  opacity: 0.7;
+}
+
+.sidebar-cat-toggle:hover {
+  background: var(--bg-color-hover);
+  opacity: 1;
+}
+
+.sidebar-cat-item.expanded .sidebar-cat-toggle {
+  transform: rotate(180deg);
+  color: var(--point-color);
+}
+
+/* 서브 아이템 디자인 */
+.sidebar-sub-item {
+  margin-bottom: 0.3rem;
+}
+
+.sidebar-sub-item:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-sub-link {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-sub-link:hover {
+  color: var(--point-color);
+  background: var(--bg-color-hover);
+  transform: translateX(3px);
+}
+
+.sidebar-sub-count {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* 서브 아이템 디자인 생략 */
+.sidebar-sub-link:hover .sidebar-sub-count {
+  color: var(--point-color);
+  opacity: 1;
+}
+
+/* -------------------------------------------------------------
+   8. Mobile Sidebar 3D Push & Glassmorphism (V8.2)
+   ------------------------------------------------------------- */
+/* 메인 컨텐츠 3D 푸시 효과 */
+#wrap, main, .post-content {
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-radius 0.4s ease;
+  transform-origin: center right;
+  will-change: transform;
+}
+
+body.drawer-3d-push {
+  background-color: var(--bg-color); /* 뒤 배경이 보일 때 대비 */
+}
+
+.drawer-3d-push #wrap,
+.drawer-3d-push main {
+  transform: scale(0.95) translateX(-20px) rotateY(2deg);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+  pointer-events: none; /* 사이드바 열렸을 때 본문 클릭/스크롤 방지 */
+}
+
+/* 사이드바 글래스모피즘 (Frosted Glass) */
+.glass-drawer {
+  background: rgba(25, 25, 30, 0.6) !important;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-left: 1px solid rgba(255,255,255,0.05);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='light'] .glass-drawer {
+  background: rgba(255, 255, 255, 0.65) !important;
+  border-left: 1px solid rgba(0,0,0,0.05);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
+}

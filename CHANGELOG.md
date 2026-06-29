@@ -1,5 +1,18 @@
 # Hope Devlog Skin - Update History (Cosmic & Nature Theme)
 
+## [2026-06-29] V8.2 "Architecture & Security Refactoring"
+- **모바일 햄버거 메뉴 애니메이션 고도화 (3D Push & Glassmorphism)**: 모바일 환경에서 햄버거 메뉴를 열 때, 메인 블로그 화면이 뒤로 살짝 밀려나는(3D Push) 입체적인 모션과 함께 반투명한 글래스모피즘(Frosted Glass) 질감의 사이드바가 부드럽게 등장하도록 모바일 UX를 앱 수준으로 고도화.
+- **거대 레거시 스크립트 모듈화**: 약 900줄에 달하던 `_legacy.js`를 폐기하고, 최신 프론트엔드 아키텍처에 맞게 `ui.js`, `sidebar.js`, `menu.js`, `post.js`, `effects.js` 모듈로 기능별 완전 분리 및 `main.js`에서 통합 관리.
+- **CSS 디자인 토큰 중앙화**: 흩어져 있던 다크/라이트 모드 컬러, 여백, 그림자 설정 등을 `_variables.css`로 통합 분리하여 디자인 시스템 기반 확립.
+- **XSS 방어 완벽 적용**: 목차(TOC) 스크롤 스파이, 카테고리 렌더링, 메가 메뉴 등에서 발생할 수 있는 잠재적 스크립트 인젝션(XSS) 취약점을 제거하기 위해 `textContent` 및 `insertAdjacentHTML` 방식으로 렌더링 구조 전면 재설계.
+- **퍼포먼스 향상**: 본문 내 대형 이미지 렌더링 최적화를 위해 동적 Lazy Loading 및 Async Decoding 속성 일괄 부여 로직 추가.
+
+## [2026-06-29] V8.1 "UI/UX & Security Refactoring"
+- **모바일 사이드바 아코디언 메뉴**: 모바일 햄버거 메뉴 및 우측 사이드바(Drawer)의 카테고리 목록을 아코디언(Accordion) 형태로 개편하여 부드러운 토글 애니메이션 및 서브 카테고리 지원.
+- **앱 라이크 스크롤 바 숨김**: 매거진 가로 스크롤 레이아웃에 `::-webkit-scrollbar` 숨김 처리를 적용하여 모바일 앱과 같은 미려한 스와이프 경험 제공.
+- **스무스 스크롤링 전역 적용**: 목차(TOC) 클릭이나 내부 앵커 이동 시 부드럽게 스크롤 되도록 `scroll-behavior: smooth` 적용.
+- **XSS 방어 보안 리팩토링**: 자바스크립트 DOM 파싱 구간에서 `.innerHTML` 대신 `.textContent`를 사용하도록 구조를 변경하여 보안성과 성능 향상.
+
 ## [2026-06-29] V8.0 "Premium Mega Menu & Horizontal Cards"
 - **메가 메뉴 다이어그램 개편**: 기존 드롭다운 방식을 벗어나, 마우스 호버 시 글래스모피즘(Glassmorphism) 기반의 넓은 패널이 열리도록 디자인 고도화. 중/소분류 카테고리를 다단(Multi-column) 그리드로 도식화하여 렌더링하고, 포스팅 갯수를 가시성이 뛰어난 뱃지 UI로 강화.
 - **섹션 헤더 프리미엄 통합**: 모든 하단/메인 카테고리의 헤더 텍스트 디자인을 왼쪽 정렬 + 시안색(Cyan) 네온 바 형태로 통일하여 강렬한 사이버펑크 룩으로 일관성 유지.
