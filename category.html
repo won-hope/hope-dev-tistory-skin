@@ -4,9 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Category - Hope Devlog</title>
-  <link rel="alternate" type="application/rss+xml" title="Hope Devlog" href="#" />
-  <link rel="stylesheet" href="./style.css">
+  <title>로컬 테스트 뷰 (category) - Hope Devlog (Mock)</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="Vite 환경의 티스토리 목업 서버입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="로컬 테스트 뷰 (category) - Hope Devlog (Mock)">
+  <meta property="og:description" content="Vite 환경의 티스토리 목업 서버입니다.">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/9919?v=4">
+  <meta property="og:url" content="http://localhost:5173">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="alternate" type="application/rss+xml" title="Hope Devlog (Mock)" href="#" />
+  <link rel="stylesheet" href="/src/css/style.css">
   <!-- V9.4 Cyberpunk HUD Sidebar Styles -->
   <style>
     /* Hero Subtitle Fix for Light Mode (우주 배경에서는 항상 밝은 글씨) */
@@ -45,137 +55,179 @@
     .sidebar-content .tt_category li a:hover .c_cnt { color: #ff0033 !important; text-shadow: 0 0 10px #ff0033; }
     .sidebar-content .tt_category .category_list { padding-left: 1rem; margin-top: 8px; display: none; border-left: 1px dashed rgba(0,240,255,0.3); }
 
-    /* [V9.5] Cyberpunk TOC Styles */
-    .side-toc-panel, [data-theme='light'] .side-toc-panel { background: #050508 !important; border-left: 1px solid #00f0ff !important; box-shadow: -10px 0 30px rgba(0,240,255,0.15) !important; color: #a9b1d6 !important; }
-    .side-toc-panel::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px), linear-gradient(0deg, rgba(0,240,255,0.03) 1px, transparent 1px); background-size: 20px 20px; pointer-events: none; z-index: 0; }
-    .side-toc-header { border-bottom: 1px dashed rgba(0,240,255,0.3) !important; position: relative; z-index: 10; background: transparent !important; }
-    #tocCloseBtn { color: #ff0033 !important; text-shadow: 0 0 5px rgba(255,0,51,0.5); font-family: "Fira Code", monospace; font-weight: bold; transition: all 0.2s; }
-    #tocCloseBtn:hover { transform: scale(1.1); text-shadow: 0 0 10px #ff0033; }
-    .side-toc-content { position: relative; z-index: 10; }
-    .side-toc-content a, [data-theme='light'] .side-toc-content a { color: #a9b1d6 !important; font-family: "Fira Code", monospace !important; border-left: 2px solid transparent !important; padding-left: 1rem !important; transition: all 0.3s ease !important; }
-    .side-toc-content a:hover, [data-theme='light'] .side-toc-content a:hover { color: #00f0ff !important; text-shadow: 0 0 8px rgba(0,240,255,0.5); border-left-color: rgba(0,240,255,0.5) !important; background: rgba(0,240,255,0.05) !important; }
-    .side-toc-content a.active, [data-theme='light'] .side-toc-content a.active { color: #00f0ff !important; border-left-color: #00f0ff !important; font-weight: bold; background: rgba(0,240,255,0.1) !important; text-shadow: 0 0 10px rgba(0,240,255,0.8); }
-    .side-toc-content a.active::before { content: "> "; color: #00f0ff; animation: cursorBlink 1s step-start infinite; }
-    .inpa-inpost-toc { background: #050508 !important; border: 1px solid rgba(0,240,255,0.3) !important; border-radius: 8px; box-shadow: 0 0 15px rgba(0,240,255,0.1); margin: 2rem 0; font-family: "Fira Code", monospace; }
-    .inpa-inpost-toc-header { border-bottom: 1px dashed rgba(0,240,255,0.3); color: #00f0ff; text-shadow: 0 0 8px rgba(0,240,255,0.5); font-weight: bold; padding: 1rem; display: flex; align-items: center; gap: 8px; }
-    .inpa-inpost-toc-body a { color: #a9b1d6 !important; text-decoration: none; padding: 0.5rem 1rem; display: block; border-left: 2px solid transparent; transition: all 0.3s; }
-    .inpa-inpost-toc-body a:hover { color: #00f0ff !important; background: rgba(0,240,255,0.05); border-left-color: #00f0ff; }
-    .toc-num { color: #ff0033; text-shadow: 0 0 5px rgba(255,0,51,0.5); margin-right: 0.5rem; }
+    /* [V9.5] Apple-style TOC Styles (Clean & Readable) */
+    .side-toc-panel { background: rgba(30,30,30,0.85) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.1) !important; box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important; color: #f5f5f7 !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; }
+    [data-theme='light'] .side-toc-panel { background: rgba(255,255,255,0.85) !important; border-left: 1px solid rgba(0,0,0,0.1) !important; box-shadow: -10px 0 30px rgba(0,0,0,0.1) !important; color: #1d1d1f !important; }
+    .side-toc-panel::before { display: none !important; }
+    .side-toc-header { border-bottom: 1px solid rgba(255,255,255,0.1) !important; background: transparent !important; }
+    [data-theme='light'] .side-toc-header { border-bottom: 1px solid rgba(0,0,0,0.1) !important; }
+    #tocCloseBtn { color: #86868b !important; text-shadow: none !important; font-family: sans-serif; font-weight: normal; transition: color 0.2s; }
+    #tocCloseBtn:hover { transform: none !important; color: #1d1d1f !important; }
+    [data-theme='dark'] #tocCloseBtn:hover { color: #f5f5f7 !important; }
+    .side-toc-content { position: relative; z-index: 10; font-size: 14px; }
+    .side-toc-content a { color: #86868b !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important; border-left: 3px solid transparent !important; padding-left: 1rem !important; transition: all 0.2s ease !important; line-height: 1.6 !important; }
+    [data-theme='light'] .side-toc-content a { color: #86868b !important; }
+    .side-toc-content a:hover { color: #f5f5f7 !important; text-shadow: none !important; border-left-color: rgba(255,255,255,0.2) !important; background: transparent !important; }
+    [data-theme='light'] .side-toc-content a:hover { color: #1d1d1f !important; border-left-color: rgba(0,0,0,0.2) !important; }
+    .side-toc-content a.active { color: #0071e3 !important; border-left-color: #0071e3 !important; font-weight: 600; background: transparent !important; text-shadow: none !important; }
+    [data-theme='light'] .side-toc-content a.active { color: #0071e3 !important; border-left-color: #0071e3 !important; }
+    .side-toc-content a.active::before { display: none !important; }
+    .inpa-inpost-toc { background: rgba(30,30,30,0.85) !important; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin: 2rem 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    [data-theme='light'] .inpa-inpost-toc { background: rgba(255,255,255,0.85) !important; border: 1px solid rgba(0,0,0,0.1) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .inpa-inpost-toc-header { border-bottom: 1px solid rgba(255,255,255,0.1); color: #f5f5f7; text-shadow: none; font-weight: 600; padding: 1rem; display: flex; align-items: center; gap: 8px; }
+    [data-theme='light'] .inpa-inpost-toc-header { border-bottom: 1px solid rgba(0,0,0,0.1); color: #1d1d1f; }
+    .inpa-inpost-toc-body a { color: #86868b !important; text-decoration: none; padding: 0.5rem 1rem; display: block; border-left: 3px solid transparent; transition: all 0.2s; }
+    .inpa-inpost-toc-body a:hover { color: #0071e3 !important; background: transparent; border-left-color: #0071e3; }
+    .toc-num { color: inherit !important; text-shadow: none !important; margin-right: 0.5rem; opacity: 0.7; }
 
     @keyframes cosmicPulse { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.05); opacity: 1; } }
     @keyframes cursorBlink { 50% { opacity: 0; } }
   </style>
+
   <script>
-    const savedTheme = localStorage.getItem('theme');
-    const varTheme = 'system';
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (varTheme !== 'system' && varTheme !== '') {
-      document.documentElement.setAttribute('data-theme', varTheme);
-    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const varTheme = 'system';
+      let targetTheme = 'light';
+      
+      if (savedTheme) {
+        targetTheme = savedTheme;
+      } else if (varTheme && varTheme !== 'system' && varTheme !== '') {
+        targetTheme = varTheme;
+      } else {
+        targetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
 
     window.SkinOptions = {
-      heroKeywords: 'Systems, Solutions, Value, Impact',
-      themeStyle: 'default',
-      motionLevel: 'normal',
-      useAnimation: true,
-      useWeather: true,
-      showWeatherBadge: true,
-      autoWeatherTheme: true,
-      weatherGreeting: false,
-      blogStartDate: '2024-01-01'
+      heroKeywords: 'Developer, Designer, Creator',
+      themeStyle: 'cosmic',
+      motionLevel: 'high',
+      useAnimation: 'high' !== 'off',
+      useWeather: 'true' !== 'false',
+      showWeatherBadge: 'true' !== 'false',
+      autoWeatherTheme: 'true' !== 'false',
+      weatherGreeting: 'true' === 'true',
+      blogStartDate: '2024-01-01' || '2024-01-01'
     };
   </script>
 </head>
 
 <body id="tt-body-category">
+  <a href="#main-content" class="skip-nav">본문 바로가기</a>
   <div id="hopePreloader" class="preloader">
     <div class="star-loader-wrapper">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2" class="star-spinner">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
+        class="star-spinner">
+        <polygon
+          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+        </polygon>
       </svg>
     </div>
   </div>
-  <div class="cubism-bg-layer" aria-hidden="true">
-    <div class="cubism-shape shape-1"></div>
-    <div class="cubism-shape shape-2"></div>
-  </div>
-  <div id="readingProgress" class="reading-progress"></div>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <div class="header-brand">
-        <a href="preview.html" class="brand-link">Hope Devlog</a>
-      </div>
-      <nav class="header-nav" aria-label="메인 메뉴">
-        <ul class='tt_category'><li class=''> <a href='/category' class='link_tit'> 분류 전체보기 <span class='c_cnt'>(30)</span> </a> <ul class='category_list'><li class=''> <a href='category.html' class='link_item'> Tech <span class='c_cnt'>(20)</span> </a> </li></ul></li></ul>
-      </nav>
-      <div class="header-actions">
-        <button id="themeToggleBtn" class="action-btn cosmic-toggle-btn" aria-label="테마 전환">
-          <svg class="icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <defs>
-              <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#FFD700" />
-                <stop offset="100%" stop-color="#FF8C00" />
-              </linearGradient>
-              <filter id="sunGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-            <circle cx="12" cy="12" r="6" fill="url(#sunGrad)" filter="url(#sunGlow)" />
-            <g stroke="#FFA500" stroke-width="2" stroke-linecap="round" class="sun-rays">
-              <line x1="12" y1="1" x2="12" y2="4" />
-              <line x1="12" y1="20" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
-              <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="4" y2="12" />
-              <line x1="20" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
-              <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
-            </g>
-          </svg>
-          <svg class="icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
-            <defs>
-              <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#C0C0C0" />
-                <stop offset="100%" stop-color="#F8F8FF" />
-              </linearGradient>
-              <filter id="moonGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-              </filter>
-            </defs>
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="url(#moonGrad)" filter="url(#moonGlow)" class="moon-body" />
-            <circle cx="18" cy="4" r="1.5" fill="#FFF" opacity="0.8" class="star-blink" />
-            <circle cx="21" cy="8" r="1" fill="#FFF" opacity="0.5" class="star-blink" style="animation-delay: 0.5s;" />
-            <circle cx="6" cy="4" r="1" fill="#FFF" opacity="0.6" class="star-blink" style="animation-delay: 1s;" />
-          </svg>
-        </button>
-
-        <button class="star-menu-btn" aria-label="메뉴 열기">
-          <svg viewBox="0 0 100 100" width="24" height="24">
-            <polygon points="50,5 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
+  <s_t3>
+    <div class="cubism-bg-layer" aria-hidden="true">
+      <div class="cubism-shape shape-1"></div>
+      <div class="cubism-shape shape-2"></div>
     </div>
-  </header>
+    <div id="readingProgress" class="reading-progress"></div>
 
-  <main id="main-content" class="main-container" style="padding-top: 80px;">
-    <!-- CATEGORY LIST SECTION -->
-    <section class="arch-posts-section" style="max-width: 1200px; margin: 0 auto;">
-      <!-- Cosmic Category Header -->
-      <div class="category-cosmic-header premium-cosmic-theme">
-        <!-- Background Stars -->
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-brand">
+          <a href="[##_blog_link_##]" class="brand-link">Hope Devlog (Mock)</a>
+        </div>
+        <nav class="header-nav" aria-label="메인 메뉴">
+          
+<ul class="tt_category">
+  <li><a href="#none" class="link_tit">전체 보기 <span class="c_cnt">(120)</span></a>
+    <ul class="category_list">
+      <li><a href="#none" class="link_item">Architecture <span class="c_cnt">(24)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">System Design <span class="c_cnt">(10)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">Frontend <span class="c_cnt">(56)</span></a></li>
+    </ul>
+  </li>
+</ul>
+
+        </nav>
+        <div class="header-actions">
+          <div id="weatherBadge" class="weather-badge" style="display: none;">
+            <span class="weather-icon"></span><span class="weather-text">로딩중...</span>
+          </div>
+          <button id="themeToggleBtn" class="action-btn cosmic-toggle-btn" aria-label="테마 전환">
+            <svg class="icon-sun" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <defs>
+                <linearGradient id="sunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#FFD700" />
+                  <stop offset="100%" stop-color="#FF8C00" />
+                </linearGradient>
+                <filter id="sunGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+              <circle cx="12" cy="12" r="6" fill="url(#sunGrad)" filter="url(#sunGlow)" />
+              <g stroke="#FFA500" stroke-width="2" stroke-linecap="round" class="sun-rays">
+                <line x1="12" y1="1" x2="12" y2="4" />
+                <line x1="12" y1="20" x2="12" y2="23" />
+                <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
+                <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
+                <line x1="1" y1="12" x2="4" y2="12" />
+                <line x1="20" y1="12" x2="23" y2="12" />
+                <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
+                <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
+              </g>
+            </svg>
+            <svg class="icon-moon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
+              <defs>
+                <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#C0C0C0" />
+                  <stop offset="100%" stop-color="#F8F8FF" />
+                </linearGradient>
+                <filter id="moonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="url(#moonGrad)" filter="url(#moonGlow)" class="moon-body" />
+              <circle cx="18" cy="4" r="1.5" fill="#FFF" opacity="0.8" class="star-blink" />
+              <circle cx="21" cy="8" r="1" fill="#FFF" opacity="0.5" class="star-blink" style="animation-delay: 0.5s;" />
+              <circle cx="6" cy="4" r="1" fill="#FFF" opacity="0.6" class="star-blink" style="animation-delay: 1s;" />
+            </svg>
+          </button>
+
+          <button class="action-btn search-toggle" aria-label="검색창 열기">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <button class="star-menu-btn" aria-label="메뉴 열기">
+            <svg viewBox="0 0 100 100" width="24" height="24">
+              <polygon points="50,5 61,35 98,35 68,57 79,91 50,70 21,91 32,57 2,35 39,35" fill="none"
+                stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-container">
+
+      <!-- Home Only Hero Section -->
+      <section class="hero-section cosmic-hero home-only-widgets">
         <div class="hero-bg-image">
           <div class="stars-layer stars1"></div>
           <div class="stars-layer stars2"></div>
           <div class="stars-layer stars3"></div>
         </div>
-        
-        <div class="hero-overlay premium-glass-overlay"></div>
-
+        <div class="hero-overlay"></div>
         <div class="meteor-layer">
           <div class="meteor meteor-1"></div>
           <div class="meteor meteor-2"></div>
@@ -188,67 +240,324 @@
           <div class="meteor meteor-9"></div>
           <div class="meteor meteor-10"></div>
         </div>
+        <div class="hero-content">
+          <div class="hero-badge cosmic-pulse">SOFTWARE ENGINEERING</div>
+          <h2 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h2>
+          <div class="hero-divider">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+          <p class="hero-desc cosmic-desc">본질을 꿰뚫는 문제 해결과 견고한 시스템 설계를 통해,<br>세상에 지속 가능한 가치를 더하는 소프트웨어를 만듭니다.</p>
+        </div>
+      </section>
 
-        <!-- Moving Aura Orbs -->
-        <div class="planet-layer">
-          <div class="orb orb-1"></div>
-          <div class="orb orb-2"></div>
-          <div class="orb orb-3"></div>
+      <div class="home-only-widgets">
+        <section class="dashboard-stats-section nature-dashboard">
+          <div class="nature-grid">
+            <!-- Left Wing -->
+            <div class="nature-side">
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">TODAY</span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="1,245">0</span></span>
+                </div>
+              </div>
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">TOTAL POSTS</span>
+                  <span class="nature-stat-value"><span class="counter-num" id="mainTotalPosts">0</span></span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Center Focus -->
+            <div class="nature-center">
+              <div class="nature-center-content">
+                <span class="nature-center-label">TOTAL VISITORS</span>
+                <span class="nature-center-value"><span class="counter-num" data-raw="987,654">0</span></span>
+                <p class="nature-center-desc">견고한 시스템과 지속 가능한 가치 창출을 증명하는 트래픽 지표입니다.</p>
+              </div>
+            </div>
+
+            <!-- Right Wing -->
+            <div class="nature-side">
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">YESTERDAY</span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="1,150">0</span></span>
+                </div>
+              </div>
+              <div class="nature-stat-card">
+                <div class="nature-stat-content">
+                  <span class="nature-stat-label">UPTIME (DAYS)</span>
+                  <span class="nature-stat-value"><span class="counter-num" id="mainBlogAge">0</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="popular-categories-section">
+          <div class="arch-section-header">
+            <h2 class="arch-section-title">POPULAR CATEGORIES</h2>
+            <p class="arch-section-desc">가장 많이 찾는 인기 카테고리입니다.</p>
+          </div>
+          <div class="tech-core-grid" id="popularCategoryGrid"></div>
+        </section>
+      </div>
+
+      <section class="arch-posts-section">
+        <div class="arch-section-header home-only-widgets">
+          <h2 class="arch-section-title">LATEST INSIGHTS</h2>
+          <p class="arch-section-desc">지속 가능한 가치를 위한 최신 엔지니어링 기록입니다.</p>
         </div>
         
-        <div class="category-header-content">
-          <h2 class="arch-section-title premium-title-glow">Tech / Frontend (45)</h2>
-          <p class="arch-section-desc premium-desc-glow">프론트엔드 관련 기술 포스팅</p>
+          <div class="arch-section-header list-only-title">
+            <h2 class="arch-section-title">Architecture 카테고리의 글</h2>
+          </div>
+        
+
+        <div class="magazine-grid">
+          <div class="article-rep-wrapper mock-post" style="display: contents;">
+            
+              <article class="inpa-card bento-card">
+                <a href="#" class="inpa-card-link">
+                  <div class="inpa-card-thumb bento-thumb">
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="프론트엔드 아키텍처의 본질적 고민과 설계 패턴"></div>
+                    
+                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
+                    
+                  </div>
+                  <div class="inpa-card-body bento-info">
+                    <span class="inpa-card-badge bento-category">Architecture</span>
+                    <h3 class="inpa-card-title bento-title">프론트엔드 아키텍처의 본질적 고민과 설계 패턴</h3>
+                    <p class="inpa-card-desc bento-summary">비즈니스 로직과 UI를 분리하는 방법론.</p>
+                  </div>
+                  <div class="inpa-card-footer">
+                    <div class="inpa-author-info">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                      <div class="inpa-author-text">
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            
+              <article class="inpa-card bento-card">
+                <a href="#" class="inpa-card-link">
+                  <div class="inpa-card-thumb bento-thumb">
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="디자인 시스템 구축기"></div>
+                    
+                      <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
+                    
+                  </div>
+                  <div class="inpa-card-body bento-info">
+                    <span class="inpa-card-badge bento-category">Frontend</span>
+                    <h3 class="inpa-card-title bento-title">디자인 시스템 구축기</h3>
+                    <p class="inpa-card-desc bento-summary">Storybook과 Figma.</p>
+                  </div>
+                  <div class="inpa-card-footer">
+                    <div class="inpa-author-info">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                      <div class="inpa-author-text">
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            
+
+            <!-- 상세 포스팅 영역 -->
+            
+          </div>
+        </div>
+      </section>
+
+
+      <div style="display:none;">
+        <div class="page-container">
+          <h2>프론트엔드 아키텍처의 본질적 고민과 설계 패턴</h2>
+          <div class="page-content">
+  <h2 data-ke-size="size26">1. 아키텍처 패턴의 이해</h2>
+  <p>프론트엔드 아키텍처는 단순히 폴더를 나누는 것이 아닙니다.</p>
+  <h3 data-ke-size="size23">1.1. MVC 패턴</h3>
+  <p>MVC는 훌륭한 패턴입니다...</p>
+  <h3 data-ke-size="size23">1.2. MVVM 패턴</h3>
+  <p>뷰와 모델을 완벽하게 분리합니다.</p>
+  <h2 data-ke-size="size26">2. 실제 적용 사례</h2>
+  <p>이 패턴들을 프로젝트에 적용해 보았습니다.</p>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <h3 data-ke-size="size23">2.1. 성과 측정</h3>
+  <p>로딩 속도가 30% 개선되었습니다.</p>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+</div>
         </div>
       </div>
-      
-      <div class="magazine-grid" style="margin-top: 2rem;">
-        <article class="inpa-card bento-card">
-          <a href="post.html" class="inpa-card-link">
-            <div class="inpa-card-thumb bento-thumb">
-              <div class="inpa-card-fallback bento-fallback-cover" data-initial="프론트엔드"></div>
-              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" alt="thumbnail" class="inpa-card-img">
-            </div>
-            <div class="inpa-card-body bento-info">
-              <span class="inpa-card-badge bento-category">Tech/Frontend</span>
-              <h3 class="inpa-card-title bento-title">프론트엔드 아키텍처 디자인 패턴 탐구</h3>
-              <p class="inpa-card-desc bento-summary">프론트엔드 생태계에서 컴포넌트 주도 개발(Component-Driven Development)은 UI를 모듈화하고 재사용성을 극대화하는 핵심 방법론입니다...</p>
-            </div>
-            <div class="inpa-card-footer">
-              <div class="inpa-author-info">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="avatar" class="inpa-avatar">
-                <div class="inpa-author-text">
-                  <span class="inpa-author">Hope Dev</span>
-                  <span class="inpa-date bento-date">2026.06.25</span>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="inpa-card bento-card">
-          <a href="post.html" class="inpa-card-link">
-            <div class="inpa-card-thumb bento-thumb">
-              <div class="inpa-card-fallback bento-fallback-cover" data-initial="React"></div>
-            </div>
-            <div class="inpa-card-body bento-info">
-              <span class="inpa-card-badge bento-category">Tech/Frontend</span>
-              <h3 class="inpa-card-title bento-title">React 19 새로운 기능 총정리</h3>
-              <p class="inpa-card-desc bento-summary">React 19에서 새롭게 도입된 훅(Hooks)과 컴파일러의 개념을 이해하고 프로젝트에 적용하는 방법을 알아봅니다.</p>
-            </div>
-            <div class="inpa-card-footer">
-              <div class="inpa-author-info">
-                <div class="inpa-author-text">
-                  <span class="inpa-author">Hope Dev</span>
-                  <span class="inpa-date bento-date">2026.06.24</span>
-                </div>
-              </div>
-            </div>
-          </a>
-        </article>
+      <div style="display:none;">
+        <div class="page-container notice-container">
+          <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
+          <div class="page-content">[##_notice_rep_desc_##]</div>
+        </div>
       </div>
-    </section>
-  </main>
+      <div style="display:none;">
+        <div class="page-container tag-container">
+          <h2 class="section-title">태그 모음</h2>
+          <div class="tag-cloud">
+            <s_tag_rep><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></s_tag_rep>
+          </div>
+        </div>
+      </div>
+      <div style="display:none;">
+        <div class="page-container guestbook-container">
+          <h2 class="section-title">방명록</h2>[##_guestbook_disp_##]
+        </div>
+      </div>
+    </main>
+
+    <!-- Side Floating TOC Panel -->
+    <aside id="sideTocPanel" class="side-toc-panel">
+      <div class="side-toc-header">
+        <div class="mac-window-dots">
+          <span class="mac-dot mac-red"></span>
+          <span class="mac-dot mac-yellow"></span>
+          <span class="mac-dot mac-green"></span>
+        </div>
+        <button id="tocCloseBtn" aria-label="닫기">✕</button>
+      </div>
+      <div id="sideTocContent" class="side-toc-content"></div>
+    </aside>
+
+    <aside class="pre-footer-widgets">
+      <div class="hero-bg-image">
+        <div class="stars-layer stars1"></div>
+        <div class="stars-layer stars2"></div>
+        <div class="stars-layer stars3"></div>
+      </div>
+      <div class="meteor-layer">
+        <div class="meteor meteor-1"></div>
+        <div class="meteor meteor-2"></div>
+        <div class="meteor meteor-3"></div>
+        <div class="meteor meteor-4"></div>
+        <div class="meteor meteor-5"></div>
+        <div class="meteor meteor-6"></div>
+        <div class="meteor meteor-7"></div>
+        <div class="meteor meteor-8"></div>
+        <div class="meteor meteor-9"></div>
+        <div class="meteor meteor-10"></div>
+      </div>
+      <div class="widget-grid">
+        
+          
+            <div class="widget-col">
+              <h3 class="widget-title">최근 댓글 <span class="badge-new">new</span></h3>
+              <ul class="widget-list footer-comment-list">
+                
+                  <li>
+                    <a href="#">
+                      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                      </svg>
+                      <span class="text">좋은 글 감사합니다. 많은 도움이 되었습니다!</span>
+                    </a>
+                    <span class="author"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                          d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                      </svg> 익명 사용자</span>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="widget-col">
+              <h3 class="widget-title">최근 글 <span class="badge-new">new</span></h3>
+              <ul class="widget-list post-list">
+                
+                  <li>
+                    <a href="#">
+                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=100')"></div>
+                      <div class="info">
+                        <span class="title">프론트엔드 아키텍처의 본질적 고민</span>
+                        <span class="date">06. 29</span>
+                      </div>
+                    </a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          
+            <div class="widget-col">
+              <h3 class="widget-title">인기 글 <span class="badge-hot">hot</span></h3>
+              <ul class="widget-list post-list">
+                
+                  <li>
+                    <a href="#">
+                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=100')"></div>
+                      <div class="info">
+                        <span class="title">Web Vitals 개선 실전 팁</span>
+                        <span class="date">06. 25</span>
+                      </div>
+                    </a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+        
+      </div>
+    </aside>
+
+    <footer class="site-footer cosmic-footer">
+      <div class="footer-inner">
+        <div class="footer-badge">Architecting Systems</div>
+        <p class="copyright">&copy; Copyright 2026 Hope Devlog (Mock). All rights reserved. <span style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.5.1)</span></p>
+      </div>
+    </footer>
+    
+    <!-- Premium FAB -->
+    <div class="hope-fab-wrapper">
+      <div id="hopeFabMenu" class="hope-fab-menu">
+        <button id="hopeFabShare" class="fab-item" aria-label="Share">🔗</button>
+        <button id="hopeFabTop" class="fab-item" aria-label="Top">⬆</button>
+      </div>
+      <button id="hopeFabMain" class="fab-main" aria-label="Quick Menu">✦</button>
+    </div>
+
+  </s_t3>
+  <div id="searchOverlay" class="search-overlay">
+      <div class="search-overlay-backdrop"></div>
+      <div class="search-modal">
+        <div class="search-header">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
+            onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
+            class="search-input" autocomplete="off">
+          <div class="search-shortcut-hint">
+            <kbd>ESC</kbd>
+          </div>
+        </div>
+        <div class="search-body">
+          <div class="search-suggest-title">Trending Tags</div>
+          <div class="search-tags">
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">React</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">AI</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Node.js</span>
+            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Architecture</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -272,33 +581,57 @@
     <div class="sidebar-inner">
       <div class="sidebar-profile">
         <div class="profile-avatar">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="profile">
+          <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="profile"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="avatar-fallback" style="display:none;">H</div>
         </div>
-        <h3 class="profile-name">Hope Devlog 💻</h3>
-        <p class="profile-desc">Hope Dev</p>
+        <h3 class="profile-name">Hope Devlog (Mock) 💻</h3>
+        <p class="profile-desc">Hope</p>
       </div>
 
       <div class="sidebar-quick-links">
-        <a href="preview.html" aria-label="홈으로"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="/" aria-label="홈으로"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg></a>
+        <a href="#" class="search-toggle" aria-label="검색"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg></a>
+        <a href="/manage" aria-label="관리자"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
           </svg></a>
       </div>
 
       <div class="sidebar-content" id="sidebarCategoryWrap">
-        <ul class="tt_category">
-          <li class=""><a href="category.html" class="link_tit">분류 전체보기 <span class="c_cnt">(120)</span></a>
-            <ul class="category_list">
-              <li class=""><a href="category.html" class="link_item">Tech <span class="c_cnt">(45)</span></a></li>
-              <li class=""><a href="category.html" class="link_item">Design <span class="c_cnt">(30)</span></a></li>
-            </ul>
-          </li>
+        
+<ul class="tt_category">
+  <li><a href="#none" class="link_tit">전체 보기 <span class="c_cnt">(120)</span></a>
+    <ul class="category_list">
+      <li><a href="#none" class="link_item">Architecture <span class="c_cnt">(24)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">System Design <span class="c_cnt">(10)</span></a></li>
         </ul>
+      </li>
+      <li><a href="#none" class="link_item">Frontend <span class="c_cnt">(56)</span></a></li>
+    </ul>
+  </li>
+</ul>
+
       </div>
     </div>
   </aside>
 
+  <!-- V9 Interactive 3D Hero (Vanta.js Net) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script type="module" src="/src/js/main.js"></script>
   <script type="module" src="/src/js/main.js"></script>
 </body>
+
 </html>
 
