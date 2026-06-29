@@ -7,42 +7,59 @@
    ------------------------------------------------------------- */
 export function initZenMode() {
   // 본문 영역이 있는 포스트 페이지에서만 동작
-  const articleContent = document.querySelector('.tt-article-content, .article-content, #article-content');
+  const articleContent = document.querySelector('.post-content, .tt-article-content');
   if (!articleContent) return;
 
   const btn = document.createElement('button');
-  btn.className = 'zen-mode-toggle';
+  btn.className = 'fab-item fab-zen cosmic-pulse';
   btn.title = '집중 읽기 모드 (Zen Mode)';
+  btn.setAttribute('aria-label', 'Zen Mode');
+  
+  // 초기 아이콘 (눈 모양 등)
   btn.innerHTML = `
-    <svg viewBox="0 0 24 24">
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+      <circle cx="12" cy="12" r="3"></circle>
     </svg>
   `;
 
   btn.addEventListener('click', () => {
     document.body.classList.toggle('zen-mode');
     
-    // 버튼 아이콘 변경 (켜짐/꺼짐 상태)
     if (document.body.classList.contains('zen-mode')) {
+      // 켜졌을 때 (눈 감은 모양)
       btn.innerHTML = `
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="15" y1="9" x2="9" y2="15"></line>
-          <line x1="9" y1="9" x2="15" y2="15"></line>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
         </svg>
       `;
     } else {
+      // 꺼졌을 때 (기본 눈)
       btn.innerHTML = `
-        <svg viewBox="0 0 24 24">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+          <circle cx="12" cy="12" r="3"></circle>
         </svg>
       `;
     }
   });
 
-  document.body.appendChild(btn);
+  const fabInner = document.querySelector('.fab-inner');
+  if (fabInner) {
+    // 기존에 제가 넣은 더미 태그가 있으면 삭제 (post.html 대응)
+    const existing = fabInner.querySelector('.fab-zen');
+    if (existing) existing.remove();
+    
+    fabInner.prepend(btn);
+    // 구분선 추가
+    const divider = document.createElement('div');
+    divider.className = 'fab-divider';
+    btn.after(divider);
+  } else {
+    btn.className = 'zen-mode-toggle';
+    document.body.appendChild(btn);
+  }
 }
 
 /* -------------------------------------------------------------

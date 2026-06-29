@@ -51,28 +51,44 @@ export function initNatureCountUp() {
 export function init3DTiltCards() {
   const cards = document.querySelectorAll('.inpa-card.bento-card');
   cards.forEach(card => {
-    const glare = document.createElement('div');
-    glare.className = 'glare-overlay';
-    card.appendChild(glare);
+    // 기존 glare 중복 방지
+    let glare = card.querySelector('.glare-overlay');
+    if (!glare) {
+      glare = document.createElement('div');
+      glare.className = 'glare-overlay';
+      card.appendChild(glare);
+    }
 
-    card.addEventListener('mousemove', throttle((e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -10; 
-      const rotateY = ((x - centerX) / centerX) * 10;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-      glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3) 0%, transparent 60%)`;
-    }, 16));
+    card.addEventListener('mousemove', (e) => {
+      // requestAnimationFrame을 활용해 부드럽게 (throttle 대신)
+      requestAnimationFrame(() => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // 회전 각도를 좀 더 다이내믹하게 (최대 15도)
+        const rotateX = ((y - centerY) / centerY) * -15; 
+        const rotateY = ((x - centerX) / centerX) * 15;
+        
+        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        
+        // 애플 TV 스타일의 다중 그라데이션 홀로그램 빚 반사
+        const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+        glare.style.background = `
+          linear-gradient(${angle}deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.4) 40%, transparent 50%),
+          radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.4) 0%, transparent 60%)
+        `;
+      });
+    });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-      glare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)`;
+      requestAnimationFrame(() => {
+        card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        glare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 60%)`;
+      });
     });
   });
 }
@@ -157,44 +173,34 @@ export function initHeroParticles() {
     }
   }
 
-  function initParticles() {
-    particles = [];
-    let numberOfParticles = (canvas.width * canvas.height) / 8000;
-    for (let i = 0; i < numberOfParticles; i++) {
-      let size = (Math.random() * 2) + 0.5;
-      let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
-      let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
-      let color = 'rgba(255, 255, 255, 0.6)';
-      particles.push(new Particle(x, y, size, color));
+  function initVantaHero() {
+    const heroSection = document.querySelector('.hero-bg-image');
+    if (!heroSection) return;
+
+    if (window.VANTA && window.VANTA.NET) {
+      window.VANTA.NET({
+        el: heroSection,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.50,          // 전체 크기를 1.5배로 키워 웅장함 극대화
+        scaleMobile: 1.00,
+        color: 0x00f0ff,      // 사이버 펑크 시안(Cyan) 빛
+        backgroundColor: 0x07070a, // 깊고 다크한 우주 톤
+        points: 12.00,        // 노드 수 최적화
+        maxDistance: 25.00,   // 연결선 길이 증가
+        spacing: 25.00,       // 네트 간격을 넓혀 시원한 느낌 부여
+        showDots: true        // 점 강조
+      });
+      // 기존 캔버스 덮어쓰기 방지
+      if (canvas && canvas.parentNode) {
+        canvas.parentNode.removeChild(canvas);
+      }
     }
   }
 
-  function animate() {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-    }
-  }
-
-  window.addEventListener('resize', resize);
-  
-  // Mouse events directly on hero wrapper to easily track mouse
-  const heroContent = document.querySelector('.hero-content') || heroOverlay;
-  const heroSection = document.querySelector('.hero-section');
-  if (heroSection) {
-    heroSection.addEventListener('mousemove', throttle(function(event) {
-      const rect = canvas.getBoundingClientRect();
-      mouse.x = event.clientX - rect.left;
-      mouse.y = event.clientY - rect.top;
-    }, 16));
-    
-    heroSection.addEventListener('mouseleave', function() {
-      mouse.x = undefined;
-      mouse.y = undefined;
-    });
-  }
-
-  resize();
-  animate();
+  // 초기 로드 시 Vanta 실행, 없으면 스킵
+  setTimeout(initVantaHero, 100);
 }

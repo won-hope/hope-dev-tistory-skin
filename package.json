@@ -1,7 +1,7 @@
 {
   "name": "hope-dev-tistory-skin",
-  "version": "1.0.0",
-  "description": "Premium Tistory Skin with Vite",
+  "version": "9.0.0",
+  "description": "Premium Tistory Skin V9.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build"

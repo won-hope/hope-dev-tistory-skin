@@ -10,14 +10,17 @@ body.zen-mode {
   transition: background-color 0.5s ease;
 }
 
-body.zen-mode .header,
-body.zen-mode .hero-section,
-body.zen-mode .sidebar,
-body.zen-mode #sidebarDrawer,
-body.zen-mode #sidebarOverlay,
-body.zen-mode .footer,
-body.zen-mode .post-related,
-body.zen-mode .comment-section {
+body.zen-mode .site-header,
+body.zen-mode .inpa-post-header,
+body.zen-mode .hero-bg-image,
+body.zen-mode .sidebar-drawer,
+body.zen-mode .sidebar-overlay,
+body.zen-mode #footer,
+body.zen-mode .post-nav,
+body.zen-mode .post-comments,
+body.zen-mode #seriesNavContainer,
+body.zen-mode .ad-container,
+body.zen-mode .btn-premium-cta-wrapper {
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -28,14 +31,14 @@ body.zen-mode .comment-section {
   transition: opacity 0.5s ease, height 0.5s ease;
 }
 
-body.zen-mode #main {
-  padding-top: 40px;
+body.zen-mode #main-content {
+  padding-top: 60px;
   max-width: 800px;
   margin: 0 auto;
   transition: max-width 0.5s ease, padding 0.5s ease;
 }
 
-body.zen-mode .tt-article-content {
+body.zen-mode .post-content {
   font-size: 1.15rem;
   line-height: 1.9;
   letter-spacing: -0.01em;
@@ -185,6 +188,24 @@ body.zen-mode .zen-mode-toggle {
 /* -------------------------------------------------------------
    3. 웹 접근성 (Skip Navigation)
    ------------------------------------------------------------- */
+.cosmic-hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-bg-image .vanta-canvas {
+  pointer-events: auto;
+}
+
 .skip-nav {
   position: absolute;
   top: -50px;
@@ -195,9 +216,28 @@ body.zen-mode .zen-mode-toggle {
   z-index: 99999;
   font-weight: bold;
   text-decoration: none;
-  transition: top 0.3s;
 }
 
+/* ==========================================================================
+   [V9 Premium] Pseudo-SPA Transition (Fade)
+   ========================================================================== */
+#main-content {
+  animation: fadeInSPA 0.4s ease-out forwards;
+}
+
+body.page-exiting #main-content {
+  animation: fadeOutSPA 0.3s ease-in forwards;
+}
+
+@keyframes fadeInSPA {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOutSPA {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(10px); }
+}
 .skip-nav:focus {
   top: 0;
 }

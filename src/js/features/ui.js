@@ -141,3 +141,31 @@ export function initScrollReveal() {
     observer.observe(el);
   });
 }
+
+/* -------------------------------------------------------------
+   [V9 Premium] Pseudo-SPA Transitions
+   ------------------------------------------------------------- */
+export function initSPATransitions() {
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+    // 현재 도메인과 같은지 확인 (내부 링크인지)
+    const isInternal = link.hostname === window.location.hostname;
+    // 새 창으로 열리는지 확인
+    const isBlank = link.target === '_blank';
+
+    if (isInternal && !isBlank) {
+      e.preventDefault();
+      document.body.classList.add('page-exiting');
+      
+      // 애니메이션 대기 후 이동 (0.3초)
+      setTimeout(() => {
+        window.location.href = href;
+      }, 300);
+    }
+  });
+}
