@@ -107,11 +107,37 @@ body.zen-mode-active {
         </div>
       </div>
 
-      <div class="post-tags cosmic-tags"><a href="#">#Frontend</a> <a href="#">#Architecture</a> <a href="#">#UI/UX</a></div>
+      <!-- V9.1 Compact Post Footer -->
+      <div class="post-compact-footer">
+        
+        <!-- 1. 심플 해시태그 -->
+        <div class="footer-tags">
+          <a href="#">Frontend</a>
+          <a href="#">Architecture</a>
+          <a href="#">UI/UX</a>
+          <a href="#">WebDev</a>
+        </div>
 
-      <div class="post-nav">
-        <a href="#" class="nav-prev"><span class="nav-label">이전 글</span><span class="nav-title">React 성능 최적화의 모든 것</span></a>
-        <a href="#" class="nav-next"><span class="nav-label">다음 글</span><span class="nav-title">디자인 시스템 구축 가이드</span></a>
+        <!-- 2. 이전글 / 다음글 (1열 그리드 또는 2열 작게) -->
+        <div class="footer-nav-grid">
+          <a href="#" class="footer-compact-card footer-nav-card">
+            <div class="footer-nav-label">Previous</div>
+            <div class="footer-nav-title">React 성능 최적화의 모든 것</div>
+          </a>
+          <a href="#" class="footer-compact-card footer-nav-card">
+            <div class="footer-nav-label">Next</div>
+            <div class="footer-nav-title">디자인 시스템 구축 가이드</div>
+          </a>
+        </div>
+
+        <!-- 3. 컴팩트 작가 프로필 -->
+        <a href="#" class="footer-compact-card footer-author-card">
+          <img src="https://avatars.githubusercontent.com/u/9919?s=200&v=4" alt="Author" class="footer-author-img">
+          <div class="footer-author-info">
+            <div class="footer-author-name">Won Hope</div>
+            <div class="footer-author-desc">프론트엔드 아키텍처와 디자인 시스템에 관심이 많습니다.</div>
+          </div>
+        </a>
       </div>
 
       <div id="commentContainer" class="post-comments">

@@ -755,3 +755,124 @@ body.drawer-3d-push {
   border-left: 1px solid rgba(0,0,0,0.05);
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.05);
 }
+
+/* ==========================================================================
+   [V9.1 Premium] Compact Post Footer
+   ========================================================================== */
+.post-compact-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 3rem 0;
+}
+
+/* 1. 심플한 해시태그 (박스 없음) */
+.footer-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.footer-tags a {
+  font-size: 0.8rem;
+  color: var(--point-color, #0078ff);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.footer-tags a:hover {
+  opacity: 1;
+}
+
+/* 공통 컴팩트 카드 디자인 */
+.footer-compact-card {
+  background: var(--bg-color, rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+  padding: 12px 16px !important;
+  text-decoration: none;
+  color: var(--text-color, #333);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  aspect-ratio: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+html[data-theme="dark"] .footer-compact-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+.footer-compact-card:hover {
+  border-color: var(--point-color, #0078ff);
+  transform: translateY(-2px);
+}
+
+/* 2. 이전글 / 다음글 (1열로 각각 배치되거나 그리드로 작게) */
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.footer-nav-card {
+  flex-direction: column;
+  justify-content: center;
+}
+.footer-nav-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 4px;
+}
+.footer-nav-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 3. 매우 작은 가로형 작가 프로필 */
+.footer-author-card {
+  align-items: center;
+  gap: 12px;
+}
+.footer-author-img {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.footer-author-info {
+  display: flex;
+  flex-direction: column;
+}
+.footer-author-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.footer-author-desc {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .footer-nav-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .post-bento-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .bento-item-author,
+  .bento-item-prev,
+  .bento-item-next,
+  .bento-item-tags {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}

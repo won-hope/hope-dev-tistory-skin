@@ -329,19 +329,40 @@
                   </div>
                 </div>
 
-                <s_tag_label>
-                  <div class="post-tags cosmic-tags">[##_tag_label_rep_##]</div>
-                </s_tag_label>
+                <!-- V9.1 Compact Post Footer -->
+                <div class="post-compact-footer">
+                  
+                  <!-- 1. 심플 해시태그 -->
+                  <s_tag_label>
+                    <div class="footer-tags">
+                      [##_tag_label_rep_##]
+                    </div>
+                  </s_tag_label>
 
-                <div class="post-nav">
-                  <s_article_prev>
-                    <a href="[##_article_prev_link_##]" class="nav-prev"><span class="nav-label">이전 글</span><span
-                        class="nav-title">[##_article_prev_title_##]</span></a>
-                  </s_article_prev>
-                  <s_article_next>
-                    <a href="[##_article_next_link_##]" class="nav-next"><span class="nav-label">다음 글</span><span
-                        class="nav-title">[##_article_next_title_##]</span></a>
-                  </s_article_next>
+                  <!-- 2. 이전글 / 다음글 -->
+                  <div class="footer-nav-grid">
+                    <s_article_prev>
+                      <a href="[##_article_prev_link_##]" class="footer-compact-card footer-nav-card">
+                        <div class="footer-nav-label">Previous</div>
+                        <div class="footer-nav-title">[##_article_prev_title_##]</div>
+                      </a>
+                    </s_article_prev>
+                    <s_article_next>
+                      <a href="[##_article_next_link_##]" class="footer-compact-card footer-nav-card">
+                        <div class="footer-nav-label">Next</div>
+                        <div class="footer-nav-title">[##_article_next_title_##]</div>
+                      </a>
+                    </s_article_next>
+                  </div>
+
+                  <!-- 3. 컴팩트 작가 프로필 -->
+                  <a href="[##_blog_link_##]" class="footer-compact-card footer-author-card">
+                    <img src="[##_image_##]" alt="[##_blogger_##]" class="footer-author-img" onerror="this.src='https://t1.daumcdn.net/tistory_admin/static/manage/images/default_profile.png'">
+                    <div class="footer-author-info">
+                      <div class="footer-author-name">[##_blogger_##]</div>
+                      <div class="footer-author-desc">[##_desc_##]</div>
+                    </div>
+                  </a>
                 </div>
 
                 <div class="fab-container">
@@ -570,7 +591,7 @@
     <footer class="site-footer cosmic-footer">
       <div class="footer-inner">
         <div class="footer-badge">Architecting Systems</div>
-        <p class="copyright">&copy; Copyright 2024 [##_title_##]. All rights reserved.</p>
+        <p class="copyright">&copy; Copyright 2026 [##_title_##]. All rights reserved. <span style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.1.0)</span></p>
       </div>
     </footer>
     
