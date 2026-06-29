@@ -1,5 +1,10 @@
 # Hope Devlog Skin - Update History (Cosmic & Nature Theme)
 
+## [2026-06-29] V8.3 "Full-Width Mega Menu & Custom Category Thumbnails"
+- **풀 위드(Full-Width) 메가 메뉴 적용**: 상단 헤더의 드롭다운 카테고리 메뉴가 개별 항목 기준이 아닌 전체 헤더 가로폭 기준으로 웅장하게 열리도록 설계 변경. 여백과 간격을 2배 이상 넓혀 시각적인 개방감을 확보하고, 글자 수가 긴 서브 카테고리(예: 아키텍처)도 잘림 없이 온전히 표시되도록 그리드 구조 최적화.
+- **인기 카테고리 썸네일 커스텀 이미지 지원**: 인기 카테고리 카드(Tech Core Card) 디자인을 사용자가 요청한 깔끔한 세로형 갤러리 디자인으로 전면 교체. 기존에 하드코딩된 SVG 아이콘을 제거하고, 티스토리 스킨 파일 업로드를 통해 사용자 정의 이미지(`./images/카테고리명.png`)를 직접 매핑할 수 있도록 기능 개선.
+- **CSS 충돌 및 레이아웃 버그 픽스**: 알약(Pill) 형태로 찌그러지던 인기 카테고리 카드의 CSS 클래스 충돌(`.category-grid` 중복 사용)을 해소하기 위해 독립적인 `.tech-core-grid` 클래스 분리 및 재정의.
+
 ## [2026-06-29] V8.2 "Architecture & Security Refactoring"
 - **모바일 햄버거 메뉴 애니메이션 고도화 (3D Push & Glassmorphism)**: 모바일 환경에서 햄버거 메뉴를 열 때, 메인 블로그 화면이 뒤로 살짝 밀려나는(3D Push) 입체적인 모션과 함께 반투명한 글래스모피즘(Frosted Glass) 질감의 사이드바가 부드럽게 등장하도록 모바일 UX를 앱 수준으로 고도화.
 - **거대 레거시 스크립트 모듈화**: 약 900줄에 달하던 `_legacy.js`를 폐기하고, 최신 프론트엔드 아키텍처에 맞게 `ui.js`, `sidebar.js`, `menu.js`, `post.js`, `effects.js` 모듈로 기능별 완전 분리 및 `main.js`에서 통합 관리.

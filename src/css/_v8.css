@@ -446,15 +446,16 @@ body.zen-mode .zen-mode-toggle {
 
 .header-nav .category_list {
   display: flex;
-  gap: 1.5rem;
+  gap: 2.5rem; /* 1.5rem -> 2.5rem 간격 확대 */
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .header-nav .category_list > li {
-  position: relative;
-  padding: 1rem 0; /* 마우스 호버 여백 확보 */
+  /* position: relative; 기존 relative를 제거하여 헤더 전체를 기준으로 드롭다운이 열리도록 함 */
+  position: static;
+  padding: 1.2rem 0; /* 상하 마우스 호버 여백 추가 확보 */
 }
 
 /* 메인 카테고리 텍스트 디자인 */
@@ -463,10 +464,11 @@ body.zen-mode .zen-mode-toggle {
   font-weight: 600;
   color: var(--text-color);
   text-decoration: none;
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 1rem; /* 클릭 영역 및 여백 확보 */
   border-radius: 8px;
   transition: all 0.2s ease;
   position: relative;
+  letter-spacing: 0.5px; /* 자간 미세 조정 */
 }
 
 /* Hover 효과: Pill 백그라운드 & 메가 카운트 */
@@ -481,7 +483,7 @@ body.zen-mode .zen-mode-toggle {
   color: #fff;
   padding: 2px 6px;
   border-radius: 12px;
-  margin-left: 6px;
+  margin-left: 8px;
   font-weight: bold;
   opacity: 0.9;
 }
@@ -490,37 +492,36 @@ body.zen-mode .zen-mode-toggle {
 .header-nav .category_list > li > ul.sub_category_list {
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(15px);
+  left: 0;
+  width: 100%; /* 헤더 너비만큼 확장 (Full Width Mega Menu) */
   background: var(--surface-color, rgba(255, 255, 255, 0.95));
-  border-radius: 16px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
-  border: 1px solid var(--border-color);
-  padding: 1.5rem;
-  /* 서브 카테고리가 많을 때를 대비한 그리드 다이어그램 레이아웃 */
+  border-radius: 0 0 24px 24px; /* 아래쪽 라운드만 부여하여 헤더와 일체감 */
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+  border-top: 1px solid var(--border-color);
+  padding: 2.5rem 3rem; /* 넉넉한 중앙 정렬 패딩 */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.8rem 1.5rem;
-  min-width: max-content; /* 내부 컨텐츠에 맞게 넓어짐 */
-  max-width: 80vw;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 글자 짤림 방지: 폭을 280px로 대폭 확장 */
+  gap: 1.5rem 2rem;
   list-style: none;
   opacity: 0;
   visibility: hidden;
+  transform: translateY(15px);
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 100;
+  box-sizing: border-box;
 }
 
 [data-theme='dark'] .header-nav .category_list > li > ul.sub_category_list {
   background: rgba(25, 25, 30, 0.95);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
 
 .header-nav .category_list > li:hover > ul.sub_category_list {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 /* 드롭다운 서브 아이템 디자인 */
@@ -531,12 +532,12 @@ body.zen-mode .zen-mode-toggle {
 .mega-sub-link {
   display: flex !important;
   align-items: center;
-  padding: 0.8rem 1rem !important;
+  padding: 1rem 1.5rem !important; /* 상하좌우 패딩 크게 확대 */
   color: var(--text-color) !important;
   text-decoration: none !important;
-  border-radius: 10px;
-  transition: all 0.2s ease;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
   font-weight: 500;
   border: 1px solid transparent;
   background: rgba(128, 128, 128, 0.03);
@@ -544,17 +545,17 @@ body.zen-mode .zen-mode-toggle {
 
 /* 서브 링크 호버 시 우측으로 살짝 이동하며 외곽선이 생기는 다이어그램 디테일 */
 .mega-sub-link:hover {
-  background: var(--bg-color-hover, rgba(0, 120, 255, 0.05)) !important;
+  background: var(--bg-color-hover, rgba(0, 120, 255, 0.06)) !important;
   color: var(--point-color, #0078ff) !important;
   border-color: var(--point-color, rgba(0, 120, 255, 0.2));
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateX(6px); /* 4px -> 6px 이동폭 확대 */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 }
 
 .mega-icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 12px;
+  width: 20px; /* 18px -> 20px */
+  height: 20px;
+  margin-right: 16px; /* 12px -> 16px */
   opacity: 0.8;
   color: var(--point-color, #0078ff);
 }

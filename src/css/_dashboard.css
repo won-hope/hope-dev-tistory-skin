@@ -156,6 +156,25 @@ html[data-theme="light"] .nature-center {
   padding: 20px 0;
 }
 
+.tech-core-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.2rem;
+  padding: 1rem 0;
+}
+
+@media (max-width: 1024px) {
+  .tech-core-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .tech-core-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .category-grid a {
   display: inline-flex;
   align-items: center;
