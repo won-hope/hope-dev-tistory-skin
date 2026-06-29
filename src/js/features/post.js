@@ -141,8 +141,10 @@ export function initMacCodeBlocks() {
       const codeText = pre.innerText || pre.textContent;
       navigator.clipboard.writeText(codeText).then(() => {
         copyBtn.innerHTML = copiedIcon;
+        copyBtn.classList.add('copied');
         setTimeout(() => {
           copyBtn.innerHTML = copyIcon;
+          copyBtn.classList.remove('copied');
         }, 2000);
       });
     });

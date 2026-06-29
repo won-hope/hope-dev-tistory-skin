@@ -178,7 +178,7 @@ export function initHeroParticles() {
     if (!heroSection) return;
 
     if (window.VANTA && window.VANTA.NET) {
-      window.VANTA.NET({
+      window.vantaHeroEffect = window.VANTA.NET({
         el: heroSection,
         mouseControls: true,
         touchControls: true,

@@ -1,5 +1,5 @@
 export function initSidebarToggle() {
-  const toggleBtns = document.querySelectorAll('.star-menu-btn');
+  const toggleBtns = document.querySelectorAll('.star-menu-btn, #sidebarToggleBtn');
   const drawer = document.getElementById('sidebarDrawer');
   const overlay = document.getElementById('sidebarOverlay');
   const closeBtns = document.querySelectorAll('.sidebar-close');
@@ -24,7 +24,16 @@ export function initSidebarToggle() {
     document.body.style.overflow = '';
   };
 
-  toggleBtns.forEach(btn => btn.addEventListener('click', openSidebar));
+  const toggleSidebar = (e) => {
+    e.preventDefault();
+    if (drawer.classList.contains('open')) {
+      closeSidebar();
+    } else {
+      openSidebar(e);
+    }
+  };
+
+  toggleBtns.forEach(btn => btn.addEventListener('click', toggleSidebar));
   closeBtns.forEach(btn => btn.addEventListener('click', closeSidebar));
   overlay.addEventListener('click', closeSidebar);
 }

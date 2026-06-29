@@ -137,30 +137,28 @@ export function initWarpDrive() {
     if (!isInternal) return;
 
     e.preventDefault();
-    
-    const engine = document.createElement('div');
-    engine.id = 'warpEngine';
-    
-    for (let i = 0; i < 150; i++) {
-      const line = document.createElement('div');
-      line.className = 'warp-line';
-      const angle = Math.random() * 360;
-      const startDist = Math.random() * 100 + 20;
-      line.style.setProperty('--angle', `${angle}deg`);
-      line.style.setProperty('--start-dist', `${startDist}px`);
-      line.style.animationDelay = `${Math.random() * 0.15}s`;
-      engine.appendChild(line);
+
+    // 1. 페이지 요소 전체 스케일 다운 및 블러 (body에 클래스 추가)
+    document.body.classList.add('page-warping');
+
+    // 2. Vanta.js 우주 입자 가속 (Warp Effect)
+    if (window.vantaHeroEffect) {
+      window.vantaHeroEffect.setOptions({
+        spacing: 120.00,
+        maxDistance: 100.00,
+        points: 20.00,
+      });
+      // 마우스 감도를 극대화하여 3D 이동감을 줍니다.
+      window.vantaHeroEffect.options.mouseControls = true;
     }
-    
+
+    // 3. 섬광 이펙트 
     const flash = document.createElement('div');
     flash.id = 'warpFlash';
-
-    document.body.appendChild(engine);
     document.body.appendChild(flash);
-    document.body.classList.add('warp-active');
 
     setTimeout(() => {
-      window.location.href = target.href;
-    }, 700);
+      window.location.href = href;
+    }, 550); // 0.55초 뒤 찐 이동
   });
 }
