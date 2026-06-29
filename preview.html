@@ -55,6 +55,31 @@
     .sidebar-content .tt_category li a:hover .c_cnt { color: #ff0033 !important; text-shadow: 0 0 10px #ff0033; }
     .sidebar-content .tt_category .category_list { padding-left: 1rem; margin-top: 8px; display: none; border-left: 1px dashed rgba(0,240,255,0.3); }
 
+    /* [V9.5] Apple-style TOC Styles (Clean & Readable) */
+    .side-toc-panel { background: rgba(30,30,30,0.85) !important; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-left: 1px solid rgba(255,255,255,0.1) !important; box-shadow: -10px 0 30px rgba(0,0,0,0.3) !important; color: #f5f5f7 !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important; }
+    [data-theme='light'] .side-toc-panel { background: rgba(255,255,255,0.85) !important; border-left: 1px solid rgba(0,0,0,0.1) !important; box-shadow: -10px 0 30px rgba(0,0,0,0.1) !important; color: #1d1d1f !important; }
+    .side-toc-panel::before { display: none !important; }
+    .side-toc-header { border-bottom: 1px solid rgba(255,255,255,0.1) !important; background: transparent !important; }
+    [data-theme='light'] .side-toc-header { border-bottom: 1px solid rgba(0,0,0,0.1) !important; }
+    #tocCloseBtn { color: #86868b !important; text-shadow: none !important; font-family: sans-serif; font-weight: normal; transition: color 0.2s; }
+    #tocCloseBtn:hover { transform: none !important; color: #1d1d1f !important; }
+    [data-theme='dark'] #tocCloseBtn:hover { color: #f5f5f7 !important; }
+    .side-toc-content { position: relative; z-index: 10; font-size: 14px; }
+    .side-toc-content a { color: #86868b !important; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important; border-left: 3px solid transparent !important; padding-left: 1rem !important; transition: all 0.2s ease !important; line-height: 1.6 !important; }
+    [data-theme='light'] .side-toc-content a { color: #86868b !important; }
+    .side-toc-content a:hover { color: #f5f5f7 !important; text-shadow: none !important; border-left-color: rgba(255,255,255,0.2) !important; background: transparent !important; }
+    [data-theme='light'] .side-toc-content a:hover { color: #1d1d1f !important; border-left-color: rgba(0,0,0,0.2) !important; }
+    .side-toc-content a.active { color: #0071e3 !important; border-left-color: #0071e3 !important; font-weight: 600; background: transparent !important; text-shadow: none !important; }
+    [data-theme='light'] .side-toc-content a.active { color: #0071e3 !important; border-left-color: #0071e3 !important; }
+    .side-toc-content a.active::before { display: none !important; }
+    .inpa-inpost-toc { background: rgba(30,30,30,0.85) !important; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1) !important; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); margin: 2rem 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    [data-theme='light'] .inpa-inpost-toc { background: rgba(255,255,255,0.85) !important; border: 1px solid rgba(0,0,0,0.1) !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .inpa-inpost-toc-header { border-bottom: 1px solid rgba(255,255,255,0.1); color: #f5f5f7; text-shadow: none; font-weight: 600; padding: 1rem; display: flex; align-items: center; gap: 8px; }
+    [data-theme='light'] .inpa-inpost-toc-header { border-bottom: 1px solid rgba(0,0,0,0.1); color: #1d1d1f; }
+    .inpa-inpost-toc-body a { color: #86868b !important; text-decoration: none; padding: 0.5rem 1rem; display: block; border-left: 3px solid transparent; transition: all 0.2s; }
+    .inpa-inpost-toc-body a:hover { color: #0071e3 !important; background: transparent; border-left-color: #0071e3; }
+    .toc-num { color: inherit !important; text-shadow: none !important; margin-right: 0.5rem; opacity: 0.7; }
+
     @keyframes cosmicPulse { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.05); opacity: 1; } }
     @keyframes cursorBlink { 50% { opacity: 0; } }
   </style>
@@ -724,7 +749,7 @@
     <footer class="site-footer cosmic-footer">
       <div class="footer-inner">
         <div class="footer-badge">Architecting Systems</div>
-        <p class="copyright">&copy; Copyright 2026 Hope Devlog. All rights reserved. <span style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.5.0)</span></p>
+        <p class="copyright">&copy; Copyright 2026 Hope Devlog. All rights reserved. <span style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.5.1)</span></p>
       </div>
     </footer>
     

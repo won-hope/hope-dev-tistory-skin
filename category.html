@@ -45,6 +45,23 @@
     .sidebar-content .tt_category li a:hover .c_cnt { color: #ff0033 !important; text-shadow: 0 0 10px #ff0033; }
     .sidebar-content .tt_category .category_list { padding-left: 1rem; margin-top: 8px; display: none; border-left: 1px dashed rgba(0,240,255,0.3); }
 
+    /* [V9.5] Cyberpunk TOC Styles */
+    .side-toc-panel, [data-theme='light'] .side-toc-panel { background: #050508 !important; border-left: 1px solid #00f0ff !important; box-shadow: -10px 0 30px rgba(0,240,255,0.15) !important; color: #a9b1d6 !important; }
+    .side-toc-panel::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px), linear-gradient(0deg, rgba(0,240,255,0.03) 1px, transparent 1px); background-size: 20px 20px; pointer-events: none; z-index: 0; }
+    .side-toc-header { border-bottom: 1px dashed rgba(0,240,255,0.3) !important; position: relative; z-index: 10; background: transparent !important; }
+    #tocCloseBtn { color: #ff0033 !important; text-shadow: 0 0 5px rgba(255,0,51,0.5); font-family: "Fira Code", monospace; font-weight: bold; transition: all 0.2s; }
+    #tocCloseBtn:hover { transform: scale(1.1); text-shadow: 0 0 10px #ff0033; }
+    .side-toc-content { position: relative; z-index: 10; }
+    .side-toc-content a, [data-theme='light'] .side-toc-content a { color: #a9b1d6 !important; font-family: "Fira Code", monospace !important; border-left: 2px solid transparent !important; padding-left: 1rem !important; transition: all 0.3s ease !important; }
+    .side-toc-content a:hover, [data-theme='light'] .side-toc-content a:hover { color: #00f0ff !important; text-shadow: 0 0 8px rgba(0,240,255,0.5); border-left-color: rgba(0,240,255,0.5) !important; background: rgba(0,240,255,0.05) !important; }
+    .side-toc-content a.active, [data-theme='light'] .side-toc-content a.active { color: #00f0ff !important; border-left-color: #00f0ff !important; font-weight: bold; background: rgba(0,240,255,0.1) !important; text-shadow: 0 0 10px rgba(0,240,255,0.8); }
+    .side-toc-content a.active::before { content: "> "; color: #00f0ff; animation: cursorBlink 1s step-start infinite; }
+    .inpa-inpost-toc { background: #050508 !important; border: 1px solid rgba(0,240,255,0.3) !important; border-radius: 8px; box-shadow: 0 0 15px rgba(0,240,255,0.1); margin: 2rem 0; font-family: "Fira Code", monospace; }
+    .inpa-inpost-toc-header { border-bottom: 1px dashed rgba(0,240,255,0.3); color: #00f0ff; text-shadow: 0 0 8px rgba(0,240,255,0.5); font-weight: bold; padding: 1rem; display: flex; align-items: center; gap: 8px; }
+    .inpa-inpost-toc-body a { color: #a9b1d6 !important; text-decoration: none; padding: 0.5rem 1rem; display: block; border-left: 2px solid transparent; transition: all 0.3s; }
+    .inpa-inpost-toc-body a:hover { color: #00f0ff !important; background: rgba(0,240,255,0.05); border-left-color: #00f0ff; }
+    .toc-num { color: #ff0033; text-shadow: 0 0 5px rgba(255,0,51,0.5); margin-right: 0.5rem; }
+
     @keyframes cosmicPulse { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.05); opacity: 1; } }
     @keyframes cursorBlink { 50% { opacity: 0; } }
   </style>
