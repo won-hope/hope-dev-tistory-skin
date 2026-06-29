@@ -1,0 +1,200 @@
+// --- Throttling Utility ---
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  }
+}
+
+/* -------------------------------------------------------------
+   [Premium] Nature CountUp Animation
+   ------------------------------------------------------------- */
+export function initNatureCountUp() {
+  const counters = document.querySelectorAll('.counter-num');
+  if(counters.length === 0) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        const el = entry.target;
+        const rawVal = el.getAttribute('data-raw');
+        const target = parseInt(rawVal || el.innerText.replace(/,/g, '') || 0, 10);
+        if (isNaN(target)) return;
+        let count = 0;
+        const duration = 2000;
+        const step = Math.max(1, Math.floor(target / (duration / 16)));
+        
+        function update() {
+          count += step;
+          if(count >= target) {
+            el.innerText = target.toLocaleString();
+          } else {
+            el.innerText = count.toLocaleString();
+            requestAnimationFrame(update);
+          }
+        }
+        requestAnimationFrame(update);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(c => observer.observe(c));
+}
+
+/* -------------------------------------------------------------
+   [Premium] 3D Hover Tilt & Shine
+   ------------------------------------------------------------- */
+export function init3DTiltCards() {
+  const cards = document.querySelectorAll('.inpa-card.bento-card');
+  cards.forEach(card => {
+    const glare = document.createElement('div');
+    glare.className = 'glare-overlay';
+    card.appendChild(glare);
+
+    card.addEventListener('mousemove', throttle((e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; 
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.3) 0%, transparent 60%)`;
+    }, 16));
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+      glare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%)`;
+    });
+  });
+}
+
+/* -------------------------------------------------------------
+   [Premium] Interactive Hero Particles
+   ------------------------------------------------------------- */
+export function initHeroParticles() {
+  const heroOverlay = document.querySelector('.hero-overlay');
+  if (!heroOverlay) return;
+
+  // 모바일 기기이거나 시스템 애니메이션 감소 설정이 켜져있으면 파티클 렌더링 생략 (성능 최적화)
+  if (window.matchMedia('(max-width: 768px)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'heroCanvas';
+  heroOverlay.appendChild(canvas);
+  
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  let mouse = { x: undefined, y: undefined, radius: 120 };
+
+  function resize() {
+    width = heroOverlay.clientWidth;
+    height = heroOverlay.clientHeight;
+    canvas.width = width;
+    canvas.height = height;
+    initParticles();
+  }
+
+  class Particle {
+    constructor(x, y, size, color) {
+      this.x = x; this.y = y;
+      this.size = size; this.color = color;
+      this.baseX = this.x; this.baseY = this.y;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+    update() {
+      if (mouse.x !== undefined && mouse.y !== undefined) {
+        let dx = mouse.x - this.x;
+        let dy = mouse.y - this.y;
+        let distance = Math.sqrt(dx * dx + dy * dy);
+        let forceDirectionX = dx / distance;
+        let forceDirectionY = dy / distance;
+        let maxDistance = mouse.radius;
+        let force = (maxDistance - distance) / maxDistance;
+        let directionX = forceDirectionX * force * 5;
+        let directionY = forceDirectionY * force * 5;
+
+        if (distance < mouse.radius) {
+          this.x -= directionX;
+          this.y -= directionY;
+        } else {
+          if (this.x !== this.baseX) {
+            let dx = this.x - this.baseX;
+            this.x -= dx / 15;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.y - this.baseY;
+            this.y -= dy / 15;
+          }
+        }
+      } else {
+          if (this.x !== this.baseX) {
+            let dx = this.x - this.baseX;
+            this.x -= dx / 15;
+          }
+          if (this.y !== this.baseY) {
+            let dy = this.y - this.baseY;
+            this.y -= dy / 15;
+          }
+      }
+      this.draw();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    let numberOfParticles = (canvas.width * canvas.height) / 8000;
+    for (let i = 0; i < numberOfParticles; i++) {
+      let size = (Math.random() * 2) + 0.5;
+      let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+      let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+      let color = 'rgba(255, 255, 255, 0.6)';
+      particles.push(new Particle(x, y, size, color));
+    }
+  }
+
+  function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  
+  // Mouse events directly on hero wrapper to easily track mouse
+  const heroContent = document.querySelector('.hero-content') || heroOverlay;
+  const heroSection = document.querySelector('.hero-section');
+  if (heroSection) {
+    heroSection.addEventListener('mousemove', throttle(function(event) {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = event.clientX - rect.left;
+      mouse.y = event.clientY - rect.top;
+    }, 16));
+    
+    heroSection.addEventListener('mouseleave', function() {
+      mouse.x = undefined;
+      mouse.y = undefined;
+    });
+  }
+
+  resize();
+  animate();
+}

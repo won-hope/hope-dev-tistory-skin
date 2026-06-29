@@ -19,13 +19,21 @@
   <link rel="stylesheet" href="./style.css">
 
   <script>
-    const savedTheme = localStorage.getItem('theme');
-    const varTheme = '[##_var_theme_mode_##]';
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (varTheme !== 'system' && varTheme !== '') {
-      document.documentElement.setAttribute('data-theme', varTheme);
-    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const varTheme = '[##_var_theme_mode_##]';
+      let targetTheme = 'light';
+      
+      if (savedTheme) {
+        targetTheme = savedTheme;
+      } else if (varTheme && varTheme !== 'system' && varTheme !== '') {
+        targetTheme = varTheme;
+      } else {
+        targetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
 
     window.SkinOptions = {
       heroKeywords: '[##_var_hero_keywords_##]',
@@ -42,6 +50,7 @@
 </head>
 
 <body id="[##_body_id_##]">
+  <a href="#main-content" class="skip-nav">본문 바로가기</a>
   <div id="hopePreloader" class="preloader">
     <div class="star-loader-wrapper">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
@@ -154,7 +163,7 @@
         </div>
         <div class="hero-content">
           <div class="hero-badge cosmic-pulse">SOFTWARE ENGINEERING</div>
-          <h1 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h1>
+          <h2 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h2>
           <div class="hero-divider">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -435,7 +444,6 @@
         </div>
       </section>
 
-      <section class="pop-cat-section home-only-widgets" id="popCatPostsWrap" style="display:none;"></section>
 
       <s_page_rep>
         <div class="page-container">

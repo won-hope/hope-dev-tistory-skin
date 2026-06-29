@@ -4,34 +4,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mock Page Title - Hope Devlog</title>
+  <title>Preview - Hope Devlog</title>
+  
+  <!-- SEO & Open Graph Meta Tags -->
+  <meta name="description" content="지속 가능한 가치를 위한 프론트엔드 엔지니어링 기록입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Preview - Hope Devlog">
+  <meta property="og:description" content="지속 가능한 가치를 위한 프론트엔드 엔지니어링 기록입니다.">
+  <meta property="og:image" content="https://avatars.githubusercontent.com/u/9919?v=4">
+  <meta property="og:url" content="http://localhost:5500">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="alternate" type="application/rss+xml" title="Hope Devlog" href="#" />
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/src/css/style.css">
 
   <script>
-    const savedTheme = localStorage.getItem('theme');
-    const varTheme = 'system';
-    if (savedTheme) {
-      document.documentElement.setAttribute('data-theme', savedTheme);
-    } else if (varTheme !== 'system' && varTheme !== '') {
-      document.documentElement.setAttribute('data-theme', varTheme);
-    }
+    (function() {
+      const savedTheme = localStorage.getItem('theme');
+      const varTheme = 'system';
+      let targetTheme = 'light';
+      
+      if (savedTheme) {
+        targetTheme = savedTheme;
+      } else if (varTheme && varTheme !== 'system' && varTheme !== '') {
+        targetTheme = varTheme;
+      } else {
+        targetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      
+      document.documentElement.setAttribute('data-theme', targetTheme);
+    })();
 
     window.SkinOptions = {
-      heroKeywords: 'Systems, Solutions, Value, Impact',
-      themeStyle: 'default',
-      motionLevel: '[##_var_motion_level_##]',
-      useAnimation: '[##_var_motion_level_##]' !== 'off',
-      useWeather: '[##_var_use_weather_##]' !== 'false',
+      heroKeywords: 'Developer, Designer, Creator',
+      themeStyle: 'cosmic',
+      motionLevel: 'high',
+      useAnimation: 'high' !== 'off',
+      useWeather: 'true' !== 'false',
       showWeatherBadge: 'true' !== 'false',
       autoWeatherTheme: 'true' !== 'false',
-      weatherGreeting: '[##_var_weather_greeting_##]' === 'true',
+      weatherGreeting: 'true' === 'true',
       blogStartDate: '2024-01-01' || '2024-01-01'
     };
   </script>
 </head>
 
 <body id="tt-body-index">
+  <a href="#main-content" class="skip-nav">본문 바로가기</a>
   <div id="hopePreloader" class="preloader">
     <div class="star-loader-wrapper">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--point-color)" stroke-width="2"
@@ -42,6 +61,8 @@
       </svg>
     </div>
   </div>
+
+  <s_t3>
     <div class="cubism-bg-layer" aria-hidden="true">
       <div class="cubism-shape shape-1"></div>
       <div class="cubism-shape shape-2"></div>
@@ -54,7 +75,35 @@
           <a href="[##_blog_link_##]" class="brand-link">Hope Devlog</a>
         </div>
         <nav class="header-nav" aria-label="메인 메뉴">
-          <ul class='tt_category'><li class=''> <a href='/category' class='link_tit'> 분류 전체보기 <span class='c_cnt'>(30)</span> </a> <ul class='category_list'><li class=''> <a href='/category/dev' class='link_item'> 개발 <span class='c_cnt'>(20)</span> </a> <ul class='sub_category_list'><li class=''> <a href='/category/dev/frontend' class='link_sub_item'> 프론트엔드 <span class='c_cnt'>(10)</span> </a> </li></ul></li></ul></li></ul>
+          
+<ul class="tt_category">
+  <li><a href="#none" class="link_tit">전체 보기 <span class="c_cnt">(120)</span></a>
+    <ul class="category_list">
+      <li><a href="#none" class="link_item">Architecture <span class="c_cnt">(24)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">System Design <span class="c_cnt">(10)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Cloud Native <span class="c_cnt">(8)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Microservices <span class="c_cnt">(6)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">Frontend <span class="c_cnt">(56)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">React / Next.js <span class="c_cnt">(25)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Vue & Nuxt <span class="c_cnt">(11)</span></a></li>
+          <li><a href="#none" class="link_sub_item">UI / UX Design <span class="c_cnt">(20)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">AI & Data <span class="c_cnt">(15)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">Deep Learning <span class="c_cnt">(10)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Data Pipeline <span class="c_cnt">(5)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">Daily <span class="c_cnt">(25)</span></a></li>
+    </ul>
+  </li>
+</ul>
+
         </nav>
         <div class="header-actions">
           <div id="weatherBadge" class="weather-badge" style="display: none;">
@@ -142,7 +191,7 @@
         </div>
         <div class="hero-content">
           <div class="hero-badge cosmic-pulse">SOFTWARE ENGINEERING</div>
-          <h1 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h1>
+          <h2 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h2>
           <div class="hero-divider">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -161,7 +210,7 @@
               <div class="nature-stat-card">
                 <div class="nature-stat-content">
                   <span class="nature-stat-label">TODAY</span>
-                  <span class="nature-stat-value"><span class="counter-num" data-raw="12">0</span></span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="1,245">0</span></span>
                 </div>
               </div>
               <div class="nature-stat-card">
@@ -176,7 +225,7 @@
             <div class="nature-center">
               <div class="nature-center-content">
                 <span class="nature-center-label">TOTAL VISITORS</span>
-                <span class="nature-center-value"><span class="counter-num" data-raw="12345">0</span></span>
+                <span class="nature-center-value"><span class="counter-num" data-raw="987,654">0</span></span>
                 <p class="nature-center-desc">견고한 시스템과 지속 가능한 가치 창출을 증명하는 트래픽 지표입니다.</p>
               </div>
             </div>
@@ -186,7 +235,7 @@
               <div class="nature-stat-card">
                 <div class="nature-stat-content">
                   <span class="nature-stat-label">YESTERDAY</span>
-                  <span class="nature-stat-value"><span class="counter-num" data-raw="45">0</span></span>
+                  <span class="nature-stat-value"><span class="counter-num" data-raw="1,150">0</span></span>
                 </div>
               </div>
               <div class="nature-stat-card">
@@ -215,31 +264,32 @@
         </div>
         <s_list_rep>
           <div class="arch-section-header list-only-title">
-            <h2 class="arch-section-title">[##_list_conform_##]</h2>
+            <h2 class="arch-section-title"></h2>
           </div>
         </s_list_rep>
 
         <div class="magazine-grid">
-          
+          <div style="display: contents;">
+            
               <article class="inpa-card bento-card">
                 <a href="#" class="inpa-card-link">
                   <div class="inpa-card-thumb bento-thumb">
-                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="샘플 포스팅 제목"></div>
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="프론트엔드 아키텍처의 본질적 고민과 설계 패턴"></div>
                     
-                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" alt="thumbnail" class="inpa-card-img">
+                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
                     
                   </div>
                   <div class="inpa-card-body bento-info">
-                    <span class="inpa-card-badge bento-category">개발/프론트엔드</span>
-                    <h3 class="inpa-card-title bento-title">샘플 포스팅 제목</h3>
-                    <p class="inpa-card-desc bento-summary">이것은 샘플 포스팅의 요약 내용입니다. 로컬 프리뷰를 위해 생성된 텍스트입니다.</p>
+                    <span class="inpa-card-badge bento-category">Architecture</span>
+                    <h3 class="inpa-card-title bento-title">프론트엔드 아키텍처의 본질적 고민과 설계 패턴</h3>
+                    <p class="inpa-card-desc bento-summary">비즈니스 로직과 UI를 완벽하게 분리하는 Clean Architecture를 프론트엔드에 적용하는 방법론에 대해 다룹니다. 컴포넌트 간 결합도를 낮추고 유지보수성을 극대화하는 패턴을 알아봅니다.</p>
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
-                      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
                       <div class="inpa-author-text">
-                        <span class="inpa-author">Hope Dev</span>
-                        <span class="inpa-date bento-date">2024.01.01</span>
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
                       </div>
                     </div>
                   </div>
@@ -249,22 +299,22 @@
               <article class="inpa-card bento-card">
                 <a href="#" class="inpa-card-link">
                   <div class="inpa-card-thumb bento-thumb">
-                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="샘플 포스팅 제목"></div>
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="디자인 시스템 구축과 컴포넌트 재사용성 극대화"></div>
                     
-                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" alt="thumbnail" class="inpa-card-img">
+                      <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?auto=format&fit=crop&w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
                     
                   </div>
                   <div class="inpa-card-body bento-info">
-                    <span class="inpa-card-badge bento-category">개발/프론트엔드</span>
-                    <h3 class="inpa-card-title bento-title">샘플 포스팅 제목</h3>
-                    <p class="inpa-card-desc bento-summary">이것은 샘플 포스팅의 요약 내용입니다. 로컬 프리뷰를 위해 생성된 텍스트입니다.</p>
+                    <span class="inpa-card-badge bento-category">Frontend</span>
+                    <h3 class="inpa-card-title bento-title">디자인 시스템 구축과 컴포넌트 재사용성 극대화</h3>
+                    <p class="inpa-card-desc bento-summary">일관성 있는 UI/UX를 위한 디자인 시스템 구축 여정. Storybook과 Figma를 활용한 협업 파이프라인 만들기.</p>
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
-                      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
                       <div class="inpa-author-text">
-                        <span class="inpa-author">Hope Dev</span>
-                        <span class="inpa-date bento-date">2024.01.01</span>
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
                       </div>
                     </div>
                   </div>
@@ -274,59 +324,255 @@
               <article class="inpa-card bento-card">
                 <a href="#" class="inpa-card-link">
                   <div class="inpa-card-thumb bento-thumb">
-                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="샘플 포스팅 제목"></div>
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="Web Vitals: LCP와 CLS를 개선하는 실전 팁"></div>
                     
-                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&q=80" alt="thumbnail" class="inpa-card-img">
+                      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
                     
                   </div>
                   <div class="inpa-card-body bento-info">
-                    <span class="inpa-card-badge bento-category">개발/프론트엔드</span>
-                    <h3 class="inpa-card-title bento-title">샘플 포스팅 제목</h3>
-                    <p class="inpa-card-desc bento-summary">이것은 샘플 포스팅의 요약 내용입니다. 로컬 프리뷰를 위해 생성된 텍스트입니다.</p>
+                    <span class="inpa-card-badge bento-category">Performance</span>
+                    <h3 class="inpa-card-title bento-title">Web Vitals: LCP와 CLS를 개선하는 실전 팁</h3>
+                    <p class="inpa-card-desc bento-summary">초기 렌더링 속도를 1초 이하로 줄이기 위한 리소스 최적화, 이미지 Lazy Loading, 폰트 Preload 전략.</p>
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
-                      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="avatar" class="inpa-avatar" onerror="this.style.display='none'">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
                       <div class="inpa-author-text">
-                        <span class="inpa-author">Hope Dev</span>
-                        <span class="inpa-date bento-date">2024.01.01</span>
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
                       </div>
                     </div>
                   </div>
                 </a>
               </article>
             
+              <article class="inpa-card bento-card">
+                <a href="#" class="inpa-card-link">
+                  <div class="inpa-card-thumb bento-thumb">
+                    <div class="inpa-card-fallback bento-fallback-cover" data-initial="React 19 Server Components 심층 분석"></div>
+                    
+                      <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
+                    
+                  </div>
+                  <div class="inpa-card-body bento-info">
+                    <span class="inpa-card-badge bento-category">Frontend</span>
+                    <h3 class="inpa-card-title bento-title">React 19 Server Components 심층 분석</h3>
+                    <p class="inpa-card-desc bento-summary">새롭게 도입된 Server Components의 동작 원리와 기존 SSR과의 차이점, 그리고 현업 적용 시의 장단점을 분석합니다.</p>
+                  </div>
+                  <div class="inpa-card-footer">
+                    <div class="inpa-author-info">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                      <div class="inpa-author-text">
+                        <span class="inpa-author">Hope</span>
+                        <span class="inpa-date bento-date">2026. 06. 29</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            
+
+            <!-- 상세 포스팅 영역 -->
+            <div style="display:none;">
+              <article class="post-detail">
+                <header class="inpa-post-header">
+                  <!-- Cosmic Background -->
+                  <div class="hero-bg-image" style="opacity: 0.5;">
+                    <div class="stars-layer stars1"></div>
+                    <div class="stars-layer stars2"></div>
+                    <div class="stars-layer stars3"></div>
+                  </div>
+                  <div class="inpa-post-header-inner" style="position: relative; z-index: 2;">
+                    <span class="inpa-post-badge">[##_article_rep_category_##]</span>
+                    <h1 class="inpa-post-title">[##_article_rep_title_##]</h1>
+                    <div class="inpa-post-meta">
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                          <circle cx="12" cy="7" r="4"></circle>
+                        </svg> [##_article_rep_author_##]</span>
+                      <span class="meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                          <line x1="16" y1="2" x2="16" y2="6"></line>
+                          <line x1="8" y1="2" x2="8" y2="6"></line>
+                          <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg> [##_article_rep_date_##]</span>
+                    </div>
+                  </div>
+                </header>
+
+                <!-- Premium Series Navigation -->
+                <div id="seriesNavContainer" class="series-nav-container"></div>
+
+                <div class="post-body-wrap">
+                  <!-- AdSense Top Placeholder -->
+                  <div class="ad-container ad-top">
+                    <div class="ad-skeleton"></div>
+                  </div>
+
+                  <div class="post-content">
+                    [##_article_rep_desc_##]
+                  </div>
+
+                  <!-- Premium CTA Banner -->
+                  <div class="btn-premium-cta-wrapper">
+                    <a href="#subscribe" class="btn-premium-cta">
+                      <span class="cta-icon">🚀</span>
+                      <div class="cta-text">
+                        <strong>더 깊은 인사이트가 필요하신가요?</strong>
+                        <span>개발 및 아키텍처 관련 뉴스레터를 구독하세요.</span>
+                      </div>
+                    </a>
+                  </div>
+
+                  <!-- AdSense Bottom Placeholder -->
+                  <div class="ad-container ad-bottom">
+                    <div class="ad-skeleton"></div>
+                  </div>
+                </div>
+
+                <s_tag_label>
+                  <div class="post-tags cosmic-tags">[##_tag_label_rep_##]</div>
+                </s_tag_label>
+
+                <div class="post-nav">
+                  <s_article_prev>
+                    <a href="[##_article_prev_link_##]" class="nav-prev"><span class="nav-label">이전 글</span><span
+                        class="nav-title">[##_article_prev_title_##]</span></a>
+                  </s_article_prev>
+                  <s_article_next>
+                    <a href="[##_article_next_link_##]" class="nav-next"><span class="nav-label">다음 글</span><span
+                        class="nav-title">[##_article_next_title_##]</span></a>
+                  </s_article_next>
+                </div>
+
+                <div class="fab-container">
+                  <div class="fab-inner">
+                    <div class="fab-item fab-page" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span
+                        class="fab-label">TOP</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M6 15l6-6 6 6" />
+                      </svg></div>
+                    <div class="fab-divider"></div>
+                    <button class="fab-item fab-toc cosmic-pulse" aria-label="목차 열기" id="tocToggleBtn">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="star-icon">
+                        <path d="M12 3l2.5 6h6.5l-5 4.5 2 6.5-6-4-6 4 2-6.5-5-4.5h6.5z" />
+                      </svg>
+                    </button>
+                    <div class="fab-divider"></div>
+                    <a href="#commentContainer" class="fab-item fab-comment" aria-label="댓글">
+                      <div class="fab-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg><span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span></div>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- 완벽 복구된 티스토리 댓글 모듈 (애플 스타일) -->
+                <s_rp>
+                  <div id="commentContainer" class="post-comments">
+                    <h3 class="comment-title">Comments <span
+                        class="comment-count-badge">[##_article_rep_rp_cnt_##]</span></h3>
+
+                    <!-- 댓글 작성 폼 -->
+                    <s_rp_input_form>
+                      <div class="comment-form-wrap">
+                        <s_rp_member>
+                          <s_rp_guest>
+                            <div class="comment-guest-inputs">
+                              <input type="text" name="[##_rp_input_name_##]" value="[##_guest_name_##]"
+                                placeholder="이름" />
+                              <input type="password" name="[##_rp_input_password_##]" value="[##_rp_admin_check_##]"
+                                placeholder="비밀번호" />
+                            </div>
+                          </s_rp_guest>
+                        </s_rp_member>
+                        <div class="comment-textarea-wrap">
+                          <textarea name="[##_rp_input_comment_##]" placeholder="댓글을 남겨주세요..."></textarea>
+                          <button type="submit" class="comment-submit-btn"
+                            onclick="[##_rp_onclick_submit_##]">등록</button>
+                        </div>
+                      </div>
+                    </s_rp_input_form>
+
+                    <!-- 댓글 리스트 -->
+                    <s_rp_container>
+                      <ul class="comment-list-wrap">
+                        <s_rp_rep>
+                          <li id='[##_rp_rep_id_##]'>
+                            <div class="comment-item">
+                              <div class="comment-meta">
+                                <span class="comment-author">[##_rp_rep_name_##]</span>
+                                <span class="comment-date">[##_rp_rep_date_##]</span>
+                              </div>
+                              <div class="comment-text">[##_rp_rep_desc_##]</div>
+                              <div class="comment-actions">
+                                <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
+                                <a href="#" onclick="[##_rp_rep_onclick_reply_##]">답글 달기</a>
+                              </div>
+                            </div>
+
+                            <!-- 대댓글 리스트 -->
+                            <s_rp2_container>
+                              <ul class="reply-list-wrap">
+                                <s_rp2_rep>
+                                  <li id='[##_rp_rep_id_##]'>
+                                    <div class="comment-item reply-item">
+                                      <div class="comment-meta">
+                                        <span class="comment-author">[##_rp_rep_name_##]</span>
+                                        <span class="comment-date">[##_rp_rep_date_##]</span>
+                                      </div>
+                                      <div class="comment-text">[##_rp_rep_desc_##]</div>
+                                      <div class="comment-actions">
+                                        <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </s_rp2_rep>
+                              </ul>
+                            </s_rp2_container>
+                          </li>
+                        </s_rp_rep>
+                      </ul>
+                    </s_rp_container>
+
+                  </div>
+                </s_rp>
+
+              </article>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="pop-cat-section home-only-widgets" id="popCatPostsWrap" style="display:none;"></section>
 
-      <!--
+      <div style="display:none;">
         <div class="page-container">
-          <h2>샘플 포스팅 제목</h2>
-          <div class="page-content"><p>본문 텍스트입니다.</p><h2 id="toc-1">소개</h2><p>이것은 프리뷰 화면입니다.</p><h3 id="toc-2">서브 소개</h3><p>이 내용은 더미 데이터입니다.</p><pre><code>console.log("hello world");</code></pre></div>
+          <h2>[##_article_rep_title_##]</h2>
+          <div class="page-content">[##_article_rep_desc_##]</div>
         </div>
-      -->
-      <!--
+      </div>
+      <div style="display:none;">
         <div class="page-container notice-container">
           <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
           <div class="page-content">[##_notice_rep_desc_##]</div>
         </div>
-      -->
-      <!--
+      </div>
+      <div style="display:none;">
         <div class="page-container tag-container">
           <h2 class="section-title">태그 모음</h2>
           <div class="tag-cloud">
             <s_tag_rep><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></s_tag_rep>
           </div>
         </div>
-      -->
-      <!--
+      </div>
+      <div style="display:none;">
         <div class="page-container guestbook-container">
-          <h2 class="section-title">방명록</h2><div>댓글 입력 폼 자리</div>
+          <h2 class="section-title">방명록</h2>[##_guestbook_disp_##]
         </div>
-      -->
-      <div id="fabContainer" class="fab-container"></div>
+      </div>
     </main>
 
     <!-- Side Floating TOC Panel -->
@@ -373,12 +619,12 @@
                         viewBox="0 0 24 24">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                       </svg>
-                      <span class="text">잘 보고 갑니다.</span>
+                      <span class="text">좋은 글 감사합니다. 많은 도움이 되었습니다!</span>
                     </a>
                     <span class="author"><svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                         <path
                           d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg> 지나가는 이</span>
+                      </svg> 익명 사용자</span>
                   </li>
                 
               </ul>
@@ -391,10 +637,20 @@
                 
                   <li>
                     <a href="#">
-                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=100&q=80')"></div>
+                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=100')"></div>
                       <div class="info">
-                        <span class="title">최근 작성한 글입니다.</span>
-                        <span class="date">1일 전</span>
+                        <span class="title">프론트엔드 아키텍처의 본질적 고민</span>
+                        <span class="date">06. 29</span>
+                      </div>
+                    </a>
+                  </li>
+                
+                  <li>
+                    <a href="#">
+                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=100')"></div>
+                      <div class="info">
+                        <span class="title">디자인 시스템 구축기</span>
+                        <span class="date">06. 28</span>
                       </div>
                     </a>
                   </li>
@@ -406,17 +662,17 @@
             <div class="widget-col">
               <h3 class="widget-title">인기 글 <span class="badge-hot">hot</span></h3>
               <ul class="widget-list post-list">
-                <s_rctps_popular_rep>
+                
                   <li>
                     <a href="#">
-                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=100&q=80')"></div>
+                      <div class="thumb" style="background-image:url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=100')"></div>
                       <div class="info">
-                        <span class="title">최근 작성한 글입니다.</span>
-                        <span class="date">1일 전</span>
+                        <span class="title">Web Vitals 개선 실전 팁</span>
+                        <span class="date">06. 25</span>
                       </div>
                     </a>
                   </li>
-                </s_rctps_popular_rep>
+                
               </ul>
             </div>
           
@@ -430,10 +686,18 @@
         <p class="copyright">&copy; Copyright 2024 Hope Devlog. All rights reserved.</p>
       </div>
     </footer>
-  
+    
+    <!-- Premium FAB -->
+    <div class="hope-fab-wrapper">
+      <div id="hopeFabMenu" class="hope-fab-menu">
+        <button id="hopeFabShare" class="fab-item" aria-label="Share">🔗</button>
+        <button id="hopeFabTop" class="fab-item" aria-label="Top">⬆</button>
+      </div>
+      <button id="hopeFabMain" class="fab-main" aria-label="Quick Menu">✦</button>
+    </div>
 
-  
-    <div id="searchOverlay" class="search-overlay">
+  </s_t3>
+  <div id="searchOverlay" class="search-overlay">
       <div class="search-overlay-backdrop"></div>
       <div class="search-modal">
         <div class="search-header">
@@ -441,7 +705,7 @@
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="searchInput" name="[##_search_name_##]" value=""
+          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
             onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
             class="search-input" autocomplete="off">
           <div class="search-shortcut-hint">
@@ -459,7 +723,6 @@
         </div>
       </div>
     </div>
-  
 
   <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -471,29 +734,17 @@
         <div class="stars-layer stars3"></div>
       </div>
       <div class="hero-overlay"></div>
-      <div class="meteor-layer">
-        <div class="meteor meteor-1"></div>
-        <div class="meteor meteor-2"></div>
-        <div class="meteor meteor-3"></div>
-        <div class="meteor meteor-4"></div>
-        <div class="meteor meteor-5"></div>
-        <div class="meteor meteor-6"></div>
-        <div class="meteor meteor-7"></div>
-        <div class="meteor meteor-8"></div>
-        <div class="meteor meteor-9"></div>
-        <div class="meteor meteor-10"></div>
-      </div>
     </div>
     <div class="sidebar-inner">
       <button class="sidebar-close" aria-label="닫기">✕</button>
       <div class="sidebar-profile">
         <div class="profile-avatar">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="profile"
+          <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="profile"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <div class="avatar-fallback" style="display:none;">H</div>
         </div>
         <h3 class="profile-name">Hope Devlog 💻</h3>
-        <p class="profile-desc">Hope Dev</p>
+        <p class="profile-desc">Hope</p>
       </div>
 
       <div class="sidebar-quick-links">
@@ -515,21 +766,42 @@
       </div>
 
       <div class="sidebar-content" id="sidebarCategoryWrap">
-        <ul class="tt_category">
-          <li class=""><a href="/category" class="link_tit">분류 전체보기 <span class="c_cnt">(120)</span></a>
-            <ul class="category_list">
-              <li class=""><a href="category.html" class="link_item">Tech <span class="c_cnt">(45)</span></a></li>
-              <li class=""><a href="category.html" class="link_item">Design <span class="c_cnt">(30)</span></a></li>
-              <li class=""><a href="category.html" class="link_item">Life <span class="c_cnt">(15)</span></a></li>
-              <li class=""><a href="category.html" class="link_item">Agentic <span class="c_cnt">(30)</span></a></li>
-            </ul>
-          </li>
+        
+<ul class="tt_category">
+  <li><a href="#none" class="link_tit">전체 보기 <span class="c_cnt">(120)</span></a>
+    <ul class="category_list">
+      <li><a href="#none" class="link_item">Architecture <span class="c_cnt">(24)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">System Design <span class="c_cnt">(10)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Cloud Native <span class="c_cnt">(8)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Microservices <span class="c_cnt">(6)</span></a></li>
         </ul>
+      </li>
+      <li><a href="#none" class="link_item">Frontend <span class="c_cnt">(56)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">React / Next.js <span class="c_cnt">(25)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Vue & Nuxt <span class="c_cnt">(11)</span></a></li>
+          <li><a href="#none" class="link_sub_item">UI / UX Design <span class="c_cnt">(20)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">AI & Data <span class="c_cnt">(15)</span></a>
+        <ul class="sub_category_list">
+          <li><a href="#none" class="link_sub_item">Deep Learning <span class="c_cnt">(10)</span></a></li>
+          <li><a href="#none" class="link_sub_item">Data Pipeline <span class="c_cnt">(5)</span></a></li>
+        </ul>
+      </li>
+      <li><a href="#none" class="link_item">Daily <span class="c_cnt">(25)</span></a></li>
+    </ul>
+  </li>
+</ul>
+
       </div>
     </div>
   </aside>
 
-  <script src="./images/script.js"></script>
+  <script type="module" src="/src/js/main.js"></script>
+  <script type="module" src="/src/js/main.js"></script>
 </body>
 
 </html>
+

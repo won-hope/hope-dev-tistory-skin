@@ -1,0 +1,249 @@
+/* ==========================================================================
+   [Premium] Nature Dashboard & Stats Cards (Glassmorphism & CountUp)
+   ========================================================================== */
+.nature-dashboard {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nature-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .nature-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.nature-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 992px) {
+  .nature-side {
+    flex-direction: row;
+  }
+}
+
+.nature-stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.4s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .nature-stat-card {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+.nature-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+}
+.nature-stat-card:hover::before {
+  left: 200%;
+}
+.nature-stat-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
+}
+
+.nature-stat-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.nature-stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-color);
+  background: linear-gradient(135deg, var(--point-color), var(--point-color-alt));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nature-center {
+  background: linear-gradient(135deg, rgba(30, 40, 50, 0.8), rgba(15, 20, 25, 0.9));
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+html[data-theme="light"] .nature-center {
+  background: linear-gradient(135deg, rgba(240, 245, 255, 0.8), rgba(255, 255, 255, 0.9));
+  border: 1px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+.nature-center::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 60%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.nature-center-label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--point-color);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.nature-center-value {
+  display: block;
+  font-size: 4rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text-color);
+  margin-bottom: 16px;
+  line-height: 1.1;
+  text-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.nature-center-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   [Premium] Category Pills & Neon Glow
+   ========================================================================== */
+.category-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.category-grid a {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+html[data-theme="light"] .category-grid a {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.category-grid a:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.8);
+  color: #00f0ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.cat-count {
+  margin-left: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+}
+html[data-theme="light"] .cat-count { background: rgba(0,0,0,0.05); }
+.category-grid a:hover .cat-count {
+  background: rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+}
+
+/* ==========================================================================
+   [Premium] 3D Hover Tilt & Shine Effect for Magazine Cards
+   ========================================================================== */
+.magazine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  perspective: 1000px;
+}
+
+.inpa-card.bento-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.inpa-card.bento-card .inpa-card-img {
+  transform: translateZ(20px);
+}
+
+.inpa-card.bento-card .glare-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.3) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+.inpa-card.bento-card:hover .glare-overlay {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Interactive Hero Canvas Particles
+   ========================================================================== */
+#heroCanvas {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 1;
+  pointer-events: auto;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-content * {
+  pointer-events: auto;
+}

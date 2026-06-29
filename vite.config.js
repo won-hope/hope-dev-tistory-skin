@@ -3,6 +3,8 @@ import { resolve } from 'path';
 
 export default defineConfig({
   build: {
+    outDir: '.',
+    emptyOutDir: false,
     rollupOptions: {
       input: {
         style: resolve(__dirname, 'src/css/style.css'),
@@ -16,6 +18,5 @@ export default defineConfig({
         }
       }
     },
-    minify: 'terser',
   }
 });
