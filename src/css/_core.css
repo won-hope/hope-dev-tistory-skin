@@ -1700,66 +1700,62 @@ html[data-theme="dark"] .side-toc-panel:not(.desktop-toc) {
   margin-bottom: 1.5rem;
   box-shadow: inset 0 0 15px rgba(0, 240, 255, 0.05);
   font-family: var(--font-mono);
+  background: var(--surface-color, rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-sans);
+  transition: box-shadow 0.2s ease;
+}
+
+.comment-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .reply-item {
-  background: rgba(138, 43, 226, 0.1);
-  margin-left: 2rem;
-  border-left: 3px solid #8b5cf6;
+  margin-left: 2.5rem;
+  border-left: 4px solid var(--point-color, #8b5cf6);
+  background: rgba(128, 128, 128, 0.02);
 }
 
 .comment-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
 }
 
 .comment-author {
   display: flex;
   align-items: center;
   font-weight: 700;
-  color: #cdd6f4;
-  font-size: 0.9rem;
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
 .comment-author::before {
   content: '';
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: #27c93f;
+  width: 6px;
+  height: 6px;
+  background: var(--point-color, #8b5cf6);
   border-radius: 50%;
   margin-right: 0.5rem;
-  box-shadow: 0 0 8px #27c93f;
-  animation: blink 2s infinite;
-}
-
-.comment-author::after {
-  content: ' [ COMMS_LINK : ESTABLISHED ]';
-  color: #00f0ff;
-  font-size: 0.7rem;
-  margin-left: 0.5rem;
-  opacity: 0.8;
 }
 
 .comment-date {
-  font-size: 0.75rem;
-  color: #a9b1d6;
-}
-
-.comment-date::before {
-  content: 'SYS-TIME: ';
-  color: #8b5cf6;
+  font-size: 0.8rem;
+  color: var(--text-muted, #888);
 }
 
 .comment-text {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   line-height: 1.6;
-  color: #e0e0e0;
+  color: var(--text-color);
   margin-bottom: 1rem;
   white-space: pre-wrap;
 }
