@@ -77,9 +77,10 @@ img {
 .preloader {
   position: fixed;
   inset: 0;
-  background: var(--bg-color);
+  background: #050508; /* Deep cosmic background */
   z-index: 9999;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 1;
@@ -89,6 +90,44 @@ img {
 
 .preloader.fade-out {
   opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-universe {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.star-loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.star-spinner {
+  animation: spinStar 3s linear infinite, pulseGlow 1.5s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.8));
+}
+
+@keyframes spinStar {
+  100% { transform: rotate(360deg); }
+}
+@keyframes pulseGlow {
+  0% { filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5)); stroke-width: 1; }
+  100% { filter: drop-shadow(0 0 25px rgba(0, 240, 255, 1)); stroke-width: 2; }
+}
+
+.loading-text {
+  color: #00f0ff;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 4px;
+  animation: blinkText 1.5s infinite;
+}
+@keyframes blinkText {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; text-shadow: 0 0 10px rgba(0,240,255,0.8); }
 }
 
 /* Header */
@@ -3221,6 +3260,201 @@ html[data-theme="dark"] .inpa-card.bento-card {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+.cosmic-toggle-btn:hover {
+  transform: rotate(15deg) scale(1.1);
+}
+
+.sun-rays line {
+  stroke-dasharray: 4;
+  animation: rotateRays 10s linear infinite;
+  transform-origin: 12px 12px;
+}
+
+@keyframes rotateRays {
+  100% { transform: rotate(360deg); }
+}
+
+.star-blink {
+  animation: blink 2s infinite ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+html[data-theme="dark"] .cosmic-toggle-btn svg.icon-moon {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+}
+
+html[data-theme="light"] .cosmic-toggle-btn svg.icon-sun {
+  filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.4));
+}
+
+/* Glassmorphism Bento Card */
+.inpa-card.bento-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-card);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  overflow: hidden;
+}
+
+html[data-theme="dark"] .inpa-card.bento-card {
+  background: rgba(30, 30, 35, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.inpa-card.bento-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
+  transition: left 0.7s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.inpa-card.bento-card:hover::before {
+  left: 200%;
+}
+
+.inpa-card.bento-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.inpa-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  transition: transform 0.5s ease;
+}
+
+.inpa-card.bento-card:hover .inpa-card-img {
+  transform: scale(1.05);
+}
+
+.bento-badge, .bento-category {
+  background: rgba(0, 240, 255, 0.1);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+  font-family: var(--font-mono);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
+   Footer (Cosmic Theme)
+   ========================================================================== */
+.site-footer.cosmic-footer {
+  background: #050508;
+  border-top: 1px solid rgba(0, 240, 255, 0.15);
+  box-shadow: inset 0 1px 15px rgba(0, 240, 255, 0.05);
+  padding: 4rem 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.footer-inner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.footer-badge {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.4rem 1.2rem;
+  border-radius: 20px;
+  background: rgba(0, 240, 255, 0.05);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+}
+
+.site-footer .copyright {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Post Detail Cosmic Typography & Tags
+   ========================================================================== */
+.post-tags.cosmic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.cosmic-tags a, .post-tags a {
+  background: rgba(0, 240, 255, 0.05);
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0);
+}
+
+.cosmic-tags a:hover, .post-tags a:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Interaction Bar */
+.post-interaction-bar {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.interaction-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(10, 10, 15, 0.6);
+  border: 1px solid rgba(138, 43, 226, 0.3);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  color: #a9b1d6;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
 .interaction-btn:hover {
   border-color: #c084fc;
@@ -3239,35 +3473,34 @@ html[data-theme="dark"] .inpa-card.bento-card {
   filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.6));
 }
 
-.interaction-btn:hover .comment-icon {
-  stroke: #00f0ff;
-  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
-}
-
 /* ==========================================================================
    Light Mode Overrides for Cosmic Elements
    ========================================================================== */
 html[data-theme="light"] .post-detail {
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), inset 0 0 30px rgba(0, 240, 255, 0.1);
-  border: 1px solid rgba(0, 240, 255, 0.2);
+  background: #ffffff;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0,0,0,0.02);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 html[data-theme="light"] .inpa-post-header {
-  background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(138, 43, 226, 0.2) 100%);
-  color: #1a1b26;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.1);
+  background: linear-gradient(135deg, #fdfbf7 0%, #f4f2ec 100%);
+  color: #2d2d2d;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: none;
+}
+html[data-theme="light"] .inpa-post-header .hero-bg-image {
+  opacity: 0 !important; /* Hide cosmic stars in light mode for a clean look */
 }
 
 html[data-theme="light"] .post-content h2::before {
-  box-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 html[data-theme="light"] .post-content blockquote {
-  background: rgba(0, 240, 255, 0.05);
+  background: #f8f9fa;
   color: #333;
-  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+  box-shadow: inset 2px 0 0 var(--point-color);
+  border: 1px solid rgba(0,0,0,0.03);
 }
 
 html[data-theme="light"] .interaction-btn {
@@ -3787,14 +4020,13 @@ html[data-theme="light"] .tech-energy-bar {
   background: rgba(0, 0, 0, 0.1);
 }
 
-html[data-theme="light"] .tech-count {
-  color: #666;
-}
-
-html[data-theme="light"] .cosmic-hero,
 html[data-theme="light"] .pre-footer-widgets {
   background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 40%, #cbd5e1 100%);
   color: #333;
+}
+
+html[data-theme="light"] .tech-count {
+  color: #666;
 }
 
 html[data-theme="light"] .cosmic-hero .hero-badge {
@@ -4053,6 +4285,9 @@ html[data-theme="light"] .meteor-layer {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-card, 16px);
   box-shadow: var(--shadow-sm);
+}
+.series-nav-container:empty {
+  display: none;
 }
 [data-theme="dark"] .series-nav-container {
   background: #252630;

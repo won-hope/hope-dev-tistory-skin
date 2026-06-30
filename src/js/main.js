@@ -1,10 +1,11 @@
 import { initNatureCountUp, init3DTiltCards, initHeroParticles } from './dashboard.js';
-import { initZenMode, initProfessionalCodeBlocks } from './v9.js';
+import { initZenMode, initProfessionalCodeBlocks } from './features/layout.js';
+import { initV11Features } from './features/premium.js';
 import { removePreloader, initSearchToggle, initThemeToggle, initFAB, initScrollReveal, initSPATransitions } from './features/ui.js';
 import { initWeatherTheme, initGlobalMeteors, initStarsParallax, initTerminalTyping, initDecryptAnimation, initWarpDrive } from './features/effects.js';
 import { initSidebarToggle, parseAndBuildSidebarCategories } from './features/sidebar.js';
 import { beautifyMegaMenu, initPopularCategories } from './features/menu.js';
-import { initDualTOC, initMacCodeBlocks, initReadingProgress, initReadingTime, initSeriesNav, lazyLoadImages, initScrollProgressAndHeader } from './features/post.js';
+import { initDualTOC, initMacCodeBlocks, initReadingProgress, initReadingTime, initSeriesNav, lazyLoadImages, initScrollProgressAndHeader, initImageLightbox } from './features/post.js';
 import { initSpotlightCards, initMagneticButtons } from './features/interactions.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingTime();
   initSeriesNav();
   initScrollProgressAndHeader();
+  initImageLightbox();
 
   // Effects & Animations
   initGlobalMeteors();
@@ -58,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   init3DTiltCards();
   initHeroParticles();
   initZenMode();
+  initV11Features();
   initProfessionalCodeBlocks();
   
   // V9 Premium Features

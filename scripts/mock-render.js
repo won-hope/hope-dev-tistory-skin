@@ -29,53 +29,73 @@ const mockCategory = `
 
 // 2. Mock Data for Article View (post.html testing)
 const mockArticleDesc = `
-  <h2 data-ke-size="size26">1. 아키텍처 패턴의 이해</h2>
-  <p>프론트엔드 아키텍처는 단순히 폴더를 나누는 것이 아닙니다. 이번에 적용한 기능들을 보여주는 예제 코드를 확인해 보세요!</p>
+  <h2 data-ke-size="size26">1. V10 신규 기능 한눈에 보기</h2>
+  <p>이번 V10 업데이트에 적용된 놀라운 기능들을 직접 체험해 보세요! 스크롤을 내리면서 우측의 목차(ScrollSpy)가 어떻게 반응하는지 먼저 확인해 보세요.</p>
+  <p>우측 상단 목차(TOC)의 파란색 하이라이트가 현재 읽고 있는 섹션을 정확하게 추적할 것입니다. 또한 전체적인 레이아웃이 화면 크기에 맞게 부드럽게 조정되는 것도 볼 수 있습니다.</p>
+  <br><br><br><br><br>
   
-  <h3 data-ke-size="size23">1.1. 새로운 기능 자랑용 코드 블록</h3>
-  <p>아래 코드는 가상 파일명 탭, 매우 긴 코드(자동 접기), 복사 버튼, 하이라이팅을 모두 테스트할 수 있는 목업 데이터입니다.</p>
+  <h2 data-ke-size="size26">2. 미디엄 스타일 라이트박스 줌 (Zoom)</h2>
+  <p>아래 고화질 아키텍처 다이어그램 또는 풍경 이미지를 클릭해 보세요! 배경이 우아하게 어두워지면서 이미지가 화면 중앙으로 팝업됩니다.</p>
+  <p>
+    <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?w=800&q=80" alt="Cyberpunk City" loading="lazy" decoding="async">
+  </p>
+  <p>클릭한 상태에서 마우스 휠을 굴리거나 아무 곳이나 다시 클릭하면 원상복구됩니다. 다크 모드와 라이트 모드에 따라 배경색(Overlay)도 자동으로 바뀝니다.</p>
+  <br><br><br><br><br>
+
+  <h2 data-ke-size="size26">3. 코드 출처 자동 주입 (Growth Hacking)</h2>
+  <p>아래 제공된 긴 코드 블록 우측 상단의 <strong>[복사]</strong> 아이콘을 누르고, 사용하시는 메모장이나 에디터에 <code>Ctrl + V</code> 로 붙여넣어 보세요.</p>
+  <p>코드 마지막에 이 블로그의 이름과 접속 주소가 자동으로 주석 처리되어 삽입된 것을 확인할 수 있습니다! 😎</p>
   
-  <pre class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// file: src/features/MockDemo.js
-import React, { useState, useEffect } from 'react';
+  <h3 data-ke-size="size23">3.1. 테스트용 긴 소스 코드</h3>
+  <pre class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// file: src/features/AdvancedGrowthHacking.js
+import { useState, useEffect } from 'react';
 
 /**
- * 이 코드는 15줄이 넘어가는 아주 긴 코드입니다.
- * 설정하신 코드 접기/펼치기 기능과 줄바꿈 토글 기능이
- * 얼마나 잘 작동하는지 눈으로 직접 확인하실 수 있습니다.
- * 
- * 그리고 이 주석 줄들을 마우스로 클릭해 보세요!
- * 클릭한 라인이 형광펜처럼 하이라이트 되는 것도 볼 수 있습니다.
+ * 이 코드는 매우 깁니다! (코드 접기 테스트)
+ * 1. 복사 버튼을 눌러 스니펫 출처 주입 기능을 확인하세요.
+ * 2. 특정 줄을 클릭해서 하이라이팅 효과를 확인하세요.
+ * 3. 코드 더 보기 / 접기 버튼으로 길이를 조절해 보세요.
  */
-export default function MockDemo() {
-  const [data, setData] = useState(null);
+export default function AdvancedGrowthHacking() {
+  const [metrics, setMetrics] = useState(null);
   
   useEffect(() => {
-    async function fetchData() {
-      // 아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주 긴 주석입니다. 자동 줄바꿈 토글 버튼을 누르면 이 줄이 어떻게 변하는지 확인해 보세요!
-      const response = await fetch('https://api.example.com/data');
+    async function fetchMetrics() {
+      // 아주 긴 주석입니다. 자동 줄바꿈 토글 아이콘을 누르면 가로 스크롤 없이 코드를 편하게 읽을 수 있도록 동적으로 줄바꿈이 일어납니다! 이 기능은 모바일에서 특히 유용합니다.
+      const response = await fetch('https://api.growth.com/v1/metrics');
       const result = await response.json();
-      setData(result);
+      
+      // 데이터 변환 로직
+      const processed = result.data.map(item => ({
+        ...item,
+        score: item.views * 0.4 + item.clicks * 0.6
+      }));
+      
+      setMetrics(processed);
     }
-    fetchData();
+    fetchMetrics();
   }, []);
 
   return (
-    &lt;div className="mock-demo"&gt;
-      &lt;h1&gt;Hello World!&lt;/h1&gt;
-      {data ? &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt; : &lt;p&gt;Loading...&lt;/p&gt;}
+    &lt;div className="metrics-dashboard"&gt;
+      &lt;h1&gt;Growth Dashboard&lt;/h1&gt;
+      {metrics ? &lt;pre&gt;{JSON.stringify(metrics, null, 2)}&lt;/pre&gt; : &lt;p&gt;Loading...&lt;/p&gt;}
     &lt;/div&gt;
   );
 }
 </code></pre>
   
-  <h2 data-ke-size="size26">2. 짧은 코드 블록 (접히지 않음)</h2>
-  <pre class="css" data-ke-language="css" data-ke-type="codeblock"><code>/* file: style.css */
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #0f0f15;
-}
-</code></pre>
+  <br><br><br><br><br>
+  
+  <h2 data-ke-size="size26">4. 아름다운 인용구 (Blockquote) 스타일</h2>
+  <p>가장 중요한 멘트나 강조하고 싶은 문구는 인용구에 담아 보세요. V10의 인용구는 눈에 띄면서도 글의 흐름을 방해하지 않습니다.</p>
+  <blockquote>
+    훌륭한 디자인은 눈에 보이지 않지만, 형편없는 디자인은 눈에 띌 수밖에 없다.
+    <br>- 훌륭한 UI/UX를 추구하며
+  </blockquote>
+  
+  <br><br><br><br><br>
+  <p>이곳이 포스팅의 끝입니다. 수고하셨습니다!</p>
 `;
 
 function renderSkin(mode, outputFileName) {
@@ -201,7 +221,7 @@ function renderSkin(mode, outputFileName) {
   });
 
   // Vite Dev Server Script Injections
-  skinContent = skinContent.replace(/<script src="\.\/images\/script\.js"><\/script>/g, '');
+  skinContent = skinContent.replace(/<script defer src="\.\/images\/script\.js"><\/script>/g, '');
   skinContent = skinContent.replace(/<\/body>/, '  <script type="module" src="/src/js/main.js"></script>\n</body>');
   skinContent = skinContent.replace(/<link rel="stylesheet" href="\.\/style\.css">/g, '<link rel="stylesheet" href="/src/css/style.css">');
 

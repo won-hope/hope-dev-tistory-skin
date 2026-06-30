@@ -109,7 +109,7 @@ export function initDualTOC() {
           });
         }
       });
-    }, { rootMargin: '-100px 0px -60% 0px' });
+    }, { rootMargin: '-10% 0px -80% 0px' });
 
     headings.forEach(heading => observer.observe(heading));
   }
@@ -197,7 +197,13 @@ export function initMacCodeBlocks() {
     copyBtn.innerHTML = copyIcon;
 
     copyBtn.addEventListener('click', () => {
-      const codeText = pre.innerText || pre.textContent;
+      let codeText = pre.innerText || pre.textContent;
+      const blogTitle = document.title.split(' - ')[0] || '블로그';
+      const blogUrl = window.location.href;
+      
+      // Growth Hacking: 출처 자동 주입
+      codeText += `\n\n// 출처: ${blogTitle} (${blogUrl})`;
+      
       navigator.clipboard.writeText(codeText).then(() => {
         copyBtn.innerHTML = copiedIcon;
         copyBtn.classList.add('copied');
@@ -256,6 +262,19 @@ export function initMacCodeBlocks() {
       }
     });
   });
+}
+
+export function initImageLightbox() {
+  // 본문 내의 이미지들을 찾아서 medium-zoom 적용
+  const images = document.querySelectorAll('.post-content img:not(.no-zoom, .emoji)');
+  if (images.length > 0 && typeof mediumZoom === 'function') {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    mediumZoom(images, {
+      margin: 24,
+      background: isDark ? 'rgba(0, 0, 0, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+      scrollOffset: 40
+    });
+  }
 }
 
 export function initReadingProgress() {

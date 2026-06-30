@@ -1,7 +1,7 @@
 {
   "name": "hope-dev-tistory-skin",
-  "version": "9.5.1",
-  "description": "Premium Tistory Skin V9.5.1",
+  "version": "11.0.0",
+  "description": "Premium Tistory Skin V11.0.0",
   "scripts": {
     "predev": "node scripts/mock-render.js",
     "dev": "vite",

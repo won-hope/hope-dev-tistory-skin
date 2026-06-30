@@ -531,26 +531,44 @@ body.page-exiting #main-content {
 /* 드롭다운 서브 메뉴 패널 (카테고리 도식화 다이어그램 스타일) */
 .header-nav .category_list > li > ul.sub_category_list {
   position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%; /* 헤더 너비만큼 확장 (Full Width Mega Menu) */
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(15px);
+  width: max-content;
+  max-width: 900px;
+  min-width: 300px;
+  max-height: 65vh; /* 스크롤 높이 제한 */
+  overflow-y: auto; /* 아이템이 많으면 스크롤 */
   background: var(--surface-color, rgba(255, 255, 255, 0.95));
-  border-radius: 0 0 24px 24px; /* 아래쪽 라운드만 부여하여 헤더와 일체감 */
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-  border-top: 1px solid var(--border-color);
-  padding: 2.5rem 3rem; /* 넉넉한 중앙 정렬 패딩 */
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 0 1px var(--border-color);
+  padding: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 글자 짤림 방지: 폭을 280px로 대폭 확장 */
-  gap: 1.5rem 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
   list-style: none;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(15px);
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 100;
   box-sizing: border-box;
+}
+
+/* 커스텀 스크롤바 (메가 메뉴 내부) */
+.header-nav .category_list > li > ul.sub_category_list::-webkit-scrollbar {
+  width: 6px;
+}
+.header-nav .category_list > li > ul.sub_category_list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.header-nav .category_list > li > ul.sub_category_list::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.3);
+  border-radius: 10px;
+}
+.header-nav .category_list > li > ul.sub_category_list::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.5);
 }
 
 [data-theme='dark'] .header-nav .category_list > li > ul.sub_category_list {
@@ -561,7 +579,7 @@ body.page-exiting #main-content {
 .header-nav .category_list > li:hover > ul.sub_category_list {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 /* 드롭다운 서브 아이템 디자인 */
@@ -572,12 +590,12 @@ body.page-exiting #main-content {
 .mega-sub-link {
   display: flex !important;
   align-items: center;
-  padding: 1rem 1.5rem !important; /* 상하좌우 패딩 크게 확대 */
+  padding: 12px 16px !important; /* 패딩을 살짝 줄여서 20개 이상일 때 압축적으로 보이게 함 */
   color: var(--text-color) !important;
   text-decoration: none !important;
   border-radius: 12px;
-  transition: all 0.3s ease;
-  font-size: 1rem;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
   font-weight: 500;
   border: 1px solid transparent;
   background: rgba(128, 128, 128, 0.03);
