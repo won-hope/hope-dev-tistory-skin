@@ -4,7 +4,8 @@ import { removePreloader, initSearchToggle, initThemeToggle, initFAB, initScroll
 import { initWeatherTheme, initGlobalMeteors, initStarsParallax, initTerminalTyping, initDecryptAnimation, initWarpDrive } from './features/effects.js';
 import { initSidebarToggle, parseAndBuildSidebarCategories } from './features/sidebar.js';
 import { beautifyMegaMenu, initPopularCategories } from './features/menu.js';
-import { initDualTOC, initMacCodeBlocks, initReadingProgress, initReadingTime, initSeriesNav, lazyLoadImages } from './features/post.js';
+import { initDualTOC, initMacCodeBlocks, initReadingProgress, initReadingTime, initSeriesNav, lazyLoadImages, initScrollProgressAndHeader } from './features/post.js';
+import { initSpotlightCards, initMagneticButtons } from './features/interactions.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const asciiArt = [
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initReadingProgress();
   initReadingTime();
   initSeriesNav();
+  initScrollProgressAndHeader();
 
   // Effects & Animations
   initGlobalMeteors();
@@ -60,4 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // V9 Premium Features
   initSPATransitions();
+  initSpotlightCards();
+  initMagneticButtons();
 });

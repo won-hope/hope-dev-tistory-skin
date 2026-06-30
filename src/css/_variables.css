@@ -58,3 +58,32 @@ html[data-theme="dark"] {
     background-color: #333;
   }
 }
+
+/* ==========================================================================
+   [Premium] Design Details (Idea 4)
+   ========================================================================== */
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: inherit;
+}
+
+html[data-theme="light"] ::selection,
+html[data-theme="system"] ::selection {
+  background: rgba(58, 90, 64, 0.2); 
+}
+
+/* Mac Style Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(134, 134, 139, 0.3);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(134, 134, 139, 0.6);
+}

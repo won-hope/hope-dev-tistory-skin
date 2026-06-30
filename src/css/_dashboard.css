@@ -266,4 +266,33 @@ html[data-theme="light"] .cat-count { background: rgba(0,0,0,0.05); }
 }
 .hero-content * {
   pointer-events: auto;
+}
+
+/* ==========================================================================
+   [Premium] Spotlight Hover Effect (Idea 1)
+   ========================================================================== */
+.bento-card::after, .nature-stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.08), transparent 40%);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  border-radius: inherit;
+}
+
+.bento-card:hover::after, .nature-stat-card:hover::after {
+  opacity: 1;
+}
+
+html[data-theme="light"] .bento-card::after, 
+html[data-theme="light"] .nature-stat-card::after {
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(0, 0, 0, 0.05), transparent 40%);
+}
+
+.bento-card > *, .nature-stat-card > * {
+  position: relative;
+  z-index: 2;
 }

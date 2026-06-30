@@ -30,17 +30,52 @@ const mockCategory = `
 // 2. Mock Data for Article View (post.html testing)
 const mockArticleDesc = `
   <h2 data-ke-size="size26">1. 아키텍처 패턴의 이해</h2>
-  <p>프론트엔드 아키텍처는 단순히 폴더를 나누는 것이 아닙니다.</p>
-  <h3 data-ke-size="size23">1.1. MVC 패턴</h3>
-  <p>MVC는 훌륭한 패턴입니다...</p>
-  <h3 data-ke-size="size23">1.2. MVVM 패턴</h3>
-  <p>뷰와 모델을 완벽하게 분리합니다.</p>
-  <h2 data-ke-size="size26">2. 실제 적용 사례</h2>
-  <p>이 패턴들을 프로젝트에 적용해 보았습니다.</p>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <h3 data-ke-size="size23">2.1. 성과 측정</h3>
-  <p>로딩 속도가 30% 개선되었습니다.</p>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <p>프론트엔드 아키텍처는 단순히 폴더를 나누는 것이 아닙니다. 이번에 적용한 기능들을 보여주는 예제 코드를 확인해 보세요!</p>
+  
+  <h3 data-ke-size="size23">1.1. 새로운 기능 자랑용 코드 블록</h3>
+  <p>아래 코드는 가상 파일명 탭, 매우 긴 코드(자동 접기), 복사 버튼, 하이라이팅을 모두 테스트할 수 있는 목업 데이터입니다.</p>
+  
+  <pre class="javascript" data-ke-language="javascript" data-ke-type="codeblock"><code>// file: src/features/MockDemo.js
+import React, { useState, useEffect } from 'react';
+
+/**
+ * 이 코드는 15줄이 넘어가는 아주 긴 코드입니다.
+ * 설정하신 코드 접기/펼치기 기능과 줄바꿈 토글 기능이
+ * 얼마나 잘 작동하는지 눈으로 직접 확인하실 수 있습니다.
+ * 
+ * 그리고 이 주석 줄들을 마우스로 클릭해 보세요!
+ * 클릭한 라인이 형광펜처럼 하이라이트 되는 것도 볼 수 있습니다.
+ */
+export default function MockDemo() {
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    async function fetchData() {
+      // 아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주아주 긴 주석입니다. 자동 줄바꿈 토글 버튼을 누르면 이 줄이 어떻게 변하는지 확인해 보세요!
+      const response = await fetch('https://api.example.com/data');
+      const result = await response.json();
+      setData(result);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    &lt;div className="mock-demo"&gt;
+      &lt;h1&gt;Hello World!&lt;/h1&gt;
+      {data ? &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt; : &lt;p&gt;Loading...&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}
+</code></pre>
+  
+  <h2 data-ke-size="size26">2. 짧은 코드 블록 (접히지 않음)</h2>
+  <pre class="css" data-ke-language="css" data-ke-type="codeblock"><code>/* file: style.css */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0f0f15;
+}
+</code></pre>
 `;
 
 function renderSkin(mode, outputFileName) {
@@ -98,6 +133,7 @@ function renderSkin(mode, outputFileName) {
     '[##_var_motion_level_##]': 'high',
     '[##_var_use_weather_##]': 'true',
     '[##_var_show_weather_badge_##]': 'true',
+    '[##_article_rep_rp_cnt_##]': '3',
     '[##_var_auto_weather_theme_##]': 'true',
     '[##_var_weather_greeting_##]': 'true',
     '[##_var_blog_start_date_##]': '2024-01-01',

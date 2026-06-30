@@ -2,6 +2,7 @@ export function initDualTOC() {
   const content = document.querySelector('.post-content');
   const sideTocPanel = document.getElementById('sideTocPanel');
   const sideTocContent = document.getElementById('sideTocContent');
+  const floatingTocContent = document.querySelector('#floatingTocPanel .side-toc-content');
   const tocToggleBtn = document.getElementById('tocToggleBtn');
   const tocCloseBtn = document.getElementById('tocCloseBtn');
   const tocOverlay = document.getElementById('tocOverlay');
@@ -51,6 +52,8 @@ export function initDualTOC() {
     sideLink.textContent = heading.textContent;
     if (heading.tagName.toLowerCase() === 'h3') sideLink.classList.add('toc-h3');
 
+    const floatingLink = sideLink.cloneNode(true);
+
     const clickHandler = (e) => {
       e.preventDefault();
       const target = document.getElementById(heading.id);
@@ -59,15 +62,19 @@ export function initDualTOC() {
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         if (sideTocPanel) sideTocPanel.classList.remove('active');
         if (tocOverlay) tocOverlay.classList.remove('show');
+        document.body.classList.remove('toc-open');
         document.body.style.overflow = '';
       }
     };
     inLink.addEventListener('click', clickHandler);
     sideLink.addEventListener('click', clickHandler);
+    floatingLink.addEventListener('click', clickHandler);
 
     inPostBody.appendChild(inLink);
     if (sideTocContent) sideTocContent.appendChild(sideLink);
-    tocLinks.push({ id: heading.id, el: sideLink });
+    if (floatingTocContent) floatingTocContent.appendChild(floatingLink);
+    
+    tocLinks.push({ id: heading.id, el: sideLink, floatingEl: floatingLink });
   });
 
   content.insertBefore(inPostToc, content.firstChild);
@@ -76,12 +83,12 @@ export function initDualTOC() {
     const openToc = () => {
       sideTocPanel.classList.add('active');
       if (tocOverlay) tocOverlay.classList.add('show');
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('toc-open');
     };
     const closeToc = () => {
       sideTocPanel.classList.remove('active');
       if (tocOverlay) tocOverlay.classList.remove('show');
-      document.body.style.overflow = '';
+      document.body.classList.remove('toc-open');
     };
 
     tocToggleBtn.addEventListener('click', openToc);
@@ -92,8 +99,13 @@ export function initDualTOC() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           tocLinks.forEach(link => {
-            if (link.id === entry.target.id) link.el.classList.add('active');
-            else link.el.classList.remove('active');
+            if (link.id === entry.target.id) {
+              link.el.classList.add('active');
+              link.floatingEl.classList.add('active');
+            } else {
+              link.el.classList.remove('active');
+              link.floatingEl.classList.remove('active');
+            }
           });
         }
       });
@@ -104,8 +116,9 @@ export function initDualTOC() {
 }
 
 export function initMacCodeBlocks() {
-  const codeBlocks = document.querySelectorAll('.post-content pre');
+  const codeBlocks = document.querySelectorAll('.post-content pre:not([data-mac-code="true"])');
   codeBlocks.forEach(pre => {
+    pre.setAttribute('data-mac-code', 'true');
     let lang = pre.getAttribute('data-ke-language') || 'code';
     if (lang === 'nohighlight' || lang === 'none') lang = 'text';
 
@@ -119,22 +132,68 @@ export function initMacCodeBlocks() {
     dots.className = 'mac-code-dots';
     dots.innerHTML = '<span class="mac-dot mac-red"></span><span class="mac-dot mac-yellow"></span><span class="mac-dot mac-green"></span>';
 
-    const langLabel = document.createElement('div');
-    langLabel.className = 'mac-code-lang';
-    langLabel.textContent = lang;
-    
+    // 1. 가상 파일명 파싱 로직
     let codeEl = pre.querySelector('code');
+    let filename = '';
+    let isFoldable = false;
+    
     if (codeEl) {
-      let lines = codeEl.innerHTML.split('\n');
+      let originalHtml = codeEl.innerHTML;
+      // 정규식: // file: filename, # file: filename, <!-- file: filename --> 등 매칭
+      const fileMatch = originalHtml.match(/^\s*(?:\/\/|#|&lt;!--|\/\*)\s*file:\s*([^<\n]+)/i);
+      
+      if (fileMatch) {
+        filename = fileMatch[1].replace(/-->|\*\//g, '').trim();
+        // 첫 번째 라인(파일명 주석) 삭제
+        originalHtml = originalHtml.replace(/^\s*(?:\/\/|#|&lt;!--|\/\*)\s*file:\s*([^<\n]+)\n?/i, '');
+      }
+
+      let lines = originalHtml.split('\n');
       if (lines[lines.length-1] === '') lines.pop();
-      // Code blocks often have HTML entities, safe to use innerHTML for highlighted lines
-      codeEl.innerHTML = lines.map(line => `<span class="line">${line}</span>`).join('\n');
+      
+      if (lines.length > 15) {
+        isFoldable = true;
+      }
+
+      // 라인 하이라이팅을 위해 각 줄을 감쌈 + 클릭 이벤트 부여는 나중에 위임 처리
+      codeEl.innerHTML = lines.map((line, idx) => `<span class="line" data-line="${idx+1}">${line}</span>`).join('\n');
     }
 
+    // 파일명 또는 언어 탭 표시
+    const tabContainer = document.createElement('div');
+    tabContainer.className = 'mac-code-tabs';
+    if (filename) {
+      const fileTab = document.createElement('span');
+      fileTab.className = 'mac-code-tab active';
+      fileTab.textContent = filename;
+      tabContainer.appendChild(fileTab);
+    } else {
+      const langTab = document.createElement('span');
+      langTab.className = 'mac-code-tab active';
+      langTab.textContent = lang;
+      tabContainer.appendChild(langTab);
+    }
+
+    // 우측 버튼 컨테이너
+    const actions = document.createElement('div');
+    actions.className = 'mac-code-actions';
+
+    // 자동 줄바꿈 토글 버튼
+    const wrapBtn = document.createElement('button');
+    wrapBtn.className = 'mac-code-action-btn wrap-toggle-btn';
+    wrapBtn.title = '자동 줄바꿈 (Word Wrap)';
+    wrapBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 17h6M4 12h11a3 3 0 0 1 0 6h-4"></path><polyline points="13 15 11 18 13 21"></polyline></svg>';
+    wrapBtn.addEventListener('click', () => {
+      pre.classList.toggle('word-wrap');
+      wrapBtn.classList.toggle('active');
+    });
+
+    // 복사 버튼
     const copyBtn = document.createElement('button');
-    copyBtn.className = 'mac-code-copy-btn';
-    const copyIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
-    const copiedIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+    copyBtn.className = 'mac-code-action-btn copy-btn';
+    copyBtn.title = '코드 복사';
+    const copyIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+    const copiedIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     copyBtn.innerHTML = copyIcon;
 
     copyBtn.addEventListener('click', () => {
@@ -149,13 +208,53 @@ export function initMacCodeBlocks() {
       });
     });
 
+    actions.appendChild(wrapBtn);
+    actions.appendChild(copyBtn);
+
     header.appendChild(dots);
-    header.appendChild(langLabel);
-    header.appendChild(copyBtn);
+    header.appendChild(tabContainer);
+    header.appendChild(actions);
 
     pre.parentNode.insertBefore(wrapper, pre);
     wrapper.appendChild(header);
-    wrapper.appendChild(pre);
+    
+    // 코드 접기 기능 구현
+    const codeBody = document.createElement('div');
+    codeBody.className = 'mac-code-body';
+    
+    if (isFoldable) {
+      codeBody.classList.add('foldable', 'collapsed');
+      const expandBtn = document.createElement('button');
+      expandBtn.className = 'mac-code-expand-btn';
+      expandBtn.innerHTML = '<span>코드 더 보기</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+      
+      expandBtn.addEventListener('click', () => {
+        const isCollapsed = codeBody.classList.contains('collapsed');
+        if (isCollapsed) {
+          codeBody.classList.remove('collapsed');
+          expandBtn.innerHTML = '<span>접기</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+        } else {
+          codeBody.classList.add('collapsed');
+          expandBtn.innerHTML = '<span>코드 더 보기</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+          // 접을 때 코드 최상단으로 스크롤 이동
+          const headerOffset = wrapper.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: headerOffset, behavior: 'smooth' });
+        }
+      });
+      codeBody.appendChild(pre);
+      codeBody.appendChild(expandBtn);
+    } else {
+      codeBody.appendChild(pre);
+    }
+    
+    wrapper.appendChild(codeBody);
+
+    // 라인 하이라이팅 기능 위임 (Delegate)
+    codeBody.addEventListener('click', (e) => {
+      if (e.target.classList.contains('line')) {
+        e.target.classList.toggle('highlighted');
+      }
+    });
   });
 }
 
@@ -263,4 +362,56 @@ export function lazyLoadImages() {
     img.setAttribute('loading', 'lazy');
     img.setAttribute('decoding', 'async');
   });
+}
+
+export function initScrollProgressAndHeader() {
+  const progressBar = document.getElementById('scrollProgressBar');
+  const stickyHeader = document.getElementById('postStickyHeader');
+  const postContent = document.querySelector('.post-content');
+  const timeIndicator = document.getElementById('readingTimeIndicator');
+  
+  if (!progressBar || !stickyHeader || !postContent) return;
+
+  // Calculate total reading time based on text length (avg 250 words/min)
+  const textLength = postContent.innerText.length;
+  const totalMinutes = Math.max(1, Math.ceil(textLength / 500)); 
+
+  const updateScroll = () => {
+    const rect = postContent.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Progress Bar Logic
+    const contentTop = rect.top + window.scrollY;
+    const contentHeight = rect.height;
+    const scrollY = window.scrollY;
+    
+    let progress = 0;
+    if (scrollY > contentTop) {
+      progress = ((scrollY - contentTop) / (contentHeight - windowHeight)) * 100;
+      progress = Math.min(100, Math.max(0, progress));
+    }
+    progressBar.style.width = progress + '%';
+
+    // Sticky Header Logic
+    if (scrollY > contentTop + 300) {
+      stickyHeader.classList.add('visible');
+    } else {
+      stickyHeader.classList.remove('visible');
+    }
+
+    // Update remaining time
+    const remainingRatio = 1 - (progress / 100);
+    const remainingTime = Math.max(1, Math.ceil(totalMinutes * remainingRatio));
+    if (progress >= 99) {
+      timeIndicator.textContent = "다 읽었어요! 🎉";
+    } else {
+      timeIndicator.textContent = `약 ${remainingTime}분 남음`;
+    }
+  };
+
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(updateScroll);
+  });
+  
+  updateScroll(); // initial call
 }

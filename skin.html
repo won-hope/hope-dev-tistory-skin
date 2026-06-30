@@ -334,9 +334,21 @@
                 </a>
               </article>
             </s_index_article_rep>
+          </s_article_rep>
+        </div>
 
-            <!-- 상세 포스팅 영역 -->
-            <s_permalink_article_rep>
+        <!-- 상세 포스팅 영역 -->
+        <s_article_rep>
+          <s_permalink_article_rep>
+            <!-- Scroll Progress & Sticky Header -->
+            <div id="scrollProgressBar" class="scroll-progress-bar"></div>
+            <div id="postStickyHeader" class="post-sticky-header">
+              <div class="sticky-header-inner">
+                <span class="sticky-header-title">[##_article_rep_title_##]</span>
+                  <span class="sticky-header-time" id="readingTimeIndicator">읽는 중...</span>
+                </div>
+              </div>
+
               <article class="post-detail">
                 <header class="inpa-post-header">
                   <!-- Cosmic Background -->
@@ -364,6 +376,7 @@
                     </div>
                   </div>
                 </header>
+
 
                 <!-- Premium Series Navigation -->
                 <div id="seriesNavContainer" class="series-nav-container"></div>
@@ -421,38 +434,9 @@
                     </s_article_next>
                   </div>
 
-                  <!-- 3. 컴팩트 작가 프로필 -->
-                  <a href="[##_blog_link_##]" class="footer-compact-card footer-author-card">
-                    <img src="[##_image_##]" alt="[##_blogger_##]" class="footer-author-img" onerror="this.src='https://t1.daumcdn.net/tistory_admin/static/manage/images/default_profile.png'">
-                    <div class="footer-author-info">
-                      <div class="footer-author-name">[##_blogger_##]</div>
-                      <div class="footer-author-desc">[##_desc_##]</div>
-                    </div>
-                  </a>
                 </div>
 
-                <div class="fab-container">
-                  <div class="fab-inner">
-                    <div class="fab-item fab-page" onclick="window.scrollTo({top:0, behavior:'smooth'})"><span
-                        class="fab-label">TOP</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M6 15l6-6 6 6" />
-                      </svg></div>
-                    <div class="fab-divider"></div>
-                    <button class="fab-item fab-toc cosmic-pulse" aria-label="목차 열기" id="tocToggleBtn">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="star-icon">
-                        <path d="M12 3l2.5 6h6.5l-5 4.5 2 6.5-6-4-6 4 2-6.5-5-4.5h6.5z" />
-                      </svg>
-                    </button>
-                    <div class="fab-divider"></div>
-                    <a href="#commentContainer" class="fab-item fab-comment" aria-label="댓글">
-                      <div class="fab-icon-wrapper"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                          stroke="currentColor" stroke-width="2">
-                          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                        </svg><span class="fab-badge fab-badge-yellow">[##_article_rep_rp_cnt_##]</span></div>
-                    </a>
-                  </div>
-                </div>
+
 
                 <!-- 완벽 복구된 티스토리 댓글 모듈 (애플 스타일) -->
                 <s_rp>
@@ -528,7 +512,6 @@
               </article>
             </s_permalink_article_rep>
           </s_article_rep>
-        </div>
       </section>
 
 
@@ -560,6 +543,7 @@
     </main>
 
     <!-- Side Floating TOC Panel -->
+    <div id="tocOverlay" class="toc-overlay"></div>
     <aside id="sideTocPanel" class="side-toc-panel">
       <div class="side-toc-header">
         <div class="mac-window-dots">
@@ -661,14 +645,7 @@
       </div>
     </footer>
     
-    <!-- Premium FAB -->
-    <div class="hope-fab-wrapper">
-      <div id="hopeFabMenu" class="hope-fab-menu">
-        <button id="hopeFabShare" class="fab-item" aria-label="Share">🔗</button>
-        <button id="hopeFabTop" class="fab-item" aria-label="Top">⬆</button>
-      </div>
-      <button id="hopeFabMain" class="fab-main" aria-label="Quick Menu">✦</button>
-    </div>
+
 
   </s_t3>
   <div id="searchOverlay" class="search-overlay">
@@ -759,4 +736,5 @@
 </body>
 
 </html>
+
 

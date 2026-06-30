@@ -845,10 +845,12 @@ html[data-theme="dark"] .footer-compact-card {
 .footer-author-info {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 .footer-author-name {
   font-size: 0.85rem;
   font-weight: 700;
+  color: var(--text-color, #333);
 }
 .footer-author-desc {
   font-size: 0.75rem;
@@ -857,11 +859,15 @@ html[data-theme="dark"] .footer-compact-card {
 }
 
 @media (max-width: 768px) {
-  .footer-nav-grid {
+  .post-compact-footer {
     grid-template-columns: 1fr;
   }
+  .footer-nav-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
 }
-
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .post-bento-grid {
@@ -1095,3 +1101,41 @@ body.page-warping .site-footer {
   display: none; /* 접어두기 기본, 클릭 시 펼치는 로직은 기존 티스토리 유지 */
 }
 
+/* ==========================================================================
+   [Premium] Typography Details (Idea 4)
+   ========================================================================== */
+.post-content h1, 
+.post-content h2 {
+  background: linear-gradient(135deg, var(--text-color) 0%, rgba(0, 240, 255, 0.8) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+
+html[data-theme="light"] .post-content h1, 
+html[data-theme="light"] .post-content h2 {
+  background: linear-gradient(135deg, var(--text-color) 0%, var(--point-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================================================
+   TOC Overlay (Fix for scroll lock bug)
+   ========================================================================== */
+.toc-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 999; /* sideTocPanel(1000)보다 낮게 */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.toc-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}

@@ -153,19 +153,21 @@ export function initSPATransitions() {
     const href = link.getAttribute('href');
     if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
 
-    // 현재 도메인과 같은지 확인 (내부 링크인지)
     const isInternal = link.hostname === window.location.hostname;
-    // 새 창으로 열리는지 확인
     const isBlank = link.target === '_blank';
 
     if (isInternal && !isBlank) {
       e.preventDefault();
-      document.body.classList.add('page-exiting');
       
-      // 애니메이션 대기 후 이동 (0.3초)
-      setTimeout(() => {
+      // 최신 View Transitions API 지원 브라우저 (자연스럽고 부드러운 전환)
+      if (document.startViewTransition) {
+        document.startViewTransition(() => {
+          window.location.href = href;
+        });
+      } else {
+        // 미지원 브라우저의 경우 딜레이 없이 즉각 이동 (답답함 해소)
         window.location.href = href;
-      }, 300);
+      }
     }
   });
 }
