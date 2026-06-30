@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="system" data-weather="none"
-      data-var-theme-mode="system"
-      data-var-hero-keywords="Developer, Designer, Creator"
-      data-var-theme-style="cosmic"
-      data-var-motion-level="high"
-      data-var-use-weather="true"
-      data-var-show-weather-badge="true"
-      data-var-auto-weather-theme="true"
-      data-var-weather-greeting="true"
-      data-var-blog-start-date="2024-01-01">
+<html lang="ko" data-theme="system" data-weather="none" data-var-theme-mode="system"
+  data-var-hero-keywords="Developer, Designer, Creator" data-var-theme-style="cosmic"
+  data-var-motion-level="high" data-var-use-weather="true"
+  data-var-show-weather-badge="true"
+  data-var-auto-weather-theme="true" data-var-weather-greeting="true"
+  data-var-blog-start-date="2024-01-01">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>로컬 테스트 뷰 (category) - Hope Devlog (Mock)</title>
-  
+
   <!-- SEO & Open Graph Meta Tags -->
   <meta name="description" content="Vite 환경의 티스토리 목업 서버입니다.">
   <meta property="og:type" content="website">
@@ -29,11 +25,11 @@
   <!-- V10 Premium Styles (Moved to src/css/_v10.css) -->
 
   <script>
-    (function() {
+    (function () {
       const savedTheme = localStorage.getItem('theme');
       const varTheme = document.documentElement.dataset.varThemeMode;
       let targetTheme = 'light';
-      
+
       if (savedTheme) {
         targetTheme = savedTheme;
       } else if (varTheme && varTheme !== 'system' && varTheme !== '') {
@@ -41,7 +37,7 @@
       } else {
         targetTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
-      
+
       document.documentElement.setAttribute('data-theme', targetTheme);
     })();
 
@@ -148,9 +144,11 @@
                   <feComposite in="SourceGraphic" in2="blur" operator="over" />
                 </filter>
               </defs>
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="url(#moonGrad)" filter="url(#moonGlow)" class="moon-body" />
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="url(#moonGrad)" filter="url(#moonGlow)"
+                class="moon-body" />
               <circle cx="18" cy="4" r="1.5" fill="#FFF" opacity="0.8" class="star-blink" />
-              <circle cx="21" cy="8" r="1" fill="#FFF" opacity="0.5" class="star-blink" style="animation-delay: 0.5s;" />
+              <circle cx="21" cy="8" r="1" fill="#FFF" opacity="0.5" class="star-blink"
+                style="animation-delay: 0.5s;" />
               <circle cx="6" cy="4" r="1" fill="#FFF" opacity="0.6" class="star-blink" style="animation-delay: 1s;" />
             </svg>
           </button>
@@ -195,7 +193,8 @@
         </div>
         <div class="hero-content">
           <div class="hero-badge cosmic-pulse">SOFTWARE ENGINEERING</div>
-          <h2 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text" data-target="Systems">Systems</span></h2>
+          <h2 class="hero-title cosmic-title">Architecting<br><span id="decryptText" class="decrypt-text"
+              data-target="Systems">Systems</span></h2>
           <div class="hero-divider">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -212,7 +211,8 @@
             <!-- 1. Featured Post (Large) -->
             <div class="bento-box bento-large">
               <a href="/category" class="bento-featured-post">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="Featured" class="bento-featured-bg">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="Featured"
+                  class="bento-featured-bg">
                 <div class="bento-featured-content">
                   <span class="bento-featured-badge">FEATURED</span>
                   <h3 class="bento-featured-title">소프트웨어 엔지니어링의 정수와 미래 가치</h3>
@@ -223,7 +223,8 @@
             <!-- 2. Total Visitors (Wide) -->
             <div class="bento-box bento-wide">
               <span class="bento-stat-label">TOTAL VISITORS</span>
-              <span class="bento-stat-value accent"><span class="counter-num" data-raw="987,654">0</span></span>
+              <span class="bento-stat-value accent"><span class="counter-num"
+                  data-raw="987,654">0</span></span>
             </div>
 
             <!-- 3. Today -->
@@ -235,7 +236,8 @@
             <!-- 4. Yesterday -->
             <div class="bento-box">
               <span class="bento-stat-label">YESTERDAY</span>
-              <span class="bento-stat-value"><span class="counter-num" data-raw="1,150">0</span></span>
+              <span class="bento-stat-value"><span class="counter-num"
+                  data-raw="1,150">0</span></span>
             </div>
 
             <!-- 5. Total Posts -->
@@ -284,7 +286,8 @@
                   <div class="inpa-card-thumb bento-thumb">
                     <div class="inpa-card-fallback bento-fallback-cover" data-initial="프론트엔드 아키텍처의 본질적 고민과 설계 패턴"></div>
                     
-                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
+                      <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy"
+                        decoding="async">
                     
                   </div>
                   <div class="inpa-card-body bento-info">
@@ -294,7 +297,8 @@
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
-                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async"
+                        onerror="this.style.display='none'">
                       <div class="inpa-author-text">
                         <span class="inpa-author">Hope</span>
                         <span class="inpa-date bento-date">2026. 06. 29</span>
@@ -309,7 +313,8 @@
                   <div class="inpa-card-thumb bento-thumb">
                     <div class="inpa-card-fallback bento-fallback-cover" data-initial="디자인 시스템 구축기"></div>
                     
-                      <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy" decoding="async">
+                      <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=600&q=80" alt="thumbnail" class="inpa-card-img" loading="lazy"
+                        decoding="async">
                     
                   </div>
                   <div class="inpa-card-body bento-info">
@@ -319,7 +324,8 @@
                   </div>
                   <div class="inpa-card-footer">
                     <div class="inpa-author-info">
-                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async" onerror="this.style.display='none'">
+                      <img src="https://avatars.githubusercontent.com/u/9919?v=4" alt="avatar" class="inpa-avatar" loading="lazy" decoding="async"
+                        onerror="this.style.display='none'">
                       <div class="inpa-author-text">
                         <span class="inpa-author">Hope</span>
                         <span class="inpa-date bento-date">2026. 06. 29</span>
@@ -531,48 +537,54 @@ export default function AdvancedGrowthHacking() {
     <footer class="site-footer cosmic-footer">
       <div class="footer-inner">
         <div class="footer-badge">Architecting Systems</div>
-        <p class="copyright">&copy; Copyright 2026 Hope Devlog (Mock). All rights reserved. <span style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.5.1)</span></p>
+        <p class="copyright">&copy; Copyright 2026 Hope Devlog (Mock). All rights reserved. <span
+            style="opacity:0.5; font-size:0.8em; margin-left:8px;">(Skin v9.5.1)</span></p>
       </div>
     </footer>
-    
+
 
 
   </s_t3>
   <div id="searchOverlay" class="search-overlay">
-      <div class="search-overlay-backdrop"></div>
-      <div class="search-modal">
-        <div class="search-header">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
-            onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
-            class="search-input" autocomplete="off">
-          <div class="search-shortcut-hint">
-            <kbd>ESC</kbd>
-          </div>
+    <div class="search-overlay-backdrop"></div>
+    <div class="search-modal">
+      <div class="search-header">
+        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
+          onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }"
+          placeholder="Search... (Try 'React' or 'AI')" class="search-input" autocomplete="off">
+        <div class="search-shortcut-hint">
+          <kbd>ESC</kbd>
         </div>
-        <div class="search-body">
-          <div class="search-suggest-title">Trending Tags</div>
-          <div class="search-tags">
-            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">React</span>
-            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">AI</span>
-            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Node.js</span>
-            <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Architecture</span>
-          </div>
+      </div>
+      <div class="search-body">
+        <div class="search-suggest-title">Trending Tags</div>
+        <div class="search-tags">
+          <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">React</span>
+          <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">AI</span>
+          <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Node.js</span>
+          <span class="suggest-tag" onclick="window.submitSearch(this.innerText)">Architecture</span>
         </div>
       </div>
     </div>
+  </div>
 
   <!-- Sidebar Drawer -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
   <aside id="sidebarDrawer" class="sidebar-drawer" aria-label="사이드바 메뉴">
-    
+
     <!-- V9.2 Premium Sidebar Header -->
     <div class="sidebar-header">
       <button class="sidebar-close" aria-label="닫기">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
       </button>
     </div>
 
@@ -670,5 +682,3 @@ export default function AdvancedGrowthHacking() {
 </body>
 
 </html>
-
-
