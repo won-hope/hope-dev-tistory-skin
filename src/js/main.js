@@ -1,5 +1,5 @@
 import { initNatureCountUp, init3DTiltCards, initHeroParticles } from './dashboard.js';
-import { initZenMode, initProfessionalCodeBlocks } from './v8.js';
+import { initZenMode, initProfessionalCodeBlocks } from './v9.js';
 import { removePreloader, initSearchToggle, initThemeToggle, initFAB, initScrollReveal, initSPATransitions } from './features/ui.js';
 import { initWeatherTheme, initGlobalMeteors, initStarsParallax, initTerminalTyping, initDecryptAnimation, initWarpDrive } from './features/effects.js';
 import { initSidebarToggle, parseAndBuildSidebarCategories } from './features/sidebar.js';
