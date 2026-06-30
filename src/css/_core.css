@@ -962,7 +962,8 @@ html[data-theme="light"] .arch-section-desc {
 }
 
 body#tt-body-page .magazine-grid {
-  display: block;
+  display: block !important;
+  overflow: visible !important;
 }
 
 .inpa-card {
