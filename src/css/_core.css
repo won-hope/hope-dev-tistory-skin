@@ -4837,94 +4837,127 @@ html[data-theme="light"] .meteor-layer {
   font-family: var(--font-mono);
 }
 
-/* VSCode Syntax Highlighting Theme (vs2015) */
-/*
- * Visual Studio 2015 dark style
- * Author: Nicolas LLOBERA <nllobera@gmail.com>
- */
 
+
+/* Modern Code Block Highlighting Theme (Tokyo Night Dark) */
 .hljs, .mac-code-block pre code, .mac-code-block pre {
-  background: #1E1E1E !important;
-  color:  !important;
+  background: #1a1b26 !important;
+  color: #a9b1d6 !important;
   white-space: pre !important;
   tab-size: 4 !important;
   word-spacing: normal !important;
   word-break: normal !important;
   word-wrap: normal !important;
   line-height: 1.5 !important;
-
-  background: #1E1E1E;
-  color:  !important;
 }
+/*!
+  Theme: Tokyo-night-Dark
+  origin: https://github.com/enkia/tokyo-night-vscode-theme
+  Description: Original highlight.js style
+  Author: (c) Henri Vandersleyen <hvandersleyen@gmail.com>
+  License: see project LICENSE
+  Touched: 2022
+*/
 
-.hljs-keyword,
-.hljs-literal,
-.hljs-symbol,
-.hljs-name {
-  color:  !important;
-}
-.hljs-link {
-  color:  !important;
-  text-decoration: underline;
-}
-
-.hljs-built_in,
-.hljs-type {
-  color:  !important;
-}
-
-.hljs-number,
-.hljs-class {
-  color:  !important;
-}
-
-.hljs-string,
-.hljs-meta .hljs-string {
-  color:  !important;
-}
-
-.hljs-regexp,
-.hljs-template-tag {
-  color:  !important;
-}
-
-.hljs-subst,
-.hljs-function,
-.hljs-title,
-.hljs-params,
-.hljs-formula {
-  color:  !important;
-}
-
-.hljs-comment,
-.hljs-quote {
-  color:  !important;
-  font-style: italic;
-}
-
-.hljs-doctag {
-  color:  !important;
-}
-
+/*  Comment */
 .hljs-meta,
-.hljs-meta .hljs-keyword,
-
-.hljs-tag {
-  color:  !important;
+.hljs-comment {
+  color: #565f89 !important;
 }
 
+/* Red */
+/*INFO: This keyword, HTML elements, Regex group symbol, CSS units, Terminal Red */
+.hljs-tag,
+.hljs-doctag,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-template-tag,
+.hljs-selector-pseudo,
+.hljs-selector-attr,
+.hljs-variable.language_,
+.hljs-deletion {
+  color: #f7768e !important;
+}
+
+/*Orange */
+/*INFO: Number and Boolean constants, Language support constants */
 .hljs-variable,
-.hljs-template-variable {
-  color:  !important;
+.hljs-template-variable,
+.hljs-number,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-link {
+  color: #ff9e64 !important;
 }
 
-.hljs-attr,
+
+/*  Yellow */
+/* INFO:  	Function parameters, Regex character sets, Terminal Yellow */
+.hljs-built_in, 
 .hljs-attribute {
-  color:  !important;
+  color: #e0af68 !important;
+}
+/* cyan */
+/* INFO: Language support functions, CSS HTML elements */
+.hljs-selector-tag {
+  color: #2ac3de !important;
 }
 
+/* light blue */
+/* INFO: Object properties, Regex quantifiers and flags, Markdown headings, Terminal Cyan, Markdown code, Import/export keywords */
+.hljs-keyword,
+  .hljs-title.function_,
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-subst,
+.hljs-property {color: #7dcfff !important;}
+
+/*Green*/
+/* INFO: Object literal keys, Markdown links, Terminal Green */
+.hljs-selector-tag { color: #73daca !important;}
+
+
+/*Green(er) */
+/* INFO: Strings, CSS class names */
+.hljs-quote,
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #9ece6a !important;
+}
+
+/* Blue */
+/* INFO:  	Function names, CSS property names, Terminal Blue */
+.hljs-code,
+.hljs-formula,
 .hljs-section {
-  color:  !important;
+  color: #7aa2f7 !important;
+}
+
+
+
+/* Magenta */
+/*INFO: Control Keywords, Storage Types, Regex symbols and operators, HTML Attributes, Terminal Magenta */
+.hljs-name,
+.hljs-keyword,
+.hljs-operator,
+.hljs-keyword,
+.hljs-char.escape_,
+.hljs-attr {
+  color: #bb9af7 !important;
+}
+
+/* white*/
+/* INFO: Variables, Class names, Terminal White */
+.hljs-punctuation {color: #c0caf5}
+
+.hljs {
+  background: #1a1b26 !important;
+  color: #9aa5ce !important;
 }
 
 .hljs-emphasis {
@@ -4935,27 +4968,3 @@ html[data-theme="light"] .meteor-layer {
   font-weight: bold;
 }
 
-/*.hljs-code {
-  font-family:'Monospace';
-}*/
-
-.hljs-bullet,
-.hljs-selector-tag,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-selector-attr,
-.hljs-selector-pseudo {
-  color:  !important;
-}
-
-.hljs-addition {
-  background-color:  !important;
-  display: inline-block;
-  width: 100%;
-}
-
-.hljs-deletion {
-  background-color:  !important;
-  display: inline-block;
-  width: 100%;
-}
