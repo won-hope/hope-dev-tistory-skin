@@ -14,15 +14,41 @@ function throttle(func, limit) {
    [Premium] Nature CountUp Animation
    ------------------------------------------------------------- */
 export function initNatureCountUp() {
+  const startDate = window.SkinOptions?.blogStartDate || "2024-01-01";
+  const startMs = new Date(startDate).getTime();
+  const diffDays = Math.floor((new Date().getTime() - startMs) / (1000 * 60 * 60 * 24));
+  
+  const uptimeEl = document.getElementById('mainBlogAge');
+  if (uptimeEl) {
+    uptimeEl.setAttribute('data-target', diffDays);
+  }
+
+  const postsEl = document.getElementById('mainTotalPosts');
+  if (postsEl) {
+    let postsCount = 0;
+    const allPostsLink = document.querySelector('.header-nav .tt_category > li > a.link_tit');
+    if (allPostsLink) {
+      const match = allPostsLink.textContent.match(/\((\d+)\)/);
+      if (match) {
+        postsCount = parseInt(match[1], 10);
+      }
+    }
+    if (postsCount === 0) {
+      postsCount = document.querySelectorAll('.bento-card').length || 10;
+    }
+    postsEl.setAttribute('data-target', postsCount);
+  }
+
   const counters = document.querySelectorAll('.counter-num');
   if(counters.length === 0) return;
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting) {
         const el = entry.target;
-        const rawVal = el.getAttribute('data-raw');
-        const target = parseInt(rawVal || el.innerText.replace(/,/g, '') || 0, 10);
+        const rawVal = el.getAttribute('data-target') || el.getAttribute('data-raw') || el.innerText;
+        const target = parseInt(String(rawVal).replace(/,/g, '') || '0', 10);
         if (isNaN(target)) return;
+        
         let count = 0;
         const duration = 2000;
         const step = Math.max(1, Math.floor(target / (duration / 16)));
