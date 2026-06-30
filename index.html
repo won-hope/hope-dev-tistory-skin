@@ -91,7 +91,7 @@
     <header class="site-header">
       <div class="header-inner">
         <div class="header-brand">
-          <a href="/" class="brand-link">Hope Devlog (Mock)</a>
+          <a href="[##_blog_link_##]" class="brand-link">Hope Devlog (Mock)</a>
         </div>
         <nav class="header-nav" aria-label="메인 메뉴">
           
@@ -405,21 +405,21 @@ export default function AdvancedGrowthHacking() {
       </div>
       <div style="display:none;">
         <div class="page-container notice-container">
-          <h2><a href="/notice/1">[공지] 블로그 업데이트 안내</a></h2>
-          <div class="page-content">새로운 스킨 V11.0.0 이 적용되었습니다.</div>
+          <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
+          <div class="page-content">[##_notice_rep_desc_##]</div>
         </div>
       </div>
       <div style="display:none;">
         <div class="page-container tag-container">
           <h2 class="section-title">태그 모음</h2>
           <div class="tag-cloud">
-            <a href="/tag/Frontend" class="tag-link">Frontend</a> <a href="/tag/Architecture" class="tag-link">Architecture</a>
+            <s_tag_rep><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></s_tag_rep>
           </div>
         </div>
       </div>
       <div style="display:none;">
         <div class="page-container guestbook-container">
-          <h2 class="section-title">방명록</h2><div class="guestbook-mock">방명록 모듈 목업 영역</div>
+          <h2 class="section-title">방명록</h2>[##_guestbook_disp_##]
         </div>
       </div>
     </main>
@@ -538,8 +538,8 @@ export default function AdvancedGrowthHacking() {
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="searchInput" name="search" value=""
-            onkeypress="if (event.keyCode == 13) { alert("검색 실행") }" placeholder="Search... (Try 'React' or 'AI')"
+          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
+            onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
             class="search-input" autocomplete="off">
           <div class="search-shortcut-hint">
             <kbd>ESC</kbd>

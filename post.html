@@ -91,7 +91,7 @@
     <header class="site-header">
       <div class="header-inner">
         <div class="header-brand">
-          <a href="/" class="brand-link">Hope Devlog (Mock)</a>
+          <a href="[##_blog_link_##]" class="brand-link">Hope Devlog (Mock)</a>
         </div>
         <nav class="header-nav" aria-label="메인 메뉴">
           
@@ -274,14 +274,7 @@
 
             <!-- 상세 포스팅 영역 -->
             <div>
-              <!-- Scroll Progress & Sticky Header -->
-            <div id="scrollProgressBar" class="scroll-progress-bar"></div>
-            <div id="postStickyHeader" class="post-sticky-header">
-              <div class="sticky-header-inner">
-                <span class="sticky-header-title">프론트엔드 아키텍처의 본질적 고민과 설계 패턴</span>
-                  <span class="sticky-header-time" id="readingTimeIndicator">읽는 중...</span>
-                </div>
-              </div>
+
 
               <article class="post-detail">
                 <header class="inpa-post-header">
@@ -324,14 +317,8 @@
                 </header>
 
 
-                <!-- Premium Series Navigation -->
-                <div id="seriesNavContainer" class="series-nav-container"></div>
 
                 <div class="post-body-wrap">
-                  <!-- AdSense Top Placeholder -->
-                  <div class="ad-container ad-top">
-                    <div class="ad-skeleton"></div>
-                  </div>
 
                   <div class="post-content">
                     
@@ -416,10 +403,6 @@ export default function AdvancedGrowthHacking() {
                     </a>
                   </div>
 
-                  <!-- AdSense Bottom Placeholder -->
-                  <div class="ad-container ad-bottom">
-                    <div class="ad-skeleton"></div>
-                  </div>
                 </div>
 
                 <!-- V9.1 Compact Post Footer -->
@@ -428,28 +411,28 @@ export default function AdvancedGrowthHacking() {
                   <!-- 1. 심플 해시태그 -->
                   <s_tag_label>
                     <div class="footer-tags">
-                      <a href="#">#Frontend</a> <a href="#">#Architecture</a>
+                      [##_tag_label_rep_##]
                     </div>
                   </s_tag_label>
 
                   <!-- 3. 이전글 / 다음글 (V11 Dynamic Nav) -->
                   <div class="dynamic-nav-grid">
                     <s_article_prev>
-                      <a href="#" class="dynamic-nav-card prev-card">
+                      <a href="[##_article_prev_link_##]" class="dynamic-nav-card prev-card">
                         <!-- Note: 티스토리는 썸네일 전용 치환자가 이전글/다음글에는 없으므로 기본 패턴 배경이나 스크립트를 사용합니다. -->
                         <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?w=600&q=80" alt="bg" class="dynamic-nav-bg">
                         <div class="dynamic-nav-content">
                           <div class="dynamic-nav-label">Previous Post</div>
-                          <div class="dynamic-nav-title">이전 포스팅 제목 예시</div>
+                          <div class="dynamic-nav-title">[##_article_prev_title_##]</div>
                         </div>
                       </a>
                     </s_article_prev>
                     <s_article_next>
-                      <a href="#" class="dynamic-nav-card next-card">
+                      <a href="[##_article_next_link_##]" class="dynamic-nav-card next-card">
                         <img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=600&q=80" alt="bg" class="dynamic-nav-bg">
                         <div class="dynamic-nav-content">
                           <div class="dynamic-nav-label">Next Post</div>
-                          <div class="dynamic-nav-title">다음 포스팅 제목 예시</div>
+                          <div class="dynamic-nav-title">[##_article_next_title_##]</div>
                         </div>
                       </a>
                     </s_article_next>
@@ -471,17 +454,17 @@ export default function AdvancedGrowthHacking() {
                         <s_rp_member>
                           <s_rp_guest>
                             <div class="comment-guest-inputs">
-                              <input type="text" name="name" value="방문자"
+                              <input type="text" name="[##_rp_input_name_##]" value="[##_guest_name_##]"
                                 placeholder="이름" />
-                              <input type="password" name="password" value="1234"
+                              <input type="password" name="[##_rp_input_password_##]" value="[##_rp_admin_check_##]"
                                 placeholder="비밀번호" />
                             </div>
                           </s_rp_guest>
                         </s_rp_member>
                         <div class="comment-textarea-wrap">
-                          <textarea name="comment" placeholder="댓글을 남겨주세요..."></textarea>
+                          <textarea name="[##_rp_input_comment_##]" placeholder="댓글을 남겨주세요..."></textarea>
                           <button type="submit" class="comment-submit-btn"
-                            onclick="alert("댓글 등록")">등록</button>
+                            onclick="[##_rp_onclick_submit_##]">등록</button>
                         </div>
                       </div>
                     </s_rp_input_form>
@@ -490,16 +473,16 @@ export default function AdvancedGrowthHacking() {
                     <s_rp_container>
                       <ul class="comment-list-wrap">
                         <s_rp_rep>
-                          <li id='comment-1'>
+                          <li id='[##_rp_rep_id_##]'>
                             <div class="comment-item">
                               <div class="comment-meta">
-                                <span class="comment-author">홍길동</span>
-                                <span class="comment-date">2026. 06. 30 15:30</span>
+                                <span class="comment-author">[##_rp_rep_name_##]</span>
+                                <span class="comment-date">[##_rp_rep_date_##]</span>
                               </div>
-                              <div class="comment-text">정말 유익한 글이네요! 잘 읽고 갑니다.</div>
+                              <div class="comment-text">[##_rp_rep_desc_##]</div>
                               <div class="comment-actions">
-                                <a href="#" onclick="alert("수정/삭제")">수정/삭제</a>
-                                <a href="#" onclick="alert("답글 달기")">답글 달기</a>
+                                <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
+                                <a href="#" onclick="[##_rp_rep_onclick_reply_##]">답글 달기</a>
                               </div>
                             </div>
 
@@ -507,15 +490,15 @@ export default function AdvancedGrowthHacking() {
                             <s_rp2_container>
                               <ul class="reply-list-wrap">
                                 <s_rp2_rep>
-                                  <li id='comment-1'>
+                                  <li id='[##_rp_rep_id_##]'>
                                     <div class="comment-item reply-item">
                                       <div class="comment-meta">
-                                        <span class="comment-author">홍길동</span>
-                                        <span class="comment-date">2026. 06. 30 15:30</span>
+                                        <span class="comment-author">[##_rp_rep_name_##]</span>
+                                        <span class="comment-date">[##_rp_rep_date_##]</span>
                                       </div>
-                                      <div class="comment-text">정말 유익한 글이네요! 잘 읽고 갑니다.</div>
+                                      <div class="comment-text">[##_rp_rep_desc_##]</div>
                                       <div class="comment-actions">
-                                        <a href="#" onclick="alert("수정/삭제")">수정/삭제</a>
+                                        <a href="#" onclick="[##_rp_rep_onclick_delete_##]">수정/삭제</a>
                                       </div>
                                     </div>
                                   </li>
@@ -613,21 +596,21 @@ export default function AdvancedGrowthHacking() {
       </div>
       <div style="display:none;">
         <div class="page-container notice-container">
-          <h2><a href="/notice/1">[공지] 블로그 업데이트 안내</a></h2>
-          <div class="page-content">새로운 스킨 V11.0.0 이 적용되었습니다.</div>
+          <h2><a href="[##_notice_rep_link_##]">[##_notice_rep_title_##]</a></h2>
+          <div class="page-content">[##_notice_rep_desc_##]</div>
         </div>
       </div>
       <div style="display:none;">
         <div class="page-container tag-container">
           <h2 class="section-title">태그 모음</h2>
           <div class="tag-cloud">
-            <a href="/tag/Frontend" class="tag-link">Frontend</a> <a href="/tag/Architecture" class="tag-link">Architecture</a>
+            <s_tag_rep><a href="[##_tag_link_##]" class="[##_tag_class_##]">[##_tag_name_##]</a></s_tag_rep>
           </div>
         </div>
       </div>
       <div style="display:none;">
         <div class="page-container guestbook-container">
-          <h2 class="section-title">방명록</h2><div class="guestbook-mock">방명록 모듈 목업 영역</div>
+          <h2 class="section-title">방명록</h2>[##_guestbook_disp_##]
         </div>
       </div>
     </main>
@@ -746,8 +729,8 @@ export default function AdvancedGrowthHacking() {
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input type="text" id="searchInput" name="search" value=""
-            onkeypress="if (event.keyCode == 13) { alert("검색 실행") }" placeholder="Search... (Try 'React' or 'AI')"
+          <input type="text" id="searchInput" name="[##_search_name_##]" value="[##_search_text_##]"
+            onkeypress="if (event.keyCode == 13) { [##_search_onclick_submit_##] }" placeholder="Search... (Try 'React' or 'AI')"
             class="search-input" autocomplete="off">
           <div class="search-shortcut-hint">
             <kbd>ESC</kbd>
