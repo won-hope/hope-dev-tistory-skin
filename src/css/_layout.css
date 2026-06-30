@@ -784,22 +784,35 @@ body.drawer-3d-push {
   margin: 3rem 0;
 }
 
-/* 1. 심플한 해시태그 (박스 없음) */
+/* 1. 심플한 해시태그 (Pill Badge 스타일) */
 .footer-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 4px;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0; /* 티스토리 기본 생성 쉼표(,) 숨기기 */
 }
 .footer-tags a {
-  font-size: 0.8rem;
-  color: var(--point-color, #0078ff);
+  font-size: 0.85rem;
+  color: var(--text-color);
+  background: var(--surface-color, rgba(128, 128, 128, 0.1));
+  padding: 6px 14px;
+  border-radius: 20px;
   text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+}
+.footer-tags a::before {
+  content: "#";
+  opacity: 0.5;
+  margin-right: 2px;
 }
 .footer-tags a:hover {
-  opacity: 1;
+  background: var(--point-color, #8a2be2);
+  color: #fff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
 }
 
 /* 공통 컴팩트 카드 디자인 */
